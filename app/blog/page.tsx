@@ -9,29 +9,31 @@ export default async function BlogPage() {
   const posts = await getAllPosts();
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+    <main className="mx-auto max-w-5xl px-1 py-3">
       <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
         <Button asChild variant="outline" size="sm">
           <Link href="/">
             <ArrowLeft className="size-4" />
-            Quay về trang chủ
+            Back Home
           </Link>
         </Button>
-        <h1 className="section-title text-3xl md:text-4xl">Blog</h1>
+        <p className="mono-label text-accent">Lab Notes</p>
       </div>
 
-      <div className="grid gap-4">
+      <h1 className="section-title mb-9">Research and Build Notes</h1>
+
+      <div className="grid gap-4 md:grid-cols-2">
         {posts.map((post) => (
-          <Card key={post.slug} className="bg-card/65">
+          <Card key={post.slug} className="glass-panel">
             <CardHeader className="space-y-3">
-              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                {new Date(post.date).toLocaleDateString("vi-VN")} · {post.readingTime}
-              </div>
-              <CardTitle>{post.title}</CardTitle>
+              <p className="mono-label text-muted-foreground">
+                {new Date(post.date).toLocaleDateString("vi-VN")} / {post.readingTime}
+              </p>
+              <CardTitle className="display-text text-4xl leading-none">{post.title}</CardTitle>
               <CardDescription>{post.summary}</CardDescription>
-              <Button asChild variant="outline" size="sm" className="w-fit">
+              <Button asChild variant="link" size="sm" className="w-fit px-0 text-primary">
                 <Link href={`/blog/${post.slug}`}>
-                  Đọc full
+                  Read Full
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>

@@ -20,6 +20,7 @@ import {
 
 export type SkillCategory = "Frontend" | "Backend" | "Tools";
 export type ProjectFilter = "All" | "React" | "Next.js" | "Node";
+export type TimelineVariant = "high" | "mid" | "low";
 
 export type SkillItem = {
   name: string;
@@ -66,6 +67,31 @@ export type NavLink = {
   href: string;
 };
 
+export const SITE_THEME = {
+  bg: "#050505",
+  surface: "#121212",
+  primary: "#e65100",
+  accent: "#00f2ff",
+  muted: "#a7a6ba",
+  ctaPrimary: "Explore Projects",
+  ctaSecondary: "Initiate Contact",
+} as const;
+
+export const IMAGE_MAP = {
+  homeHero: "/portfolio/profile/home-hero.jpg",
+  aboutSticky: "/portfolio/profile/about-sticky.jpg",
+  resumeProfile: "/portfolio/profile/resume-profile.jpg",
+  aboutGallery: ["/portfolio/profile/gallery-1.jpg", "/portfolio/profile/gallery-2.jpg"],
+  achievementHero: "/portfolio/awards/achievement-hero.jpg",
+  fallback: "/avatar.svg",
+} as const;
+
+export const PROJECT_LAYOUT_META: Record<string, { variant: TimelineVariant; width: string }> = {
+  "pulse-commerce": { variant: "high", width: "w-[390px] md:w-[470px]" },
+  "task-orbit": { variant: "low", width: "w-[320px] md:w-[360px]" },
+  "vibe-analytics": { variant: "mid", width: "w-[360px] md:w-[420px]" },
+};
+
 export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
@@ -73,51 +99,52 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Achievements", href: "/achievements" },
   { label: "Contact", href: "/contact" },
   { label: "Resume", href: "/resume" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export const ABOUT_CARDS: AboutCard[] = [
   {
     title: "Builder Mindset",
-    body: "Toi luon bat dau tu bai toan that, cat nho scope va ship som mot phien ban usable.",
+    body: "I start from concrete business constraints, then ship thin and iterate fast.",
     icon: Hammer,
   },
   {
     title: "Design + Code",
-    body: "Toi uu tien bo cuc ro rang, diem nhan manh va motion vua du de tao trai nghiem tot.",
+    body: "I focus on structural clarity, strong typography and meaningful motion.",
     icon: Paintbrush2,
   },
   {
     title: "Story #1",
-    body: "Da tung toi uu query + caching cho mot dashboard, giam thoi gian tai trang gan 70%.",
+    body: "I reduced dashboard latency by nearly 70% by reworking query and cache layers.",
     icon: Gauge,
   },
   {
     title: "Story #2",
-    body: "Refactor codebase cu theo module ro trach nhiem, giup team onboard nhanh hon.",
+    body: "I turned a legacy monolith into modular components for faster onboarding.",
     icon: Sparkles,
   },
 ];
 
 export const SKILLS: SkillItem[] = [
-  { name: "Next.js", category: "Frontend", note: "App Router", icon: Layers3 },
-  { name: "React", category: "Frontend", note: "Component architecture", icon: Blocks },
-  { name: "Tailwind CSS", category: "Frontend", note: "Design systems", icon: WandSparkles },
-  { name: "TypeScript", category: "Frontend", note: "Type safety", icon: Code2 },
-  { name: "Node.js", category: "Backend", note: "API and background jobs", icon: CloudCog },
+  { name: "Next.js", category: "Frontend", note: "App Router architecture", icon: Layers3 },
+  { name: "React", category: "Frontend", note: "Component systems", icon: Blocks },
+  { name: "Tailwind CSS", category: "Frontend", note: "Design tokens", icon: WandSparkles },
+  { name: "TypeScript", category: "Frontend", note: "Strong contracts", icon: Code2 },
+  { name: "Node.js", category: "Backend", note: "API and workers", icon: CloudCog },
   { name: "PostgreSQL", category: "Backend", note: "Data modeling", icon: Database },
-  { name: "Auth/Security", category: "Backend", note: "JWT + RBAC", icon: ShieldCheck },
+  { name: "Auth/Security", category: "Backend", note: "JWT and RBAC", icon: ShieldCheck },
   { name: "Server Actions", category: "Backend", note: "Mutation flow", icon: ServerCog },
-  { name: "Git/GitHub", category: "Tools", note: "Code review workflow", icon: GitBranch },
-  { name: "CI/CD", category: "Tools", note: "Build and release", icon: Wrench },
+  { name: "Git/GitHub", category: "Tools", note: "Review workflows", icon: GitBranch },
+  { name: "CI/CD", category: "Tools", note: "Build and release pipelines", icon: Wrench },
 ];
 
 export const PROJECTS: ProjectItem[] = [
   {
     slug: "pulse-commerce",
     title: "Pulse Commerce",
-    summary: "Ecommerce storefront toi uu toc do va conversion.",
+    summary: "A conversion-first storefront with strict performance constraints.",
     description:
-      "Nen tang ecommerce tap trung vao trai nghiem nhanh, don gian va co dashboard theo doi hieu qua theo thoi gian thuc.",
+      "Pulse Commerce is built for rapid browsing, low checkout friction and clean operator workflows with real-time order visibility.",
     tech: ["Next.js", "React", "Node"],
     image: "/projects/pulse-commerce.svg",
     github: "https://github.com/",
@@ -125,17 +152,17 @@ export const PROJECTS: ProjectItem[] = [
     year: "2025",
     role: "Fullstack Engineer",
     results: [
-      "Trang chu LCP duoi 2.0s tren mobile.",
-      "Conversion tang 32% sau 6 tuan AB test.",
-      "He thong admin theo doi don hang real-time.",
+      "Homepage mobile LCP under 2.0s.",
+      "Conversion rate increased 32% after six-week experimentation.",
+      "Real-time order panel reduced support handling time.",
     ],
   },
   {
     slug: "task-orbit",
     title: "Task Orbit",
-    summary: "Workspace quan tri sprint cho team phan tan.",
+    summary: "Sprint workspace for distributed teams and async delivery.",
     description:
-      "Cong cu quan ly cong viec theo sprint, co timeline truc quan va tu dong hoa quy trinh cap nhat trang thai.",
+      "Task Orbit combines timeline planning, state automation and sprint visibility to reduce repetitive updates across teams.",
     tech: ["React", "Node"],
     image: "/projects/task-orbit.svg",
     github: "https://github.com/",
@@ -143,27 +170,27 @@ export const PROJECTS: ProjectItem[] = [
     year: "2024",
     role: "Frontend Engineer",
     results: [
-      "Giam 40% thao tac lap lai trong quy trinh update task.",
-      "Bo sung dashboard team velocity theo sprint.",
-      "Khung UI responsive cho desktop + mobile.",
+      "Reduced repetitive task updates by 40%.",
+      "Introduced team velocity dashboard for sprint planning.",
+      "Delivered consistent responsive behavior on mobile and desktop.",
     ],
   },
   {
     slug: "vibe-analytics",
     title: "Vibe Analytics",
-    summary: "Dashboard phan tich hanh vi nguoi dung.",
+    summary: "Behavior analytics dashboard with anomaly alerts.",
     description:
-      "Dashboard tong hop su kien nguoi dung, ho tro loc nhieu dieu kien va canh bao bat thuong theo threshold.",
+      "Vibe Analytics gives product and data teams flexible filtering, event insights and threshold-based anomaly notifications.",
     tech: ["Next.js", "React"],
     image: "/projects/vibe-analytics.svg",
     github: "https://github.com/",
     demo: "https://example.com/",
     year: "2023",
-    role: "Frontend + Data Viz",
+    role: "Frontend + Data Visualization",
     results: [
-      "Thoi gian render bao cao giam tu 6.2s xuong 1.9s.",
-      "Them bo loc da chieu cho analyst.",
-      "Canh bao anomaly theo khung gio.",
+      "Report render time reduced from 6.2s to 1.9s.",
+      "Added multi-dimension filter controls for analysts.",
+      "Launched hour-window anomaly signal workflow.",
     ],
   },
 ];
@@ -173,19 +200,19 @@ export const EXPERIENCES: ExperienceItem[] = [
     role: "Frontend Engineer",
     company: "Freelance / Product Studio",
     date: "2025 - Present",
-    impact: "Xay dung va toi uu landing pages, tang conversion trung binh 25-40%.",
+    impact: "Built and optimized landing systems, improving conversion by 25-40%.",
   },
   {
     role: "Fullstack Developer",
     company: "SaaS Startup",
     date: "2023 - 2025",
-    impact: "Phat trien dashboard B2B, cai thien hieu nang va do on dinh cua he thong.",
+    impact: "Delivered B2B dashboards with measurable gains in speed and reliability.",
   },
   {
     role: "Web Developer",
     company: "Agency Team",
     date: "2021 - 2023",
-    impact: "Chuan hoa component workflow, rut ngan chu ky release hang tuan.",
+    impact: "Standardized component workflows and shortened release cycles.",
   },
 ];
 
@@ -193,17 +220,17 @@ export const ACHIEVEMENTS: AchievementItem[] = [
   {
     title: "Top 3 Internal Hackathon",
     period: "2025",
-    detail: "Xay prototype AI support cho team CS trong 48h.",
+    detail: "Built a practical AI support prototype for the customer success team in 48 hours.",
   },
   {
-    title: "Mentored 10+ Junior Devs",
+    title: "Mentored 10+ Junior Developers",
     period: "2024 - 2025",
-    detail: "Huong dan code review, architecture va production mindset.",
+    detail: "Coached review habits, architecture thinking and production readiness.",
   },
   {
     title: "Released 20+ Production Features",
     period: "2023 - 2025",
-    detail: "Bao gom ecommerce, dashboard va workflow automation.",
+    detail: "Across ecommerce, analytics dashboards and workflow automation.",
   },
 ];
 

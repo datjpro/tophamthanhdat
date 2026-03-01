@@ -19,10 +19,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  if (!post) {
-    return { title: "Not Found" };
-  }
-
+  if (!post) return { title: "Not Found" };
   return {
     title: post.title,
     description: post.summary,
@@ -32,27 +29,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  if (!post) {
-    notFound();
-  }
+  if (!post) notFound();
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <main className="mx-auto max-w-4xl px-2 py-4">
       <Button asChild variant="outline" size="sm" className="mb-8">
         <Link href="/blog">
           <ArrowLeft className="size-4" />
-          Quay về Blog
+          Back to Blog
         </Link>
       </Button>
 
-      <article className="rounded-3xl border border-border/70 bg-card/65 p-6 md:p-10">
-        <div className="mb-8 space-y-3">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {new Date(post.date).toLocaleDateString("vi-VN")} · {post.readingTime}
+      <article className="glass-panel rounded-3xl p-6 md:p-10">
+        <header className="mb-8 space-y-3">
+          <p className="mono-label text-muted-foreground">
+            {new Date(post.date).toLocaleDateString("vi-VN")} / {post.readingTime}
           </p>
-          <h1 className="section-title text-3xl md:text-4xl">{post.title}</h1>
+          <h1 className="section-title">{post.title}</h1>
           <p className="text-muted-foreground">{post.summary}</p>
-        </div>
+        </header>
         <div className="mdx-content">
           <MDXRemote source={post.content} />
         </div>

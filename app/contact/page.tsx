@@ -27,18 +27,18 @@ export default function ContactPage() {
   return (
     <div className="space-y-10">
       <section className="space-y-4">
-        <p className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">Contact</p>
-        <h1 className="section-title text-4xl md:text-5xl">Get In Touch</h1>
+        <p className="mono-label text-accent">Contact Node</p>
+        <h1 className="section-title">Initiate Contact</h1>
         <p className="max-w-3xl text-muted-foreground">
-          Form nay la UI demo. Ban co the noi API submit sau trong file `app/contact/page.tsx`.
+          Styled as frosted editorial panels. Form is still demo-state for easy API hookup later.
         </p>
       </section>
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <Card>
+        <Card className="frosted-glass">
           <CardHeader>
-            <CardTitle>Send message</CardTitle>
-            <CardDescription>Toi se phan hoi trong 24h.</CardDescription>
+            <CardTitle className="display-text text-4xl">Secure Message</CardTitle>
+            <CardDescription>Average response window: 24 hours.</CardDescription>
           </CardHeader>
           <CardContent>
             <form
@@ -49,23 +49,25 @@ export default function ContactPage() {
                 setTimeout(() => setSent(false), 2200);
               }}
             >
-              <Input placeholder="Ten cua ban" required />
-              <Input type="email" placeholder="Email" required />
-              <Textarea placeholder="Noi dung can trao doi..." required />
-              <div className="flex items-center gap-3">
-                <Button type="submit">Gui lien he</Button>
-                {sent && <p className="text-sm text-muted-foreground">Da submit demo.</p>}
+              <Input placeholder="Your name" required />
+              <Input type="email" placeholder="Your email" required />
+              <Textarea placeholder="Project context..." required />
+              <div className="flex flex-wrap items-center gap-3">
+                <Button type="submit" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  Send Request
+                </Button>
+                {sent && <p className="text-sm text-muted-foreground">Message submitted (UI demo).</p>}
               </div>
             </form>
           </CardContent>
         </Card>
 
         <div className="space-y-6">
-          <Card>
+          <Card className="glass-panel">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
-                <Mail className="size-4" />
-                Social links
+                <Mail className="size-4 text-accent" />
+                Social Access
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -79,20 +81,20 @@ export default function ContactPage() {
               ))}
               <Button variant="secondary" className="w-full justify-start" onClick={copyEmail}>
                 <Copy className="size-4" />
-                {copied ? "Da copy email" : "Copy email"}
+                {copied ? "Email copied" : "Copy email"}
               </Button>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="glass-panel">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
-                <MapPin className="size-4" />
+                <MapPin className="size-4 text-primary" />
                 Ho Chi Minh City, Vietnam
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-44 rounded-2xl border border-border/70 bg-[radial-gradient(circle_at_20%_30%,rgba(137,165,255,0.35),transparent_38%),radial-gradient(circle_at_78%_72%,rgba(0,216,255,0.3),transparent_32%),linear-gradient(120deg,rgba(38,39,51,0.76),rgba(10,12,20,0.95))]" />
+              <div className="particle-bg h-48 rounded-2xl border border-border bg-[linear-gradient(130deg,rgba(230,81,0,0.12),rgba(0,242,255,0.1))]" />
             </CardContent>
           </Card>
         </div>
