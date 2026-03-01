@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Download } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { SafeImage } from "@/components/ui/safe-image";
 import { EXPERIENCES, IMAGE_MAP, SKILLS } from "@/lib/data";
 
 export default function ResumePage() {
@@ -12,7 +12,13 @@ export default function ResumePage() {
       <section className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr]">
         <div className="glass-panel relative aspect-[3/4] overflow-hidden rounded-3xl p-2">
           <div className="relative h-full overflow-hidden rounded-2xl">
-            <Image src={IMAGE_MAP.resumeProfile} alt="Resume profile" fill className="object-cover" />
+            <SafeImage
+              src={IMAGE_MAP.resumeProfile}
+              fallbackSrc={IMAGE_MAP.fallback}
+              alt="Resume profile"
+              fill
+              className="object-cover"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
           </div>
         </div>

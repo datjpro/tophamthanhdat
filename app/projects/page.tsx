@@ -1,13 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { SafeImage } from "@/components/ui/safe-image";
 import {
+  IMAGE_MAP,
   PROJECTS,
   PROJECT_LAYOUT_META,
   type ProjectFilter,
@@ -77,8 +78,9 @@ function TimelineCard({ project, order }: { project: ProjectItem; order: number 
           {String(order).padStart(2, "0")}
         </span>
         <div className="relative aspect-[4/5]">
-          <Image
+          <SafeImage
             src={project.image}
+            fallbackSrc={IMAGE_MAP.fallback}
             alt={project.title}
             fill
             className="object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"

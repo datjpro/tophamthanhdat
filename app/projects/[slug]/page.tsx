@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
@@ -7,7 +6,8 @@ import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PROJECTS, getProjectBySlug } from "@/lib/data";
+import { SafeImage } from "@/components/ui/safe-image";
+import { IMAGE_MAP, PROJECTS, getProjectBySlug } from "@/lib/data";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -50,7 +50,13 @@ export default async function ProjectDetailPage({ params }: Props) {
       </section>
 
       <div className="relative h-[21rem] overflow-hidden rounded-3xl border border-border md:h-[31rem]">
-        <Image src={project.image} alt={project.title} fill className="object-cover grayscale-[0.08]" />
+        <SafeImage
+          src={project.image}
+          fallbackSrc={IMAGE_MAP.fallback}
+          alt={project.title}
+          fill
+          className="object-cover grayscale-[0.08]"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
       </div>
 

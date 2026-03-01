@@ -1,6 +1,5 @@
-import Image from "next/image";
-
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { SafeImage } from "@/components/ui/safe-image";
 import { ACHIEVEMENTS, EXPERIENCES, IMAGE_MAP } from "@/lib/data";
 
 export default function AchievementsPage() {
@@ -13,8 +12,9 @@ export default function AchievementsPage() {
 
       <div className="glass-panel overflow-hidden rounded-3xl p-2">
         <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
-          <Image
+          <SafeImage
             src={IMAGE_MAP.achievementHero}
+            fallbackSrc={IMAGE_MAP.fallback}
             alt="Achievement highlight"
             fill
             className="object-cover object-center"

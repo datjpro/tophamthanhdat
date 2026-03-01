@@ -1,0 +1,37 @@
+
+> tophamthanhdat@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 6788, using available port 3001 instead.
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3001
+   - Network:      http://172.18.112.1:3001
+
+ ✓ Starting...
+ ✓ Ready in 2s
+ ○ Compiling / ...
+ ✓ Compiled / in 5.4s (809 modules)
+ GET / 200 in 6086ms
+ ✓ Compiled /about in 441ms (787 modules)
+ GET /about 200 in 610ms
+ GET /about 200 in 44ms
+ ✓ Compiled /projects in 362ms (790 modules)
+ GET /projects 200 in 432ms
+ ✓ Compiled /achievements in 260ms (792 modules)
+ GET /achievements 200 in 347ms
+ ✓ Compiled /contact in 400ms (813 modules)
+ GET /contact 200 in 479ms
+ ○ Compiling /resume ...
+ ✓ Compiled /resume in 534ms (817 modules)
+ GET /resume 200 in 633ms
+ ○ Compiling /blog ...
+ ✓ Compiled /blog in 823ms (874 modules)
+ GET /blog 200 in 1062ms
+ GET / 200 in 56ms
+ GET /about 200 in 55ms
+ GET /projects 200 in 27ms
+ GET /achievements 200 in 47ms
+ GET /contact 200 in 26ms
+ GET /achievements 200 in 32ms
+ GET /projects 200 in 25ms
+ GET /about 200 in 38ms
