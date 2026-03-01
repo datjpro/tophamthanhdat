@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f5f5f7;
+  --foreground: #0f0f13;
+  --card: #ffffff;
+  --card-foreground: #141419;
+  --popover: #ffffff;
+  --popover-foreground: #16161a;
+  --primary: #17181d;
+  --primary-foreground: #ffffff;
+  --secondary: #ececf1;
+  --secondary-foreground: #1a1a20;
+  --muted: #ececf1;
+  --muted-foreground: #6d6f78;
+  --accent: #dde4ff;
+  --accent-foreground: #0d1033;
+  --destructive: #b42318;
+  --destructive-foreground: #ffffff;
+  --border: #d6d8e0;
+  --input: #e4e6ee;
+  --ring: #4956ea;
+  --radius: 1rem;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #f6f7fb;
+  --card: #111218;
+  --card-foreground: #f4f5ff;
+  --popover: #0f1016;
+  --popover-foreground: #eceefb;
+  --primary: #eff1ff;
+  --primary-foreground: #09090b;
+  --secondary: #1b1c25;
+  --secondary-foreground: #f3f4ff;
+  --muted: #171821;
+  --muted-foreground: #99a0bf;
+  --accent: #24315f;
+  --accent-foreground: #f2f6ff;
+  --destructive: #ff6b6b;
+  --destructive-foreground: #120a0a;
+  --border: #2a2d3a;
+  --input: #1f2332;
+  --ring: #8ca0ff;
+}
+
+@theme inline {
+  --font-sans: var(--font-sora);
+  --font-mono: var(--font-space-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 0.5rem);
+  --radius-md: calc(var(--radius) - 0.25rem);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 0.5rem);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% -10%, rgba(103, 126, 255, 0.26), transparent 36%),
+    radial-gradient(circle at 85% 0%, rgba(0, 210, 255, 0.2), transparent 28%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sora), sans-serif;
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(132, 160, 255, 0.35);
+}
+
+.glass {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  backdrop-filter: blur(12px);
+  background: rgba(12, 14, 22, 0.7);
+}
+
+:root .glass {
+  border: 1px solid rgba(120, 126, 147, 0.2);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.dark .glass {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background: rgba(12, 14, 22, 0.68);
+}
+
+.section-title {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.mdx-content h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-top: 1.8rem;
+  margin-bottom: 0.7rem;
+}
+
+.mdx-content p {
+  color: var(--muted-foreground);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.mdx-content ul {
+  margin: 1rem 0 1rem 1.1rem;
+  list-style: disc;
+  color: var(--muted-foreground);
+}
+
+.mdx-content li {
+  margin-bottom: 0.4rem;
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.055;
+  background-image:
+    radial-gradient(circle at 20% 20%, #fff 0.55px, transparent 0.6px),
+    radial-gradient(circle at 80% 80%, #fff 0.55px, transparent 0.6px);
+  background-size: 1.15rem 1.15rem;
+}
