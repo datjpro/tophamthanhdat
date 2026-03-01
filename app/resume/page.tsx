@@ -4,9 +4,45 @@ import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
-import { EXPERIENCES, IMAGE_MAP, SKILLS } from "@/lib/data";
+import { IMAGE_MAP, getExperiences, getProfile, getSkills } from "@/lib/data";
+import { getLocaleFromSearchParams, type QueryParams } from "@/lib/i18n";
 
-export default function ResumePage() {
+type Props = {
+  searchParams: Promise<QueryParams>;
+};
+
+const RESUME_COPY = {
+  vi: {
+    tag: "CV / Tong Quan Chuyen Mon",
+    title: "Dinh Huong, Kinh Nghiem va Nang Luc",
+    description:
+      "Thong tin CV duoc dong bo theo du lieu trung tam, de cap nhat nhanh khi bo sung du an va thanh tuu moi.",
+    download: "Tai CV",
+    experience: "Kinh Nghiem & Du An",
+    skills: "Ky Nang Chuyen Mon",
+    education: "Hoc Van",
+    objective: "Muc Tieu Nghe Nghiep",
+  },
+  en: {
+    tag: "Resume / Professional Summary",
+    title: "Direction, Experience, and Capability Stack",
+    description:
+      "Resume content is centralized for fast updates whenever new projects and achievements are added.",
+    download: "Download CV",
+    experience: "Experience & Projects",
+    skills: "Skills Matrix",
+    education: "Education",
+    objective: "Career Direction",
+  },
+} as const;
+
+export default async function ResumePage({ searchParams }: Props) {
+  const locale = getLocaleFromSearchParams(await searchParams);
+  const copy = RESUME_COPY[locale];
+  const profile = getProfile(locale);
+  const experiences = getExperiences(locale);
+  const skills = getSkills(locale);
+
   return (
     <div className="space-y-10">
       <section className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr]">
@@ -23,25 +59,36 @@ export default function ResumePage() {
           </div>
         </div>
         <div className="space-y-4">
-          <p className="mono-label text-accent">Resume / Professional Summary</p>
-          <h1 className="section-title">Experience, Direction and Capability Stack</h1>
-          <p className="max-w-3xl text-muted-foreground">
-            This page is sectionized for fast editing. Data remains centralized in lib/data.ts for
-            maintainability.
-          </p>
+          <p className="mono-label text-accent">{copy.tag}</p>
+          <h1 className="section-title">{copy.title}</h1>
+          <p className="max-w-3xl text-muted-foreground">{profile.about}</p>
+          <p className="max-w-3xl text-muted-foreground">{copy.description}</p>
           <Button asChild className="bg-primary text-primary-foreground">
             <Link href="/resume.pdf" target="_blank">
               <Download className="size-4" />
-              Download CV
+              {copy.download}
             </Link>
           </Button>
         </div>
       </section>
 
       <section className="space-y-4">
-        <h2 className="display-text text-5xl">Experience</h2>
+        <h2 className="display-text text-5xl">{copy.education}</h2>
+        <Card className="glass-panel">
+          <CardHeader>
+            <CardTitle className="text-2xl">{profile.education}</CardTitle>
+            <CardDescription>
+              <span className="mono-label text-muted-foreground">{copy.objective}: </span>
+              {profile.objective}
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="display-text text-5xl">{copy.experience}</h2>
         <div className="grid gap-4">
-          {EXPERIENCES.map((exp) => (
+          {experiences.map((exp) => (
             <Card key={`${exp.company}-${exp.role}`} className="glass-panel">
               <CardHeader>
                 <p className="mono-label text-primary">{exp.date}</p>
@@ -56,9 +103,9 @@ export default function ResumePage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="display-text text-5xl">Skills Matrix</h2>
+        <h2 className="display-text text-5xl">{copy.skills}</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {SKILLS.map((skill) => (
+          {skills.map((skill) => (
             <Card key={skill.name} className="glass-panel">
               <CardHeader>
                 <CardTitle className="text-lg">{skill.name}</CardTitle>

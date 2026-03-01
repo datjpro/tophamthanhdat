@@ -35,3 +35,17 @@
  GET /achievements 200 in 32ms
  GET /projects 200 in 25ms
  GET /about 200 in 38ms
+ ✓ Compiled in 398ms (319 modules)
+ ✓ Compiled in 104ms (319 modules)
+ ✓ Compiled in 144ms (319 modules)
+ ✓ Compiled in 123ms (319 modules)
+ ✓ Compiled in 111ms (319 modules)
+ ✓ Compiled in 97ms (319 modules)
+ ✓ Compiled in 120ms (319 modules)
+ ✓ Compiled in 107ms (319 modules)
+ ✓ Compiled in 114ms (319 modules)
+ ✓ Compiled in 92ms (319 modules)
+ ✓ Compiled in 103ms (319 modules)
+ ✓ Compiled in 107ms (319 modules)
+
+d:\Demo\tophamthanhdat>

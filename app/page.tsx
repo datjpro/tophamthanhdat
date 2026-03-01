@@ -4,10 +4,50 @@ import { ArrowRight, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
-import { IMAGE_MAP, PROJECTS, SITE_THEME } from "@/lib/data";
+import { IMAGE_MAP, getProfile, getProjects, getSiteThemeCopy } from "@/lib/data";
+import { getLocaleFromSearchParams, withLocale, type QueryParams } from "@/lib/i18n";
 
-export default function HomePage() {
-  const featuredProjects = PROJECTS.slice(0, 2);
+type Props = {
+  searchParams: Promise<QueryParams>;
+};
+
+const HOME_COPY = {
+  vi: {
+    badge: "Software Developer",
+    title: "Ket noi ky nang xay dung giao dien hien dai voi tu duy he thong thuc chien.",
+    description:
+      "Day la portfolio ca nhan cua To Pham Thanh Dat, tong hop du an web, mobile va blockchain voi cach trinh bay de mo rong va cap nhat nhanh.",
+    primaryFocusLabel: "Muc Tieu Chinh",
+    primaryFocus: "Phat trien web/mobile, blockchain va huong toi vai tro Solution Architect.",
+    currentStackLabel: "Cong Nghe Hien Tai",
+    currentStack: "React.js, Flutter, ASP.NET Core, Solidity, Truffle.",
+    availability: "San sang hop tac du an phu hop",
+    curatedTitle: "Du An Noi Bat",
+    seeAllProjects: "Xem Tat Ca Du An",
+    openCaseStudy: "Xem Chi Tiet",
+  },
+  en: {
+    badge: "Software Developer",
+    title: "Bridging modern interface delivery with practical system thinking.",
+    description:
+      "This portfolio presents To Pham Thanh Dat's web, mobile, and blockchain work in a modular format that is easy to maintain and update.",
+    primaryFocusLabel: "Primary Focus",
+    primaryFocus: "Web/mobile engineering, blockchain systems, and growth toward Solution Architect.",
+    currentStackLabel: "Current Stack",
+    currentStack: "React.js, Flutter, ASP.NET Core, Solidity, Truffle.",
+    availability: "Available for suitable collaborations",
+    curatedTitle: "Featured Projects",
+    seeAllProjects: "See All Projects",
+    openCaseStudy: "Open Case Study",
+  },
+} as const;
+
+export default async function HomePage({ searchParams }: Props) {
+  const locale = getLocaleFromSearchParams(await searchParams);
+  const copy = HOME_COPY[locale];
+  const profile = getProfile(locale);
+  const featuredProjects = getProjects(locale).slice(0, 2);
+  const siteThemeCopy = getSiteThemeCopy(locale);
 
   return (
     <div className="space-y-18">
@@ -15,38 +55,35 @@ export default function HomePage() {
         <div className="space-y-8">
           <div className="flex items-center gap-3">
             <Shield className="size-4 text-accent" />
-            <p className="mono-label text-accent">Full-Stack Interface Engineer</p>
+            <p className="mono-label text-accent">{copy.badge}</p>
           </div>
 
-          <h1 className="section-title max-w-4xl">
-            Bridging bold editorial visuals with robust production architecture.
-          </h1>
+          <h1 className="section-title max-w-4xl">{copy.title}</h1>
 
           <p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            This portfolio is rebuilt with a hybrid language inspired by the provided stitch samples.
-            The structure stays modular so you can edit content quickly.
+            {profile.about} {copy.description}
           </p>
 
           <div className="flex flex-wrap gap-3">
             <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-              <Link href="/projects">
-                {SITE_THEME.ctaPrimary}
+              <Link href={withLocale("/projects", locale)}>
+                {siteThemeCopy.ctaPrimary}
                 <ArrowRight className="size-4" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-accent/30 hover:border-accent">
-              <Link href="/contact">{SITE_THEME.ctaSecondary}</Link>
+              <Link href={withLocale("/contact", locale)}>{siteThemeCopy.ctaSecondary}</Link>
             </Button>
           </div>
 
           <div className="grid gap-6 pt-5 sm:grid-cols-2">
             <div>
-              <p className="mono-label text-muted-foreground">Primary Focus</p>
-              <p className="mt-2 text-sm text-foreground">Product interfaces, performance, and design systems.</p>
+              <p className="mono-label text-muted-foreground">{copy.primaryFocusLabel}</p>
+              <p className="mt-2 text-sm text-foreground">{copy.primaryFocus}</p>
             </div>
             <div>
-              <p className="mono-label text-muted-foreground">Current Stack</p>
-              <p className="mt-2 text-sm text-foreground">Next.js, TypeScript, Tailwind, shadcn/ui.</p>
+              <p className="mono-label text-muted-foreground">{copy.currentStackLabel}</p>
+              <p className="mt-2 text-sm text-foreground">{copy.currentStack}</p>
             </div>
           </div>
         </div>
@@ -66,17 +103,17 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
           </div>
           <div className="glass-panel absolute bottom-8 left-8 rounded-xl px-4 py-2">
-            <p className="mono-label text-accent">Available for selected collaborations</p>
+            <p className="mono-label text-accent">{copy.availability}</p>
           </div>
         </div>
       </section>
 
       <section className="space-y-6">
         <div className="flex items-end justify-between gap-4">
-          <h2 className="display-text text-4xl text-foreground md:text-6xl">Curated Artifacts</h2>
+          <h2 className="display-text text-4xl text-foreground md:text-6xl">{copy.curatedTitle}</h2>
           <Button asChild variant="outline" className="border-primary/40">
-            <Link href="/projects">
-              See All Projects
+            <Link href={withLocale("/projects", locale)}>
+              {copy.seeAllProjects}
               <ArrowRight className="size-4" />
             </Link>
           </Button>
@@ -100,8 +137,8 @@ export default function HomePage() {
                 <CardTitle className="display-text text-3xl">{project.title}</CardTitle>
                 <CardDescription className="text-muted-foreground">{project.summary}</CardDescription>
                 <Button asChild variant="link" className="w-fit px-0 text-primary">
-                  <Link href={`/projects/${project.slug}`}>
-                    Open Case Study
+                  <Link href={withLocale(`/projects/${project.slug}`, locale)}>
+                    {copy.openCaseStudy}
                     <ArrowRight className="size-4" />
                   </Link>
                 </Button>

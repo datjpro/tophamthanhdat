@@ -4,23 +4,45 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getAllPosts } from "@/lib/blog";
+import { getLocaleFromSearchParams, withLocale, type QueryParams } from "@/lib/i18n";
 
-export default async function BlogPage() {
+type Props = {
+  searchParams: Promise<QueryParams>;
+};
+
+const BLOG_COPY = {
+  vi: {
+    backHome: "Ve Trang Chu",
+    tag: "Ghi Chu Ky Thuat",
+    title: "Nhat Ky Nghien Cuu va Xay Dung",
+    readFull: "Doc Bai Viet",
+  },
+  en: {
+    backHome: "Back Home",
+    tag: "Lab Notes",
+    title: "Research and Build Notes",
+    readFull: "Read Full",
+  },
+} as const;
+
+export default async function BlogPage({ searchParams }: Props) {
   const posts = await getAllPosts();
+  const locale = getLocaleFromSearchParams(await searchParams);
+  const copy = BLOG_COPY[locale];
 
   return (
     <main className="mx-auto max-w-5xl px-1 py-3">
       <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
         <Button asChild variant="outline" size="sm">
-          <Link href="/">
+          <Link href={withLocale("/", locale)}>
             <ArrowLeft className="size-4" />
-            Back Home
+            {copy.backHome}
           </Link>
         </Button>
-        <p className="mono-label text-accent">Lab Notes</p>
+        <p className="mono-label text-accent">{copy.tag}</p>
       </div>
 
-      <h1 className="section-title mb-9">Research and Build Notes</h1>
+      <h1 className="section-title mb-9">{copy.title}</h1>
 
       <div className="grid gap-4 md:grid-cols-2">
         {posts.map((post) => (
@@ -32,8 +54,8 @@ export default async function BlogPage() {
               <CardTitle className="display-text text-4xl leading-none">{post.title}</CardTitle>
               <CardDescription>{post.summary}</CardDescription>
               <Button asChild variant="link" size="sm" className="w-fit px-0 text-primary">
-                <Link href={`/blog/${post.slug}`}>
-                  Read Full
+                <Link href={withLocale(`/blog/${post.slug}`, locale)}>
+                  {copy.readFull}
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>

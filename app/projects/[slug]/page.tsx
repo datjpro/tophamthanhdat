@@ -7,19 +7,40 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
-import { IMAGE_MAP, PROJECTS, getProjectBySlug } from "@/lib/data";
+import { IMAGE_MAP, getProjectBySlug, getProjects } from "@/lib/data";
+import { getLocaleFromSearchParams, withLocale, type QueryParams } from "@/lib/i18n";
 
 type Props = {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<QueryParams>;
 };
 
+const DETAIL_COPY = {
+  vi: {
+    notFound: "Khong tim thay du an",
+    projects: "Du An",
+    back: "Quay Lai Danh Sach Du An",
+    techStrip: "Cong Nghe Su Dung",
+    keyResults: "Ket Qua Noi Bat",
+    liveDemo: "Xem Demo",
+  },
+  en: {
+    notFound: "Project Not Found",
+    projects: "Projects",
+    back: "Back to Projects",
+    techStrip: "Tech Stack",
+    keyResults: "Key Results",
+    liveDemo: "Live Demo",
+  },
+} as const;
+
 export function generateStaticParams() {
-  return PROJECTS.map((project) => ({ slug: project.slug }));
+  return getProjects("en").map((project) => ({ slug: project.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Omit<Props, "searchParams">): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = getProjectBySlug(slug, "en");
   if (!project) return { title: "Project Not Found" };
   return {
     title: `${project.title} | Projects`,
@@ -27,17 +48,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ProjectDetailPage({ params }: Props) {
+export default async function ProjectDetailPage({ params, searchParams }: Props) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const locale = getLocaleFromSearchParams(await searchParams);
+  const copy = DETAIL_COPY[locale];
+  const project = getProjectBySlug(slug, locale);
+
   if (!project) notFound();
 
   return (
     <div className="space-y-8">
       <Button asChild variant="outline" size="sm">
-        <Link href="/projects">
+        <Link href={withLocale("/projects", locale)}>
           <ArrowLeft className="size-4" />
-          Back to Projects
+          {copy.back}
         </Link>
       </Button>
 
@@ -62,7 +86,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       <Card className="glass-panel">
         <CardHeader className="space-y-4">
-          <CardTitle className="display-text text-4xl">Tech Strip</CardTitle>
+          <CardTitle className="display-text text-4xl">{copy.techStrip}</CardTitle>
           <div className="flex flex-wrap gap-2">
             {project.tech.map((tag) => (
               <Badge key={tag} className="mono-label border-border bg-muted text-accent">
@@ -75,7 +99,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       <Card className="glass-panel">
         <CardHeader>
-          <CardTitle className="display-text text-4xl">Key Results</CardTitle>
+          <CardTitle className="display-text text-4xl">{copy.keyResults}</CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="list-disc space-y-2 pl-5 text-muted-foreground">
@@ -96,7 +120,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         <Button asChild variant="outline" className="border-accent/35 hover:border-accent">
           <Link href={project.demo} target="_blank">
             <ExternalLink className="size-4" />
-            Live Demo
+            {copy.liveDemo}
           </Link>
         </Button>
       </div>

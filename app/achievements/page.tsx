@@ -1,13 +1,40 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
-import { ACHIEVEMENTS, EXPERIENCES, IMAGE_MAP } from "@/lib/data";
+import { IMAGE_MAP, getAchievements, getExperiences } from "@/lib/data";
+import { getLocaleFromSearchParams, type QueryParams } from "@/lib/i18n";
 
-export default function AchievementsPage() {
+type Props = {
+  searchParams: Promise<QueryParams>;
+};
+
+const ACHIEVEMENT_COPY = {
+  vi: {
+    tag: "Thanh Tuu",
+    title: "Giai Thuong, Cot Moc va Kinh Nghiem",
+    featured: "Giai Tieu Bieu",
+    featuredTitle: "Giai Ba - HUTECH CODE WAR 2024",
+    timeline: "Hanh Trinh Du An",
+  },
+  en: {
+    tag: "Achievements",
+    title: "Wins, Milestones, and Experience",
+    featured: "Featured Award",
+    featuredTitle: "Third Prize - HUTECH CODE WAR 2024",
+    timeline: "Experience Timeline",
+  },
+} as const;
+
+export default async function AchievementsPage({ searchParams }: Props) {
+  const locale = getLocaleFromSearchParams(await searchParams);
+  const copy = ACHIEVEMENT_COPY[locale];
+  const achievements = getAchievements(locale);
+  const experiences = getExperiences(locale);
+
   return (
     <div className="space-y-10">
       <section className="space-y-4">
-        <p className="mono-label text-accent">Achievements</p>
-        <h1 className="section-title">Wins, Outcomes and Milestones</h1>
+        <p className="mono-label text-accent">{copy.tag}</p>
+        <h1 className="section-title">{copy.title}</h1>
       </section>
 
       <div className="glass-panel overflow-hidden rounded-3xl p-2">
@@ -21,14 +48,14 @@ export default function AchievementsPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
           <div className="absolute bottom-6 left-6 rounded-lg bg-background/70 px-4 py-3 backdrop-blur">
-            <p className="mono-label text-accent">Featured Award</p>
-            <p className="display-text text-3xl text-foreground">Achievement Highlight</p>
+            <p className="mono-label text-accent">{copy.featured}</p>
+            <p className="display-text text-3xl text-foreground">{copy.featuredTitle}</p>
           </div>
         </div>
       </div>
 
-      <section className="grid gap-4 md:grid-cols-3">
-        {ACHIEVEMENTS.map((item) => (
+      <section className="grid gap-4 md:grid-cols-2">
+        {achievements.map((item) => (
           <Card key={item.title} className="glass-panel">
             <CardHeader>
               <p className="mono-label text-primary">{item.period}</p>
@@ -40,11 +67,11 @@ export default function AchievementsPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="display-text text-5xl">Experience Timeline</h2>
+        <h2 className="display-text text-5xl">{copy.timeline}</h2>
         <div className="relative pl-7">
           <div className="absolute bottom-0 left-0 top-0 w-px bg-border" />
           <div className="space-y-4">
-            {EXPERIENCES.map((item) => (
+            {experiences.map((item) => (
               <Card key={`${item.company}-${item.role}`} className="glass-panel relative">
                 <span className="absolute -left-[1.95rem] top-6 h-3.5 w-3.5 rounded-full bg-primary" />
                 <CardHeader>

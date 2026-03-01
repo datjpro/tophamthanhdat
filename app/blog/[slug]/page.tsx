@@ -6,17 +6,28 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 
 import { Button } from "@/components/ui/button";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { getLocaleFromSearchParams, withLocale, type QueryParams } from "@/lib/i18n";
 
 type Props = {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<QueryParams>;
 };
+
+const BLOG_DETAIL_COPY = {
+  vi: {
+    back: "Ve Blog",
+  },
+  en: {
+    back: "Back to Blog",
+  },
+} as const;
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Omit<Props, "searchParams">): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return { title: "Not Found" };
@@ -26,17 +37,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function BlogPostPage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const locale = getLocaleFromSearchParams(await searchParams);
+  const copy = BLOG_DETAIL_COPY[locale];
   const post = await getPostBySlug(slug);
   if (!post) notFound();
 
   return (
     <main className="mx-auto max-w-4xl px-2 py-4">
       <Button asChild variant="outline" size="sm" className="mb-8">
-        <Link href="/blog">
+        <Link href={withLocale("/blog", locale)}>
           <ArrowLeft className="size-4" />
-          Back to Blog
+          {copy.back}
         </Link>
       </Button>
 

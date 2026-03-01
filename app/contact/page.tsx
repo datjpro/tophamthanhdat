@@ -1,22 +1,62 @@
 "use client";
 
 import Link from "next/link";
-import { Copy, Mail, MapPin } from "lucide-react";
+import { Copy, Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { SOCIAL_LINKS } from "@/lib/data";
+import { getContactInfo, getSocialLinks } from "@/lib/data";
+import { normalizeLocale } from "@/lib/i18n";
+
+const CONTACT_COPY = {
+  vi: {
+    tag: "Lien He",
+    title: "Ket Noi De Hop Tac",
+    description: "Form dang o che do demo UI, san sang ket noi API gui email hoac Telegram bot.",
+    secureMessage: "Gui Tin Nhan",
+    send: "Gui Yeu Cau",
+    sent: "Da gui thong tin (ban demo UI).",
+    social: "Kenh Ket Noi",
+    copyEmail: "Sao chep email",
+    copied: "Da sao chep email",
+    namePlaceholder: "Ho va ten",
+    emailPlaceholder: "Email cua ban",
+    messagePlaceholder: "Mo ta ngan ve du an can trao doi...",
+    phone: "So dien thoai",
+  },
+  en: {
+    tag: "Contact Node",
+    title: "Initiate Collaboration",
+    description: "The form is currently in UI demo mode and ready for API integration later.",
+    secureMessage: "Secure Message",
+    send: "Send Request",
+    sent: "Message submitted (UI demo).",
+    social: "Social Access",
+    copyEmail: "Copy email",
+    copied: "Email copied",
+    namePlaceholder: "Your name",
+    emailPlaceholder: "Your email",
+    messagePlaceholder: "Project context...",
+    phone: "Phone",
+  },
+} as const;
 
 export default function ContactPage() {
   const [copied, setCopied] = useState(false);
   const [sent, setSent] = useState(false);
+  const searchParams = useSearchParams();
+  const locale = normalizeLocale(searchParams.get("lang"));
+  const copy = CONTACT_COPY[locale];
+  const contact = getContactInfo(locale);
+  const socialLinks = getSocialLinks();
 
   async function copyEmail() {
     try {
-      await navigator.clipboard.writeText("todathanhdev@example.com");
+      await navigator.clipboard.writeText(contact.email);
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
     } catch {
@@ -27,18 +67,16 @@ export default function ContactPage() {
   return (
     <div className="space-y-10">
       <section className="space-y-4">
-        <p className="mono-label text-accent">Contact Node</p>
-        <h1 className="section-title">Initiate Contact</h1>
-        <p className="max-w-3xl text-muted-foreground">
-          Styled as frosted editorial panels. Form is still demo-state for easy API hookup later.
-        </p>
+        <p className="mono-label text-accent">{copy.tag}</p>
+        <h1 className="section-title">{copy.title}</h1>
+        <p className="max-w-3xl text-muted-foreground">{copy.description}</p>
       </section>
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <Card className="frosted-glass">
           <CardHeader>
-            <CardTitle className="display-text text-4xl">Secure Message</CardTitle>
-            <CardDescription>Average response window: 24 hours.</CardDescription>
+            <CardTitle className="display-text text-4xl">{copy.secureMessage}</CardTitle>
+            <CardDescription>{contact.responseTime}</CardDescription>
           </CardHeader>
           <CardContent>
             <form
@@ -49,14 +87,14 @@ export default function ContactPage() {
                 setTimeout(() => setSent(false), 2200);
               }}
             >
-              <Input placeholder="Your name" required />
-              <Input type="email" placeholder="Your email" required />
-              <Textarea placeholder="Project context..." required />
+              <Input placeholder={copy.namePlaceholder} required />
+              <Input type="email" placeholder={copy.emailPlaceholder} required />
+              <Textarea placeholder={copy.messagePlaceholder} required />
               <div className="flex flex-wrap items-center gap-3">
                 <Button type="submit" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  Send Request
+                  {copy.send}
                 </Button>
-                {sent && <p className="text-sm text-muted-foreground">Message submitted (UI demo).</p>}
+                {sent && <p className="text-sm text-muted-foreground">{copy.sent}</p>}
               </div>
             </form>
           </CardContent>
@@ -67,11 +105,11 @@ export default function ContactPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
                 <Mail className="size-4 text-accent" />
-                Social Access
+                {copy.social}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              {SOCIAL_LINKS.map((item) => (
+              {socialLinks.map((item) => (
                 <Button key={item.label} asChild variant="outline" className="w-full justify-start">
                   <Link href={item.href} target="_blank">
                     <item.icon className="size-4" />
@@ -81,7 +119,13 @@ export default function ContactPage() {
               ))}
               <Button variant="secondary" className="w-full justify-start" onClick={copyEmail}>
                 <Copy className="size-4" />
-                {copied ? "Email copied" : "Copy email"}
+                {copied ? copy.copied : copy.copyEmail}
+              </Button>
+              <Button asChild variant="outline" className="w-full justify-start">
+                <Link href={`tel:${contact.phone.replace(/\s+/g, "")}`}>
+                  <Phone className="size-4" />
+                  {copy.phone}: {contact.phone}
+                </Link>
               </Button>
             </CardContent>
           </Card>
@@ -90,8 +134,9 @@ export default function ContactPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
                 <MapPin className="size-4 text-primary" />
-                Ho Chi Minh City, Vietnam
+                {contact.cityLabel}
               </CardTitle>
+              <CardDescription>{contact.address}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="particle-bg h-48 rounded-2xl border border-border bg-[linear-gradient(130deg,rgba(230,81,0,0.12),rgba(0,242,255,0.1))]" />

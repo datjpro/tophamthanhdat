@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="vi" className="dark" suppressHydrationWarning>
       <body className={`${inter.variable} ${crimson.variable} ${jetbrainsMono.variable} antialiased`}>
         <ThemeProvider
           attribute="class"

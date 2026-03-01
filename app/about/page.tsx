@@ -1,13 +1,49 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
-import { ABOUT_CARDS, IMAGE_MAP, SKILLS } from "@/lib/data";
+import { IMAGE_MAP, getAboutCards, getProfile, getSkills } from "@/lib/data";
+import { getLocaleFromSearchParams, type QueryParams } from "@/lib/i18n";
 
-export default function AboutPage() {
+type Props = {
+  searchParams: Promise<QueryParams>;
+};
+
+const ABOUT_COPY = {
+  vi: {
+    tag: "Gioi Thieu / Profile Intelligence",
+    title: "Nen Tang Tu Duy Phat Trien",
+    terminal: "profile_dump.sh",
+    whoami: "sinhvien@portfolio:~$ whoami",
+    locationLabel: "Dia Diem",
+    experienceLabel: "Trang Thai",
+    galleryAlt: "Anh gioi thieu",
+    skillTitle: "Ky Nang Chuyen Mon",
+    skillDescription: "Cum ky nang su dung hang ngay trong web, mobile va blockchain.",
+  },
+  en: {
+    tag: "About / Profile Intelligence",
+    title: "The Architecture Behind My Work",
+    terminal: "profile_dump.sh",
+    whoami: "student@portfolio:~$ whoami",
+    locationLabel: "Location",
+    experienceLabel: "Status",
+    galleryAlt: "About gallery",
+    skillTitle: "Skill Nodes",
+    skillDescription: "Daily capability clusters for web, mobile, and blockchain delivery.",
+  },
+} as const;
+
+export default async function AboutPage({ searchParams }: Props) {
+  const locale = getLocaleFromSearchParams(await searchParams);
+  const copy = ABOUT_COPY[locale];
+  const cards = getAboutCards(locale);
+  const skills = getSkills(locale);
+  const profile = getProfile(locale);
+
   return (
     <div className="space-y-10">
       <section className="space-y-4">
-        <p className="mono-label text-accent">About / Profile Intelligence</p>
-        <h1 className="section-title">The Architecture Behind My Work</h1>
+        <p className="mono-label text-accent">{copy.tag}</p>
+        <h1 className="section-title">{copy.title}</h1>
       </section>
 
       <section className="asymmetric-grid gap-5">
@@ -19,16 +55,13 @@ export default function AboutPage() {
                 <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/60" />
                 <span className="h-2.5 w-2.5 rounded-full bg-green-500/60" />
               </div>
-              <p className="mono-label text-muted-foreground">profile_dump.sh</p>
+              <p className="mono-label text-muted-foreground">{copy.terminal}</p>
             </div>
             <div className="space-y-5 p-5">
               <p className="font-mono text-sm leading-relaxed text-muted-foreground">
-                <span className="text-accent">visitor@portfolio:~$</span> whoami
+                <span className="text-accent">{copy.whoami}</span>
               </p>
-              <p className="text-sm text-muted-foreground">
-                Senior engineer focused on practical interfaces, resilient architecture and measurable
-                product outcomes.
-              </p>
+              <p className="text-sm text-muted-foreground">{profile.objective}</p>
               <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-border">
                 <SafeImage
                   src={IMAGE_MAP.aboutSticky}
@@ -40,12 +73,12 @@ export default function AboutPage() {
               </div>
               <div className="grid grid-cols-2 gap-4 border-t border-border pt-4">
                 <div>
-                  <p className="mono-label text-muted-foreground">Location</p>
-                  <p className="mt-1 text-sm">Vietnam / Remote</p>
+                  <p className="mono-label text-muted-foreground">{copy.locationLabel}</p>
+                  <p className="mt-1 text-sm">{profile.location}</p>
                 </div>
                 <div>
-                  <p className="mono-label text-muted-foreground">Experience</p>
-                  <p className="mt-1 text-sm">5+ Years</p>
+                  <p className="mono-label text-muted-foreground">{copy.experienceLabel}</p>
+                  <p className="mt-1 text-sm">{profile.experience}</p>
                 </div>
               </div>
             </div>
@@ -54,7 +87,7 @@ export default function AboutPage() {
 
         <div className="col-span-12 space-y-5 lg:col-span-7">
           <div className="grid gap-5 md:grid-cols-2">
-            {ABOUT_CARDS.map((card, index) => (
+            {cards.map((card, index) => (
               <Card
                 key={card.title}
                 className={index === 0 ? "glass-panel md:col-span-2" : "glass-panel"}
@@ -77,7 +110,7 @@ export default function AboutPage() {
                   <SafeImage
                     src={image}
                     fallbackSrc={IMAGE_MAP.fallback}
-                    alt={`About gallery ${idx + 1}`}
+                    alt={`${copy.galleryAlt} ${idx + 1}`}
                     fill
                     className="object-cover grayscale transition duration-500 hover:grayscale-0"
                   />
@@ -88,11 +121,11 @@ export default function AboutPage() {
 
           <Card className="glass-panel">
             <CardHeader>
-              <CardTitle className="display-text text-4xl">Skill Nodes</CardTitle>
-              <CardDescription>Mind-map inspired clusters for daily work.</CardDescription>
+              <CardTitle className="display-text text-4xl">{copy.skillTitle}</CardTitle>
+              <CardDescription>{copy.skillDescription}</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-3 sm:grid-cols-2">
-              {SKILLS.map((skill) => (
+              {skills.map((skill) => (
                 <div
                   key={skill.name}
                   className="frosted-glass rounded-xl border-l-2 border-l-primary px-4 py-3"
