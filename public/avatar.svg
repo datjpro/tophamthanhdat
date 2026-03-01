@@ -1,0 +1,15 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="a" x1="132" y1="96" x2="760" y2="780" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6B7CFF"/>
+      <stop offset="1" stop-color="#17D6FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="900" rx="80" fill="#0C101D"/>
+  <circle cx="452" cy="325" r="148" fill="url(#a)"/>
+  <path d="M182 776C208 622 332 534 453 534C574 534 694 622 718 776H182Z" fill="url(#a)"/>
+  <circle cx="402" cy="312" r="16" fill="#0C101D"/>
+  <circle cx="505" cy="312" r="16" fill="#0C101D"/>
+  <path d="M395 382C424 417 481 417 510 382" stroke="#0C101D" stroke-width="16" stroke-linecap="round"/>
+  <text x="452" y="844" fill="#EAF4FF" text-anchor="middle" font-family="Sora, Arial, sans-serif" font-size="42" font-weight="700">TODAT.DEV</text>
+</svg>

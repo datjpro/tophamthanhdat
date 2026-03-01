@@ -1,0 +1,15 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g2" x1="108" y1="90" x2="1088" y2="676" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8356"/>
+      <stop offset="1" stop-color="#FFCD53"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="760" rx="48" fill="#171419"/>
+  <rect x="84" y="100" width="1032" height="564" rx="30" fill="#241E2B"/>
+  <rect x="136" y="162" width="312" height="442" rx="22" fill="#2C2434"/>
+  <rect x="482" y="162" width="266" height="190" rx="22" fill="url(#g2)" opacity="0.9"/>
+  <rect x="772" y="162" width="280" height="190" rx="22" fill="#302741"/>
+  <rect x="482" y="376" width="570" height="228" rx="22" fill="#2C2434"/>
+  <text x="136" y="628" fill="#FFF3EA" font-family="Sora, Arial, sans-serif" font-size="46" font-weight="700">Task Orbit</text>
+</svg>

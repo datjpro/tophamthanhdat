@@ -1,0 +1,16 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="120" y1="40" x2="1120" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5A6BFF"/>
+      <stop offset="1" stop-color="#12D8FA"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="760" rx="48" fill="#0E111D"/>
+  <rect x="96" y="108" width="1008" height="546" rx="32" fill="#13182A"/>
+  <rect x="152" y="172" width="438" height="336" rx="20" fill="url(#g1)" opacity="0.85"/>
+  <rect x="624" y="172" width="424" height="80" rx="14" fill="#212944"/>
+  <rect x="624" y="278" width="330" height="42" rx="10" fill="#1B223A"/>
+  <rect x="624" y="338" width="280" height="42" rx="10" fill="#1B223A"/>
+  <rect x="624" y="398" width="390" height="42" rx="10" fill="#1B223A"/>
+  <text x="152" y="636" fill="#EAF1FF" font-family="Sora, Arial, sans-serif" font-size="46" font-weight="700">Pulse Commerce</text>
+</svg>

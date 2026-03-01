@@ -1,0 +1,22 @@
+---
+title: "Shadcn/ui + Tailwind: Build Nhanh Nhưng Vẫn Có Cá Tính"
+summary: "Dùng component base để tăng tốc, nhưng vẫn giữ visual identity bằng token và motion có chủ đích."
+date: "2025-12-22"
+readingTime: "8 phút"
+---
+
+`shadcn/ui` cho bạn bộ khung component đủ tốt để đi rất nhanh, nhưng cá tính nằm ở lớp design token.
+
+## Mình thường làm theo 3 bước
+
+1. Định nghĩa rõ biến màu, radius, spacing trong global CSS.
+2. Tùy biến typography: family, tracking, scale.
+3. Chỉ giữ micro-interactions thật sự tạo tín hiệu phản hồi.
+
+## Vì sao cách này hiệu quả
+
+- Team code chung nhanh hơn vì vẫn dùng base component.
+- UI đỡ "na ná template".
+- Đổi theme không phải sửa từng component một.
+
+Kết quả cuối cùng: tốc độ triển khai của thư viện + bản sắc riêng của sản phẩm.

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Sora, Space_Mono } from "next/font/google";
 
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteNavbar } from "@/components/layout/site-navbar";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 
 import "./globals.css";
@@ -37,7 +39,12 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          {children}
+          <div className="grain-overlay" />
+          <div className="relative z-10 min-h-screen">
+            <SiteNavbar />
+            <main className="mx-auto w-full max-w-6xl px-4 pb-10 pt-28 sm:px-6">{children}</main>
+            <SiteFooter />
+          </div>
         </ThemeProvider>
       </body>
     </html>
