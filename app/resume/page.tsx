@@ -1,15 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { Download } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
-import { IMAGE_MAP, getExperiences, getProfile, getSkills } from "@/lib/data";
-import { getLocaleFromSearchParams, type QueryParams } from "@/lib/i18n";
-
-type Props = {
-  searchParams: Promise<QueryParams>;
-};
+import { getExperiences, getImageMap, getProfile, getSkills } from "@/lib/content-data";
+import { normalizeLocale } from "@/lib/i18n";
 
 const RESUME_COPY = {
   vi: {
@@ -36,12 +35,14 @@ const RESUME_COPY = {
   },
 } as const;
 
-export default async function ResumePage({ searchParams }: Props) {
-  const locale = getLocaleFromSearchParams(await searchParams);
+export default function ResumePage() {
+  const searchParams = useSearchParams();
+  const locale = normalizeLocale(searchParams.get("lang"));
   const copy = RESUME_COPY[locale];
   const profile = getProfile(locale);
   const experiences = getExperiences(locale);
   const skills = getSkills(locale);
+  const imageMap = getImageMap();
 
   return (
     <div className="space-y-10">
@@ -49,8 +50,8 @@ export default async function ResumePage({ searchParams }: Props) {
         <div className="glass-panel relative aspect-[3/4] overflow-hidden rounded-3xl p-2">
           <div className="relative h-full overflow-hidden rounded-2xl">
             <SafeImage
-              src={IMAGE_MAP.resumeProfile}
-              fallbackSrc={IMAGE_MAP.fallback}
+              src={imageMap.resumeProfile}
+              fallbackSrc={imageMap.fallback}
               alt="Resume profile"
               fill
               className="object-cover"

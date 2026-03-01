@@ -1,11 +1,11 @@
+"use client";
+
+import { useSearchParams } from "next/navigation";
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
-import { IMAGE_MAP, getAboutCards, getProfile, getSkills } from "@/lib/data";
-import { getLocaleFromSearchParams, type QueryParams } from "@/lib/i18n";
-
-type Props = {
-  searchParams: Promise<QueryParams>;
-};
+import { getAboutCards, getImageMap, getProfile, getSkills } from "@/lib/content-data";
+import { normalizeLocale } from "@/lib/i18n";
 
 const ABOUT_COPY = {
   vi: {
@@ -32,12 +32,14 @@ const ABOUT_COPY = {
   },
 } as const;
 
-export default async function AboutPage({ searchParams }: Props) {
-  const locale = getLocaleFromSearchParams(await searchParams);
+export default function AboutPage() {
+  const searchParams = useSearchParams();
+  const locale = normalizeLocale(searchParams.get("lang"));
   const copy = ABOUT_COPY[locale];
   const cards = getAboutCards(locale);
   const skills = getSkills(locale);
   const profile = getProfile(locale);
+  const imageMap = getImageMap();
 
   return (
     <div className="space-y-10">
@@ -64,8 +66,8 @@ export default async function AboutPage({ searchParams }: Props) {
               <p className="text-sm text-muted-foreground">{profile.objective}</p>
               <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-border">
                 <SafeImage
-                  src={IMAGE_MAP.aboutSticky}
-                  fallbackSrc={IMAGE_MAP.fallback}
+                  src={imageMap.aboutSticky}
+                  fallbackSrc={imageMap.fallback}
                   alt="About profile"
                   fill
                   className="object-cover"
@@ -104,12 +106,12 @@ export default async function AboutPage({ searchParams }: Props) {
           </div>
 
           <div className="grid gap-5 md:grid-cols-2">
-            {IMAGE_MAP.aboutGallery.map((image, idx) => (
+            {imageMap.aboutGallery.map((image, idx) => (
               <div key={image} className="glass-panel relative aspect-[3/4] overflow-hidden rounded-2xl p-2">
                 <div className="relative h-full overflow-hidden rounded-xl">
                   <SafeImage
                     src={image}
-                    fallbackSrc={IMAGE_MAP.fallback}
+                    fallbackSrc={imageMap.fallback}
                     alt={`${copy.galleryAlt} ${idx + 1}`}
                     fill
                     className="object-cover grayscale transition duration-500 hover:grayscale-0"

@@ -9,14 +9,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SafeImage } from "@/components/ui/safe-image";
 import {
-  IMAGE_MAP,
   PROJECT_LAYOUT_META,
+  getImageMap,
   getProjectFilters,
   getProjects,
   type ProjectFilter,
   type ProjectItem,
   type TimelineVariant,
-} from "@/lib/data";
+} from "@/lib/content-data";
 import { normalizeLocale, withLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
@@ -51,6 +51,7 @@ export default function ProjectsPage() {
   const copy = PAGE_COPY[locale];
   const filters = getProjectFilters(locale);
   const projects = getProjects(locale);
+  const imageMap = getImageMap();
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>("All");
 
   const filteredProjects = useMemo(
@@ -83,7 +84,13 @@ export default function ProjectsPage() {
       <section className="timeline-scroll overflow-x-auto pb-6">
         <div className="flex min-h-[32rem] items-start gap-9 px-2">
           {filteredProjects.map((project, index) => (
-            <TimelineCard key={project.slug} project={project} order={index + 1} locale={locale} />
+            <TimelineCard
+              key={project.slug}
+              project={project}
+              order={index + 1}
+              locale={locale}
+              fallbackImage={imageMap.fallback}
+            />
           ))}
         </div>
       </section>
@@ -95,10 +102,12 @@ function TimelineCard({
   project,
   order,
   locale,
+  fallbackImage,
 }: {
   project: ProjectItem;
   order: number;
   locale: "vi" | "en";
+  fallbackImage: string;
 }) {
   const copy = PAGE_COPY[locale];
   const meta = PROJECT_LAYOUT_META[project.slug] ?? { variant: "mid", width: "w-[360px] md:w-[420px]" };
@@ -112,7 +121,7 @@ function TimelineCard({
         <div className="relative aspect-[4/5]">
           <SafeImage
             src={project.image}
-            fallbackSrc={IMAGE_MAP.fallback}
+            fallbackSrc={fallbackImage}
             alt={project.title}
             fill
             className="object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"

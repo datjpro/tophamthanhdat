@@ -1,15 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Shield } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
-import { IMAGE_MAP, getProfile, getProjects, getSiteThemeCopy } from "@/lib/data";
-import { getLocaleFromSearchParams, withLocale, type QueryParams } from "@/lib/i18n";
-
-type Props = {
-  searchParams: Promise<QueryParams>;
-};
+import { getImageMap, getProfile, getProjects, getSiteThemeCopy } from "@/lib/content-data";
+import { normalizeLocale, withLocale } from "@/lib/i18n";
 
 const HOME_COPY = {
   vi: {
@@ -42,12 +41,14 @@ const HOME_COPY = {
   },
 } as const;
 
-export default async function HomePage({ searchParams }: Props) {
-  const locale = getLocaleFromSearchParams(await searchParams);
+export default function HomePage() {
+  const searchParams = useSearchParams();
+  const locale = normalizeLocale(searchParams.get("lang"));
   const copy = HOME_COPY[locale];
   const profile = getProfile(locale);
   const featuredProjects = getProjects(locale).slice(0, 2);
   const siteThemeCopy = getSiteThemeCopy(locale);
+  const imageMap = getImageMap();
 
   return (
     <div className="space-y-18">
@@ -93,8 +94,8 @@ export default async function HomePage({ searchParams }: Props) {
           <div className="absolute inset-9 rounded-[1.2rem] border border-primary/20" />
           <div className="relative h-full overflow-hidden rounded-[1.2rem] border border-border">
             <SafeImage
-              src={IMAGE_MAP.homeHero}
-              fallbackSrc={IMAGE_MAP.fallback}
+              src={imageMap.homeHero}
+              fallbackSrc={imageMap.fallback}
               alt="Home hero portrait"
               fill
               className="object-cover object-center grayscale-[0.12] contrast-110"
@@ -125,7 +126,7 @@ export default async function HomePage({ searchParams }: Props) {
               <div className="relative h-60 overflow-hidden">
                 <SafeImage
                   src={project.image}
-                  fallbackSrc={IMAGE_MAP.fallback}
+                  fallbackSrc={imageMap.fallback}
                   alt={project.title}
                   fill
                   className="object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"

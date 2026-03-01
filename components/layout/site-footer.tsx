@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-import { getFooterCopy, getSocialLinks } from "@/lib/data";
+import { getFooterCopy, getSocialLinks } from "@/lib/content-data";
 import { normalizeLocale } from "@/lib/i18n";
 
 export function SiteFooter() {

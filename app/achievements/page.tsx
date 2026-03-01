@@ -1,11 +1,11 @@
+"use client";
+
+import { useSearchParams } from "next/navigation";
+
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
-import { IMAGE_MAP, getAchievements, getExperiences } from "@/lib/data";
-import { getLocaleFromSearchParams, type QueryParams } from "@/lib/i18n";
-
-type Props = {
-  searchParams: Promise<QueryParams>;
-};
+import { getAchievements, getExperiences, getImageMap } from "@/lib/content-data";
+import { normalizeLocale } from "@/lib/i18n";
 
 const ACHIEVEMENT_COPY = {
   vi: {
@@ -24,11 +24,13 @@ const ACHIEVEMENT_COPY = {
   },
 } as const;
 
-export default async function AchievementsPage({ searchParams }: Props) {
-  const locale = getLocaleFromSearchParams(await searchParams);
+export default function AchievementsPage() {
+  const searchParams = useSearchParams();
+  const locale = normalizeLocale(searchParams.get("lang"));
   const copy = ACHIEVEMENT_COPY[locale];
   const achievements = getAchievements(locale);
   const experiences = getExperiences(locale);
+  const imageMap = getImageMap();
 
   return (
     <div className="space-y-10">
@@ -40,8 +42,8 @@ export default async function AchievementsPage({ searchParams }: Props) {
       <div className="glass-panel overflow-hidden rounded-3xl p-2">
         <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
           <SafeImage
-            src={IMAGE_MAP.achievementHero}
-            fallbackSrc={IMAGE_MAP.fallback}
+            src={imageMap.achievementHero}
+            fallbackSrc={imageMap.fallback}
             alt="Achievement highlight"
             fill
             className="object-cover object-center"

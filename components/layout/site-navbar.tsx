@@ -8,7 +8,7 @@ import { useState } from "react";
 import { LanguageSwitch } from "@/components/language-switch";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
-import { getNavLinks } from "@/lib/data";
+import { getNavLinks } from "@/lib/content-data";
 import { normalizeLocale, withLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
