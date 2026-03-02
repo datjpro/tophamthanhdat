@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Copy, Mail, MapPin, Phone } from "lucide-react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -45,7 +45,7 @@ const CONTACT_COPY = {
   },
 } as const;
 
-export default function ContactPage() {
+function ContactPageContent() {
   const [copied, setCopied] = useState(false);
   const [sent, setSent] = useState(false);
   const searchParams = useSearchParams();
@@ -145,5 +145,13 @@ export default function ContactPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContactPageContent />
+    </Suspense>
   );
 }

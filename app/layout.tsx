@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Crimson_Pro, Inter, JetBrains_Mono } from "next/font/google";
+import { Suspense } from "react";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteNavbar } from "@/components/layout/site-navbar";
@@ -47,9 +48,13 @@ export default function RootLayout({
           <div className="vertical-hairline vertical-hairline-left" />
           <div className="vertical-hairline vertical-hairline-right" />
           <div className="relative z-10 min-h-screen">
-            <SiteNavbar />
+            <Suspense fallback={null}>
+              <SiteNavbar />
+            </Suspense>
             <main className="mx-auto w-full max-w-[90rem] px-6 pb-12 pt-28 md:px-10">{children}</main>
-            <SiteFooter />
+            <Suspense fallback={null}>
+              <SiteFooter />
+            </Suspense>
           </div>
         </ThemeProvider>
       </body>

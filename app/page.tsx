@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, Shield } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,7 +42,7 @@ const HOME_COPY = {
   },
 } as const;
 
-export default function HomePage() {
+function HomePageContent() {
   const searchParams = useSearchParams();
   const locale = normalizeLocale(searchParams.get("lang"));
   const copy = HOME_COPY[locale];
@@ -149,5 +150,13 @@ export default function HomePage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={null}>
+      <HomePageContent />
+    </Suspense>
   );
 }

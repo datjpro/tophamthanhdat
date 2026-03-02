@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Download } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,7 +36,7 @@ const RESUME_COPY = {
   },
 } as const;
 
-export default function ResumePage() {
+function ResumePageContent() {
   const searchParams = useSearchParams();
   const locale = normalizeLocale(searchParams.get("lang"));
   const copy = RESUME_COPY[locale];
@@ -119,5 +120,13 @@ export default function ResumePage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function ResumePage() {
+  return (
+    <Suspense fallback={null}>
+      <ResumePageContent />
+    </Suspense>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
@@ -24,7 +25,7 @@ const ACHIEVEMENT_COPY = {
   },
 } as const;
 
-export default function AchievementsPage() {
+function AchievementsPageContent() {
   const searchParams = useSearchParams();
   const locale = normalizeLocale(searchParams.get("lang"));
   const copy = ACHIEVEMENT_COPY[locale];
@@ -89,5 +90,13 @@ export default function AchievementsPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function AchievementsPage() {
+  return (
+    <Suspense fallback={null}>
+      <AchievementsPageContent />
+    </Suspense>
   );
 }

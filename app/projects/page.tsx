@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 
@@ -45,7 +45,7 @@ function getOffsetByVariant(variant: TimelineVariant) {
   return "mt-0";
 }
 
-export default function ProjectsPage() {
+function ProjectsPageContent() {
   const searchParams = useSearchParams();
   const locale = normalizeLocale(searchParams.get("lang"));
   const copy = PAGE_COPY[locale];
@@ -95,6 +95,14 @@ export default function ProjectsPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function ProjectsPage() {
+  return (
+    <Suspense fallback={null}>
+      <ProjectsPageContent />
+    </Suspense>
   );
 }
 

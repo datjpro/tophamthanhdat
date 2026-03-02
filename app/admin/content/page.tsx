@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { Suspense, useRef, useState } from "react";
 import { Download, FileUp, RefreshCcw, Save } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -69,7 +69,7 @@ function parseManagedContent(text: string) {
   return parsed;
 }
 
-export default function ContentAdminPage() {
+function ContentAdminPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -272,5 +272,13 @@ export default function ContentAdminPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function ContentAdminPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContentAdminPageContent />
+    </Suspense>
   );
 }

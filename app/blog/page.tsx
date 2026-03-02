@@ -4,11 +4,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getAllPosts } from "@/lib/blog";
-import { getLocaleFromSearchParams, withLocale, type QueryParams } from "@/lib/i18n";
-
-type Props = {
-  searchParams: Promise<QueryParams>;
-};
+import { withLocale } from "@/lib/i18n";
 
 const BLOG_COPY = {
   vi: {
@@ -25,9 +21,9 @@ const BLOG_COPY = {
   },
 } as const;
 
-export default async function BlogPage({ searchParams }: Props) {
+export default async function BlogPage() {
   const posts = await getAllPosts();
-  const locale = getLocaleFromSearchParams(await searchParams);
+  const locale = "vi" as const;
   const copy = BLOG_COPY[locale];
 
   return (

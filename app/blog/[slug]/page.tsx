@@ -6,11 +6,10 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 
 import { Button } from "@/components/ui/button";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
-import { getLocaleFromSearchParams, withLocale, type QueryParams } from "@/lib/i18n";
+import { withLocale } from "@/lib/i18n";
 
 type Props = {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<QueryParams>;
 };
 
 const BLOG_DETAIL_COPY = {
@@ -27,7 +26,7 @@ export async function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
 }
 
-export async function generateMetadata({ params }: Omit<Props, "searchParams">): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return { title: "Not Found" };
@@ -37,9 +36,9 @@ export async function generateMetadata({ params }: Omit<Props, "searchParams">):
   };
 }
 
-export default async function BlogPostPage({ params, searchParams }: Props) {
+export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const locale = getLocaleFromSearchParams(await searchParams);
+  const locale = "vi" as const;
   const copy = BLOG_DETAIL_COPY[locale];
   const post = await getPostBySlug(slug);
   if (!post) notFound();
