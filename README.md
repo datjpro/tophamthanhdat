@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# To Pham Thanh Dat - Portfolio
 
-## Getting Started
+Website portfolio ca nhan cua To Pham Thanh Dat, tap trung vao web, mobile, blockchain va dinh huong Solution Architect.
 
-First, run the development server:
+## Gioi Thieu Nhanh
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Name: To Pham Thanh Dat
+- Role: Software Developer (Software Engineering Student)
+- Focus: Web/Mobile engineering + Blockchain systems
+- Location: TP.HCM, Viet Nam
+- Education: HUTECH - Software Engineering (2022 - expected 2026), GPA 3.05/4.0
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Muc Tieu Nghe Nghiep
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Xay dung san pham co gia tri thuc te, kien truc ro rang, de mo rong va van hanh ben vung. Dinh huong dai han la tro thanh Solution Architect trong he sinh thai web va blockchain.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Ky Nang Chinh
 
-## Learn More
+- Frontend: React.js, TypeScript, Tailwind CSS
+- Mobile: Flutter (Dart)
+- Backend: ASP.NET Core, Node.js
+- Blockchain: Solidity, Truffle, Ganache, Remix
+- Database: SQL Server, MongoDB
+- Tools: Git/GitHub, VS Code, Figma
 
-To learn more about Next.js, take a look at the following resources:
+## Du An Noi Bat
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- E-commerce Mobile App - GitHub: https://github.com/datjpro/ecommerce_flutter
+- ViePropChain - GitHub: https://github.com/datjpro/viepropchain
+- Blockchain Donation DApp - GitHub: https://github.com/datjpro
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Thanh Tuu
 
-## Deploy on Vercel
+- Giai Ba - HUTECH CODE WAR 2024
+- Giai Khuyen Khich - My First Website (2023, 2024)
+- Website and AI Innovation Contest 2026 (Track B - Advanced)
+- Trien khai nhieu do an thuc te ket hop UI/UX, API va smart contract
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Lien He
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Phone: 0867 677 441
+- Email: todat2207@gmail.com
+- GitHub: https://github.com/datjpro
