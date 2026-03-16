@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -90,8 +91,16 @@ function AchievementsPageContent({ locale }: { locale: "vi" | "en" }) {
   );
 }
 
-export default function AchievementsPage() {
+function AchievementsPageClient() {
   const searchParams = useSearchParams();
   const locale = normalizeLocale(searchParams.get("lang"));
   return <AchievementsPageContent locale={locale} />;
+}
+
+export default function AchievementsPage() {
+  return (
+    <Suspense fallback={null}>
+      <AchievementsPageClient />
+    </Suspense>
+  );
 }

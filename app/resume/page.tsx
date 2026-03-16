@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import { Download } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -120,8 +121,16 @@ function ResumePageContent({ locale }: { locale: "vi" | "en" }) {
   );
 }
 
-export default function ResumePage() {
+function ResumePageWrapper() {
   const searchParams = useSearchParams();
   const locale = normalizeLocale(searchParams.get("lang"));
   return <ResumePageContent locale={locale} />;
+}
+
+export default function ResumePage() {
+  return (
+    <Suspense fallback={null}>
+      <ResumePageWrapper />
+    </Suspense>
+  );
 }

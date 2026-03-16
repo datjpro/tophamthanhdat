@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import { ArrowRight, Shield } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -150,8 +151,16 @@ function HomePageContent({ locale }: { locale: "vi" | "en" }) {
   );
 }
 
-export default function HomePage() {
+function HomePageClient() {
   const searchParams = useSearchParams();
   const locale = normalizeLocale(searchParams.get("lang"));
   return <HomePageContent locale={locale} />;
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={null}>
+      <HomePageClient />
+    </Suspense>
+  );
 }

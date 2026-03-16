@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -144,8 +145,16 @@ function AboutPageContent({ locale }: { locale: "vi" | "en" }) {
   );
 }
 
-export default function AboutPage() {
+function AboutPageClient() {
   const searchParams = useSearchParams();
   const locale = normalizeLocale(searchParams.get("lang"));
   return <AboutPageContent locale={locale} />;
+}
+
+export default function AboutPage() {
+  return (
+    <Suspense fallback={null}>
+      <AboutPageClient />
+    </Suspense>
+  );
 }
