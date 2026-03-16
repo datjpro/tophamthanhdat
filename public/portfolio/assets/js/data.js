@@ -1,4 +1,4 @@
-window.portfolioData = {
+﻿window.portfolioData = {
   generatedAt: "2026-03-05",
   profile: {
     name: "To Pham Thanh Dat",
