@@ -1,7 +1,6 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
@@ -25,9 +24,7 @@ const ACHIEVEMENT_COPY = {
   },
 } as const;
 
-function AchievementsPageContent() {
-  const searchParams = useSearchParams();
-  const locale = normalizeLocale(searchParams.get("lang"));
+function AchievementsPageContent({ locale }: { locale: "vi" | "en" }) {
   const copy = ACHIEVEMENT_COPY[locale];
   const achievements = getAchievements(locale);
   const experiences = getExperiences(locale);
@@ -94,9 +91,7 @@ function AchievementsPageContent() {
 }
 
 export default function AchievementsPage() {
-  return (
-    <Suspense fallback={null}>
-      <AchievementsPageContent />
-    </Suspense>
-  );
+  const searchParams = useSearchParams();
+  const locale = normalizeLocale(searchParams.get("lang"));
+  return <AchievementsPageContent locale={locale} />;
 }

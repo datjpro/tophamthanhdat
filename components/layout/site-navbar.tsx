@@ -8,6 +8,7 @@ import { useState } from "react";
 import { LanguageSwitch } from "@/components/language-switch";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { SafeImage } from "@/components/ui/safe-image";
 import { getNavLinks } from "@/lib/content-data";
 import { normalizeLocale, withLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -18,20 +19,39 @@ export function SiteNavbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const locale = normalizeLocale(searchParams.get("lang"));
   const navLinks = getNavLinks(locale);
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+  const normalizePath = (value: string) => {
+    let nextValue = value;
+    if (basePath && nextValue.startsWith(basePath)) {
+      nextValue = nextValue.slice(basePath.length) || "/";
+    }
+    if (nextValue.length > 1 && nextValue.endsWith("/")) {
+      nextValue = nextValue.slice(0, -1);
+    }
+    return nextValue;
+  };
 
   return (
     <header className="fixed left-1/2 top-5 z-50 w-[min(96%,82rem)] -translate-x-1/2 rounded-full glass-nav">
       <div className="flex h-14 items-center gap-3 px-4 md:px-6">
         <div className="flex min-w-0 flex-1 items-center">
-          <Link href={withLocale("/", locale)} className="flex items-center gap-3">
-            <span className="mono-label text-primary">TD</span>
-            <span className="text-sm font-semibold tracking-tight">ToDat.Archive</span>
+          <Link href={withLocale("/", locale)} className="ml-1 flex items-center">
+            <SafeImage
+              src="/logo.png"
+              fallbackSrc="/logo.png"
+              alt="To Dat logo"
+              width={160}
+              height={88}
+              className="h-10 w-auto md:h-11"
+              priority
+            />
           </Link>
         </div>
 
         <nav className="hidden flex-none items-center gap-1 lg:flex">
           {navLinks.map((link) => {
-            const isActive = pathname === link.href;
+            const isActive = normalizePath(pathname) === normalizePath(link.href);
             return (
               <Link
                 key={link.href}
@@ -73,7 +93,7 @@ export function SiteNavbar() {
               onClick={() => setMobileOpen(false)}
               className={cn(
                 "block rounded-xl px-4 py-2 text-sm",
-                pathname === link.href
+                normalizePath(pathname) === normalizePath(link.href)
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground",
               )}

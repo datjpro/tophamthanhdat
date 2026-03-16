@@ -43,7 +43,6 @@ export function SiteFooter() {
         <p>
           {footer.rights} &copy; {new Date().getFullYear()} To Dat. All rights reserved.
         </p>
-        <p className="mono-label">{footer.madeWith}</p>
       </div>
     </footer>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
@@ -33,9 +32,7 @@ const ABOUT_COPY = {
   },
 } as const;
 
-function AboutPageContent() {
-  const searchParams = useSearchParams();
-  const locale = normalizeLocale(searchParams.get("lang"));
+function AboutPageContent({ locale }: { locale: "vi" | "en" }) {
   const copy = ABOUT_COPY[locale];
   const cards = getAboutCards(locale);
   const skills = getSkills(locale);
@@ -148,9 +145,7 @@ function AboutPageContent() {
 }
 
 export default function AboutPage() {
-  return (
-    <Suspense fallback={null}>
-      <AboutPageContent />
-    </Suspense>
-  );
+  const searchParams = useSearchParams();
+  const locale = normalizeLocale(searchParams.get("lang"));
+  return <AboutPageContent locale={locale} />;
 }
