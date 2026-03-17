@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteNavbar } from "@/components/layout/site-navbar";
+import { MusicChatbox } from "@/components/layout/music-chatbox";
 
 function normalizePath(value: string, basePath: string) {
   let nextValue = value || "/";
@@ -24,7 +25,12 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
   const isPortfolio = normalizedPath === "/portfolio" || normalizedPath.startsWith("/portfolio/");
 
   if (isPortfolio) {
-    return <>{children}</>;
+    return (
+      <>
+        {children}
+        <MusicChatbox />
+      </>
+    );
   }
 
   return (
@@ -43,6 +49,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
           <SiteFooter />
         </Suspense>
       </div>
+      <MusicChatbox />
     </>
   );
 }
