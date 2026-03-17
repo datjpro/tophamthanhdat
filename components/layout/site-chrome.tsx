@@ -28,7 +28,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
     return (
       <>
         {children}
-        <MusicChatbox />
+        <Suspense fallback={null}>
+          <MusicChatbox />
+        </Suspense>
       </>
     );
   }
@@ -49,7 +51,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
           <SiteFooter />
         </Suspense>
       </div>
-      <MusicChatbox />
+      <Suspense fallback={null}>
+        <MusicChatbox />
+      </Suspense>
     </>
   );
 }
