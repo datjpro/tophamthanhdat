@@ -5,11 +5,13 @@ import {
   CloudCog,
   Code2,
   Database,
+  Facebook,
   Gauge,
   GitBranch,
   Globe,
   Hammer,
   Layers3,
+  MessageCircle,
   Paintbrush2,
   ServerCog,
   ShieldCheck,
@@ -519,8 +521,10 @@ const FOOTER_COPY_BY_LOCALE: Record<
 export const SOCIAL_LINKS = [
   { label: "GitHub", href: "https://github.com/datjpro", icon: GitBranch },
   { label: "LinkedIn", href: "https://linkedin.com/in/to-datj-a10619358/", icon: BriefcaseBusiness },
+  { label: "Facebook", href: "https://www.facebook.com/datj2207/", icon: Facebook },
+  { label: "X", href: "https://x.com/T626859858", icon: null },
   { label: "YouTube", href: "https://www.youtube.com/@To_Pham_Thanh_at_", icon: Youtube },
-  { label: "Website", href: "https://tophamthanhdat.com/", icon: Globe },
+  { label: "Website", href: "https://www.tophamthanhdat.id.vn/", icon: Globe },
 ];
 
 export function getSiteThemeCopy(locale: Locale) {

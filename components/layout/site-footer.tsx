@@ -57,7 +57,7 @@ export function SiteFooter() {
                 target="_blank"
                 className="glass-panel inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-muted-foreground hover:text-foreground"
               >
-                <item.icon className="size-4" />
+                {item.icon ? <item.icon className="size-4" /> : null}
                 {item.label}
               </Link>
             ))}

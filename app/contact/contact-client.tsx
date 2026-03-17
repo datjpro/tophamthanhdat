@@ -166,7 +166,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
               {socialLinks.map((item) => (
                 <Button key={item.label} asChild variant="outline" className="w-full justify-start">
                   <Link href={item.href} target="_blank">
-                    <item.icon className="size-4" />
+                    {item.icon ? <item.icon className="size-4" /> : null}
                     {item.label}
                   </Link>
                 </Button>
