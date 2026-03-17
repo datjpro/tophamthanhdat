@@ -34,7 +34,7 @@ export function SiteFooter() {
     minute: "2-digit",
     second: "2-digit",
   });
-  const timeLabel = locale === "vi" ? "Gio hien tai" : "Current time";
+  const timeLabel = locale === "vi" ? "Gio hien tai(GMT+7)" : "Current time(GMT+7)";
   const visitLabel = locale === "vi" ? "Luot truy cap" : "Visits";
 
   return (
