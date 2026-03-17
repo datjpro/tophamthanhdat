@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { getFooterCopy, getSocialLinks } from "@/lib/content-data";
 import { normalizeLocale } from "@/lib/i18n";
@@ -11,6 +12,30 @@ export function SiteFooter() {
   const locale = normalizeLocale(searchParams.get("lang"));
   const footer = getFooterCopy(locale);
   const socialLinks = getSocialLinks();
+  const [now, setNow] = useState(() => new Date());
+  const [visitCount, setVisitCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(new Date()), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const storageKey = "site_visit_count";
+    const rawValue = window.localStorage.getItem(storageKey);
+    const currentValue = Number.parseInt(rawValue ?? "0", 10);
+    const nextValue = Number.isFinite(currentValue) ? currentValue + 1 : 1;
+    window.localStorage.setItem(storageKey, String(nextValue));
+    setVisitCount(nextValue);
+  }, []);
+
+  const timeText = now.toLocaleTimeString(locale === "vi" ? "vi-VN" : "en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+  const timeLabel = locale === "vi" ? "Gio hien tai" : "Current time";
+  const visitLabel = locale === "vi" ? "Luot truy cap" : "Visits";
 
   return (
     <footer className="mx-auto mb-7 mt-12 w-[min(96%,82rem)] border-t border-border px-2 py-10">
@@ -43,6 +68,14 @@ export function SiteFooter() {
         <p>
           {footer.rights} &copy; {new Date().getFullYear()} To Dat. All rights reserved.
         </p>
+        <div className="flex flex-wrap gap-4">
+          <span>
+            {timeLabel}: {timeText}
+          </span>
+          <span>
+            {visitLabel}: {visitCount ?? "—"}
+          </span>
+        </div>
       </div>
     </footer>
   );
