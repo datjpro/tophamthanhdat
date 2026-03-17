@@ -8,6 +8,7 @@ import { useState } from "react";
 import { LanguageSwitch } from "@/components/language-switch";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { LogoRipple } from "@/components/ui/logo-ripple";
 import { SafeImage } from "@/components/ui/safe-image";
 import { getNavLinks } from "@/lib/content-data";
 import { normalizeLocale, withLocale } from "@/lib/i18n";
@@ -36,7 +37,7 @@ export function SiteNavbar() {
     <header className="fixed left-1/2 top-5 z-50 w-[min(96%,82rem)] -translate-x-1/2 rounded-full glass-nav">
       <div className="flex h-14 items-center gap-3 px-4 md:px-6">
         <div className="flex min-w-0 flex-1 items-center">
-          <Link href={withLocale("/", locale)} className="ml-1 flex items-center">
+          <LogoRipple href={withLocale("/", locale)} className="ml-1">
             <SafeImage
               src="/logo.png"
               fallbackSrc="/logo.png"
@@ -46,7 +47,7 @@ export function SiteNavbar() {
               className="h-10 w-auto md:h-11"
               priority
             />
-          </Link>
+          </LogoRipple>
         </div>
 
         <nav className="hidden flex-none items-center gap-1 lg:flex">

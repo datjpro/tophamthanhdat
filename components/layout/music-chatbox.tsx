@@ -10,7 +10,8 @@ import { normalizeLocale } from "@/lib/i18n";
 
 const YOUTUBE_ID = "MyxAIQ0QXtw";
 const YOUTUBE_URL = "https://www.youtube.com/watch?v=MyxAIQ0QXtw";
-const EMBED_URL = `https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1`;
+const BASE_EMBED_URL = `https://www.youtube.com/embed/${YOUTUBE_ID}?mute=1&playsinline=1&rel=0&enablejsapi=1`;
+const STORAGE_KEY = "music_player_state";
 
 const COPY = {
   vi: {
@@ -43,7 +44,7 @@ export function MusicChatbox() {
   const copy = COPY[locale];
   const [open, setOpen] = useState(false);
   const [playerState, setPlayerState] = useState<"idle" | "playing">("idle");
-  const [embedUrl, setEmbedUrl] = useState(EMBED_URL);
+  const [embedUrl, setEmbedUrl] = useState(BASE_EMBED_URL);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const isPlaying = playerState === "playing";
 
@@ -82,8 +83,10 @@ export function MusicChatbox() {
       if (payload.event !== "onStateChange") return;
       if (payload.info === 1) {
         setPlayerState("playing");
-      } else {
+        window.localStorage.setItem(STORAGE_KEY, "playing");
+      } else if (payload.info === 2 || payload.info === 0) {
         setPlayerState("idle");
+        window.localStorage.setItem(STORAGE_KEY, "paused");
       }
     };
     window.addEventListener("message", handler);
@@ -92,8 +95,13 @@ export function MusicChatbox() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const storedState = window.localStorage.getItem(STORAGE_KEY);
+    const autoplay = storedState === "paused" ? "0" : "1";
     const origin = encodeURIComponent(window.location.origin);
-    setEmbedUrl(`${EMBED_URL}&origin=${origin}`);
+    setEmbedUrl(`${BASE_EMBED_URL}&autoplay=${autoplay}&origin=${origin}`);
+    if (storedState === "paused") {
+      setPlayerState("idle");
+    }
   }, []);
 
   useEffect(() => {
