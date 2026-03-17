@@ -16,6 +16,7 @@ import {
   Sparkles,
   WandSparkles,
   Wrench,
+  Youtube,
 } from "lucide-react";
 
 import type { Locale } from "@/lib/i18n";
@@ -518,6 +519,7 @@ const FOOTER_COPY_BY_LOCALE: Record<
 export const SOCIAL_LINKS = [
   { label: "GitHub", href: "https://github.com/datjpro", icon: GitBranch },
   { label: "LinkedIn", href: "https://linkedin.com/in/to-datj-a10619358/", icon: BriefcaseBusiness },
+  { label: "YouTube", href: "https://www.youtube.com/@To_Pham_Thanh_at_", icon: Youtube },
   { label: "Website", href: "https://tophamthanhdat.com/", icon: Globe },
 ];
 

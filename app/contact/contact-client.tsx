@@ -15,10 +15,11 @@ const CONTACT_COPY = {
   vi: {
     tag: "Lien He",
     title: "Ket Noi De Hop Tac",
-    description: "Form dang o che do demo UI, san sang ket noi API gui email hoac Telegram bot.",
+    description: "Form nay se mo ung dung email de gui tin nhan truc tiep.",
     secureMessage: "Gui Tin Nhan",
     send: "Gui Yeu Cau",
-    sent: "Da gui thong tin (ban demo UI).",
+    sent: "Da mo ung dung email.",
+    directEmail: "Gui nhanh qua email:",
     social: "Kenh Ket Noi",
     copyEmail: "Sao chep email",
     copied: "Da sao chep email",
@@ -30,10 +31,11 @@ const CONTACT_COPY = {
   en: {
     tag: "Contact Node",
     title: "Initiate Collaboration",
-    description: "The form is currently in UI demo mode and ready for API integration later.",
+    description: "This form opens your email client to send the message.",
     secureMessage: "Secure Message",
     send: "Send Request",
-    sent: "Message submitted (UI demo).",
+    sent: "Email client opened.",
+    directEmail: "Send directly via email:",
     social: "Social Access",
     copyEmail: "Copy email",
     copied: "Email copied",
@@ -47,6 +49,7 @@ const CONTACT_COPY = {
 export function ContactPageClient({ locale }: { locale: Locale }) {
   const [copied, setCopied] = useState(false);
   const [sent, setSent] = useState(false);
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const copy = CONTACT_COPY[locale];
   const contact = getContactInfo(locale);
   const socialLinks = getSocialLinks();
@@ -80,19 +83,71 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
               className="space-y-4"
               onSubmit={(event) => {
                 event.preventDefault();
+                const subject =
+                  locale === "vi"
+                    ? `Lien he tu ${formData.name || formData.email || "Website"}`
+                    : `Contact from ${formData.name || formData.email || "Website"}`;
+                const body = [
+                  `${copy.namePlaceholder}: ${formData.name}`,
+                  `${copy.emailPlaceholder}: ${formData.email}`,
+                  "",
+                  `${copy.messagePlaceholder}`,
+                  formData.message,
+                ].join("\n");
+                const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(
+                  subject,
+                )}&body=${encodeURIComponent(body)}`;
+                window.location.href = mailto;
                 setSent(true);
                 setTimeout(() => setSent(false), 2200);
               }}
             >
-              <Input placeholder={copy.namePlaceholder} required />
-              <Input type="email" placeholder={copy.emailPlaceholder} required />
-              <Textarea placeholder={copy.messagePlaceholder} required />
+              <Input
+                placeholder={copy.namePlaceholder}
+                value={formData.name}
+                onChange={(event) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    name: event.target.value,
+                  }))
+                }
+                required
+              />
+              <Input
+                type="email"
+                placeholder={copy.emailPlaceholder}
+                value={formData.email}
+                onChange={(event) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    email: event.target.value,
+                  }))
+                }
+                required
+              />
+              <Textarea
+                placeholder={copy.messagePlaceholder}
+                value={formData.message}
+                onChange={(event) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    message: event.target.value,
+                  }))
+                }
+                required
+              />
               <div className="flex flex-wrap items-center gap-3">
                 <Button type="submit" className="bg-primary text-primary-foreground hover:bg-primary/90">
                   {copy.send}
                 </Button>
                 {sent && <p className="text-sm text-muted-foreground">{copy.sent}</p>}
               </div>
+              <p className="text-sm text-muted-foreground">
+                {copy.directEmail}{" "}
+                <Link className="text-primary underline-offset-4 hover:underline" href={`mailto:${contact.email}`}>
+                  {contact.email}
+                </Link>
+              </p>
             </form>
           </CardContent>
         </Card>
