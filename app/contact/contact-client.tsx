@@ -53,6 +53,8 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
   const copy = CONTACT_COPY[locale];
   const contact = getContactInfo(locale);
   const socialLinks = getSocialLinks();
+  const mapQuery = encodeURIComponent(contact.address);
+  const mapSrc = `https://www.google.com/maps?q=${mapQuery}&output=embed`;
 
   async function copyEmail() {
     try {
@@ -191,7 +193,15 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
               <CardDescription>{contact.address}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="particle-bg h-48 rounded-2xl border border-border bg-[linear-gradient(130deg,rgba(230,81,0,0.12),rgba(0,242,255,0.1))]" />
+              <div className="overflow-hidden rounded-2xl border border-border">
+                <iframe
+                  title={`Map: ${contact.address}`}
+                  src={mapSrc}
+                  className="h-48 w-full"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
             </CardContent>
           </Card>
         </div>

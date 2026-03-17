@@ -462,15 +462,15 @@ const CONTACT_INFO_BY_LOCALE: Record<Locale, ContactInfo> = {
   vi: {
     phone: "0867 677 441",
     email: "todat2207@gmail.com",
-    address: "Phuong Dong Hoa, TP. Thu Duc, TP.HCM",
-    cityLabel: "TP. Ho Chi Minh, Viet Nam",
+    address: "KTX KHU B, Đ. Mạc Đĩnh Chi, Khu phố Tân Hòa, Dĩ An, Bình Dương, Việt Nam",
+    cityLabel: "Dĩ An, Bình Dương, Việt Nam",
     responseTime: "Thoi gian phan hoi trung binh: trong 24 gio.",
   },
   en: {
     phone: "0867 677 441",
     email: "todat2207@gmail.com",
-    address: "Dong Hoa Ward, Thu Duc City, Ho Chi Minh City",
-    cityLabel: "Ho Chi Minh City, Vietnam",
+    address: "KTX KHU B, Đ. Mạc Đĩnh Chi, Khu phố Tân Hòa, Dĩ An, Bình Dương, Việt Nam",
+    cityLabel: "Di An, Binh Duong, Vietnam",
     responseTime: "Average response window: within 24 hours.",
   },
 };
