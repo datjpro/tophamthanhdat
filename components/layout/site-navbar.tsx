@@ -37,16 +37,26 @@ export function SiteNavbar() {
     <header className="fixed left-1/2 top-5 z-50 w-[min(96%,82rem)] -translate-x-1/2 rounded-full glass-nav">
       <div className="flex h-14 items-center gap-3 px-4 md:px-6">
         <div className="flex min-w-0 flex-1 items-center">
-          <LogoRipple href={withLocale("/", locale)} className="ml-1">
-            <SafeImage
-              src="/logo.png"
-              fallbackSrc="/logo.png"
-              alt="To Dat logo"
-              width={160}
-              height={88}
-              className="h-10 w-auto md:h-11"
-              priority
-            />
+          <LogoRipple href={withLocale("/", locale)} className="ml-1" ariaLabel="DatJ home">
+            <span className="logo-swap">
+              <SafeImage
+                src="/logo.png"
+                fallbackSrc="/logo.png"
+                alt="DatJ logo"
+                width={160}
+                height={88}
+                className="logo-swap__base"
+                priority
+              />
+              <SafeImage
+                src="/logo-datj-gradient.png"
+                fallbackSrc="/logo-datj-gradient.png"
+                alt=""
+                width={160}
+                height={88}
+                className="logo-swap__glow"
+              />
+            </span>
           </LogoRipple>
         </div>
 
