@@ -51,6 +51,16 @@
   --rose-shadow: rgba(132, 221, 255, 0.55);
   --logo-mark-shadow: rgba(102, 187, 255, 0.72);
   --card-shadow: rgba(72, 159, 255, 0.16);
+  --image-overlay-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.74));
+  --image-overlay-border: rgba(143, 206, 247, 0.88);
+  --image-overlay-foreground: #2b628d;
+  --image-overlay-accent: #74bae9;
+  --image-overlay-shadow: rgba(119, 181, 223, 0.18);
+  --image-overlay-filter: blur(14px) saturate(110%);
+  --image-scrim-mid: rgba(103, 168, 212, 0.03);
+  --image-scrim-bottom: rgba(103, 168, 212, 0.14);
+  --image-overlay-label-weight: 800;
+  --image-overlay-title-weight: 700;
 }
 
 .dark {
@@ -103,6 +113,16 @@
   --rose-shadow: rgba(255, 75, 90, 0.65);
   --logo-mark-shadow: rgba(120, 180, 255, 0.7);
   --card-shadow: rgba(0, 0, 0, 0.32);
+  --image-overlay-bg: linear-gradient(135deg, rgba(8, 15, 27, 0.72), rgba(19, 39, 61, 0.46));
+  --image-overlay-border: rgba(123, 209, 255, 0.34);
+  --image-overlay-foreground: #eef7ff;
+  --image-overlay-accent: #8adfff;
+  --image-overlay-shadow: rgba(0, 0, 0, 0.34);
+  --image-overlay-filter: blur(18px) saturate(145%);
+  --image-scrim-mid: rgba(0, 0, 0, 0.14);
+  --image-scrim-bottom: rgba(0, 0, 0, 0.58);
+  --image-overlay-label-weight: 600;
+  --image-overlay-title-weight: 500;
 }
 
 @theme inline {
@@ -255,6 +275,42 @@ body {
   border-color: color-mix(in srgb, var(--primary) 55%, transparent);
   background: color-mix(in srgb, var(--surface) 88%, transparent);
   box-shadow: 0 24px 56px var(--panel-shadow);
+}
+
+.image-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 20%, var(--image-scrim-mid) 64%, var(--image-scrim-bottom) 100%);
+}
+
+.image-overlay-glass {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+  border: 1px solid var(--image-overlay-border);
+  background: var(--image-overlay-bg);
+  color: var(--image-overlay-foreground);
+  backdrop-filter: var(--image-overlay-filter);
+  -webkit-backdrop-filter: var(--image-overlay-filter);
+  box-shadow: 0 12px 30px var(--image-overlay-shadow);
+}
+
+.image-overlay-label {
+  color: var(--image-overlay-accent);
+  font-weight: var(--image-overlay-label-weight);
+}
+
+.image-overlay-title {
+  color: var(--image-overlay-foreground);
+  font-weight: var(--image-overlay-title-weight);
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.image-overlay-compact {
+  gap: 0.1rem;
 }
 
 .logo-ripple {

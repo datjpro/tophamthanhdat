@@ -124,7 +124,7 @@ function TimelineCard({
             fill
             className="object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
+          <div className="image-scrim" />
         </div>
       </div>
 

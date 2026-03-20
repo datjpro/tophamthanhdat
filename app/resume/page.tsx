@@ -55,7 +55,7 @@ function ResumePageContent({ locale }: { locale: "vi" | "en" }) {
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
+            <div className="image-scrim" />
           </div>
         </div>
         <div className="space-y-4">

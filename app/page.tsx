@@ -100,10 +100,10 @@ function HomePageContent({ locale }: { locale: "vi" | "en" }) {
               className="object-cover object-center grayscale-[0.12] contrast-110"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+            <div className="image-scrim" />
           </div>
-          <div className="glass-panel absolute bottom-8 left-8 rounded-xl px-4 py-2">
-            <p className="mono-label text-accent">{copy.availability}</p>
+          <div className="image-overlay-glass image-overlay-compact absolute bottom-6 left-6 max-w-[calc(100%-3rem)] rounded-xl px-4 py-2 md:bottom-8 md:left-8">
+            <p className="image-overlay-label mono-label">{copy.availability}</p>
           </div>
         </div>
       </section>
@@ -130,7 +130,7 @@ function HomePageContent({ locale }: { locale: "vi" | "en" }) {
                   fill
                   className="object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
+                <div className="image-scrim" />
               </div>
               <CardHeader className="space-y-3">
                 <p className="mono-label text-accent">{project.year}</p>

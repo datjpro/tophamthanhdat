@@ -78,7 +78,7 @@ export function ProjectDetailClient({ slug }: Props) {
           fill
           className="object-cover grayscale-[0.08]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
+        <div className="image-scrim" />
       </div>
 
       <Card className="glass-panel">

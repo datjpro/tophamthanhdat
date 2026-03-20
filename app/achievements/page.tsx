@@ -47,10 +47,10 @@ function AchievementsPageContent({ locale }: { locale: "vi" | "en" }) {
             fill
             className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-          <div className="absolute bottom-6 left-6 rounded-lg bg-background/70 px-4 py-3 backdrop-blur">
-            <p className="mono-label text-accent">{copy.featured}</p>
-            <p className="display-text text-3xl text-foreground">{copy.featuredTitle}</p>
+          <div className="image-scrim" />
+          <div className="image-overlay-glass absolute bottom-4 left-4 right-4 rounded-xl px-4 py-3 md:bottom-6 md:left-6 md:right-auto md:max-w-[30rem] md:px-5 md:py-4">
+            <p className="image-overlay-label mono-label">{copy.featured}</p>
+            <p className="image-overlay-title display-text text-2xl md:text-3xl">{copy.featuredTitle}</p>
           </div>
         </div>
       </div>
