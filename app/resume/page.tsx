@@ -1,121 +1,75 @@
 "use client";
 
 import { Suspense } from "react";
-import Link from "next/link";
-import { Download } from "lucide-react";
+import { Download, ExternalLink, FileText } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { SafeImage } from "@/components/ui/safe-image";
-import { getExperiences, getImageMap, getProfile, getSkills } from "@/lib/content-data";
 import { normalizeLocale } from "@/lib/i18n";
 
 const RESUME_COPY = {
   vi: {
-    tag: "CV / Tong Quan Chuyen Mon",
-    title: "Dinh Huong, Kinh Nghiem va Nang Luc",
+    tag: "CV / Resume",
+    title: "CV Cua To Pham Thanh Dat",
     description:
-      "Thong tin CV duoc dong bo theo du lieu trung tam, de cap nhat nhanh khi bo sung du an va thanh tuu moi.",
+      "Trang nay hien truc tiep file CV PDF cua toi de xem nhanh, mo tab moi hoac tai xuong ngay.",
     download: "Tai CV",
-    experience: "Kinh Nghiem & Du An",
-    skills: "Ky Nang Chuyen Mon",
-    education: "Hoc Van",
-    objective: "Muc Tieu Nghe Nghiep",
+    open: "Mo Tab Moi",
+    preview: "Xem Truoc CV",
+    fallback: "Neu trinh xem PDF khong hien thi, hay mo file trong tab moi hoac tai xuong.",
   },
   en: {
-    tag: "Resume / Professional Summary",
-    title: "Direction, Experience, and Capability Stack",
+    tag: "CV / Resume",
+    title: "To Pham Thanh Dat CV",
     description:
-      "Resume content is centralized for fast updates whenever new projects and achievements are added.",
+      "This page displays my PDF CV directly so it can be previewed, opened in a new tab, or downloaded instantly.",
     download: "Download CV",
-    experience: "Experience & Projects",
-    skills: "Skills Matrix",
-    education: "Education",
-    objective: "Career Direction",
+    open: "Open in New Tab",
+    preview: "CV Preview",
+    fallback: "If the PDF preview does not load, open the file in a new tab or download it instead.",
   },
 } as const;
 
 function ResumePageContent({ locale }: { locale: "vi" | "en" }) {
   const copy = RESUME_COPY[locale];
-  const profile = getProfile(locale);
-  const experiences = getExperiences(locale);
-  const skills = getSkills(locale);
-  const imageMap = getImageMap();
 
   return (
-    <div className="space-y-10">
-      <section className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr]">
-        <div className="glass-panel relative aspect-[3/4] overflow-hidden rounded-3xl p-2">
-          <div className="relative h-full overflow-hidden rounded-2xl">
-            <SafeImage
-              src={imageMap.resumeProfile}
-              fallbackSrc={imageMap.fallback}
-              alt="Resume profile"
-              fill
-              className="object-cover"
-            />
-            <div className="image-scrim" />
-          </div>
-        </div>
-        <div className="space-y-4">
+    <div className="space-y-8">
+      <section className="space-y-4">
+        <div className="flex items-center gap-3">
+          <FileText className="size-4 text-accent" />
           <p className="mono-label text-accent">{copy.tag}</p>
-          <h1 className="section-title">{copy.title}</h1>
-          <p className="max-w-3xl text-muted-foreground">{profile.about}</p>
-          <p className="max-w-3xl text-muted-foreground">{copy.description}</p>
+        </div>
+        <h1 className="section-title">{copy.title}</h1>
+        <p className="max-w-3xl text-muted-foreground">{copy.description}</p>
+        <div className="flex flex-wrap gap-3">
           <Button asChild className="bg-primary text-primary-foreground">
-            <Link href="/resume.pdf" target="_blank">
+            <a href="/resume.pdf" download>
               <Download className="size-4" />
               {copy.download}
-            </Link>
+            </a>
+          </Button>
+          <Button asChild variant="outline" className="border-accent/35 hover:border-accent">
+            <a href="/resume.pdf" target="_blank" rel="noreferrer">
+              <ExternalLink className="size-4" />
+              {copy.open}
+            </a>
           </Button>
         </div>
       </section>
 
       <section className="space-y-4">
-        <h2 className="display-text text-5xl">{copy.education}</h2>
-        <Card className="glass-panel">
-          <CardHeader>
-            <CardTitle className="text-2xl">{profile.education}</CardTitle>
-            <CardDescription>
-              <span className="mono-label text-muted-foreground">{copy.objective}: </span>
-              {profile.objective}
-            </CardDescription>
-          </CardHeader>
-        </Card>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="display-text text-5xl">{copy.experience}</h2>
-        <div className="grid gap-4">
-          {experiences.map((exp) => (
-            <Card key={`${exp.company}-${exp.role}`} className="glass-panel">
-              <CardHeader>
-                <p className="mono-label text-primary">{exp.date}</p>
-                <CardTitle className="text-2xl">
-                  {exp.role} <span className="text-muted-foreground">@ {exp.company}</span>
-                </CardTitle>
-                <CardDescription>{exp.impact}</CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
+        <h2 className="display-text text-4xl md:text-5xl">{copy.preview}</h2>
+        <div className="glass-panel overflow-hidden rounded-3xl p-2">
+          <div className="overflow-hidden rounded-[1.35rem] border border-border bg-white">
+            <iframe
+              src="/resume.pdf#view=FitH"
+              title={copy.title}
+              className="h-[70vh] w-full bg-white md:h-[92vh]"
+            />
+          </div>
         </div>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="display-text text-5xl">{copy.skills}</h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {skills.map((skill) => (
-            <Card key={skill.name} className="glass-panel">
-              <CardHeader>
-                <CardTitle className="text-lg">{skill.name}</CardTitle>
-                <CardDescription className="mono-label text-muted-foreground">
-                  {skill.category} / {skill.note}
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
-        </div>
+        <p className="text-sm text-muted-foreground">{copy.fallback}</p>
       </section>
     </div>
   );
