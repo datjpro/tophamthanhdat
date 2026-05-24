@@ -14,7 +14,7 @@ type Props = {
 
 const BLOG_DETAIL_COPY = {
   vi: {
-    back: "Ve Blog",
+    back: "Về Blog",
   },
   en: {
     back: "Back to Blog",

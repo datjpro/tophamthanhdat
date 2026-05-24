@@ -10,11 +10,11 @@ import { normalizeLocale } from "@/lib/i18n";
 
 const ACHIEVEMENT_COPY = {
   vi: {
-    tag: "Thanh Tuu",
-    title: "Giai Thuong, Cot Moc va Kinh Nghiem",
-    featured: "Giai Tieu Bieu",
-    featuredTitle: "Giai Ba - HUTECH CODE WAR 2024",
-    timeline: "Hanh Trinh Du An",
+    tag: "Thành Tựu",
+    title: "Giải Thưởng, Cột Mốc và Kinh Nghiệm",
+    featured: "Giải Tiêu Biểu",
+    featuredTitle: "Giải Ba - HUTECH CODE WAR 2024",
+    timeline: "Hành Trình Dự Án",
   },
   en: {
     tag: "Achievements",

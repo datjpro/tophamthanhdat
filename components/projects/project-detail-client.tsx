@@ -17,11 +17,11 @@ type Props = {
 
 const DETAIL_COPY = {
   vi: {
-    back: "Quay Lai Danh Sach Du An",
-    techStrip: "Cong Nghe Su Dung",
+    back: "Quay Lại Danh Sách Dự Án",
+    techStrip: "Công Nghệ Sử Dụng",
     keyResults: "Ket Qua Noi Bat",
     liveDemo: "Xem Demo",
-    notFound: "Khong tim thay du an.",
+    notFound: "Không tìm thấy dự án.",
   },
   en: {
     back: "Back to Projects",

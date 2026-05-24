@@ -8,10 +8,10 @@ import { withLocale } from "@/lib/i18n";
 
 const BLOG_COPY = {
   vi: {
-    backHome: "Ve Trang Chu",
-    tag: "Ghi Chu Ky Thuat",
-    title: "Nhat Ky Nghien Cuu va Xay Dung",
-    readFull: "Doc Bai Viet",
+    backHome: "Về Trang Chủ",
+    tag: "Ghi Chú Kỹ Thuật",
+    title: "Nhật Ký Nghiên Cứu và Xây Dựng",
+    readFull: "Đọc Bài Viết",
   },
   en: {
     backHome: "Back Home",

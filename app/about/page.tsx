@@ -10,15 +10,15 @@ import { normalizeLocale } from "@/lib/i18n";
 
 const ABOUT_COPY = {
   vi: {
-    tag: "Gioi Thieu / Profile Intelligence",
-    title: "Nen Tang Tu Duy Phat Trien",
+    tag: "Giới Thiệu / Profile Intelligence",
+    title: "Nền Tảng Tư Duy Phát Triển",
     terminal: "profile_dump.sh",
     whoami: "sinhvien@portfolio:~$ whoami",
-    locationLabel: "Dia Diem",
-    experienceLabel: "Trang Thai",
-    galleryAlt: "Anh gioi thieu",
-    skillTitle: "Ky Nang Chuyen Mon",
-    skillDescription: "Cum ky nang su dung hang ngay trong web, mobile va blockchain.",
+    locationLabel: "Địa Điểm",
+    experienceLabel: "Trạng Thái",
+    galleryAlt: "Ảnh giới thiệu",
+    skillTitle: "Kỹ Năng Chuyên Môn",
+    skillDescription: "Cụm kỹ năng sử dụng hằng ngày trong web, mobile và blockchain.",
   },
   en: {
     tag: "About / Profile Intelligence",

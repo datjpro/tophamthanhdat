@@ -105,8 +105,8 @@ export const SITE_THEME = {
 
 const SITE_THEME_COPY: Record<Locale, { ctaPrimary: string; ctaSecondary: string }> = {
   vi: {
-    ctaPrimary: "Xem Du An",
-    ctaSecondary: "Lien He Ngay",
+    ctaPrimary: "Xem Dự Án",
+    ctaSecondary: "Liên Hệ Ngay",
   },
   en: {
     ctaPrimary: "Explore Projects",
@@ -131,12 +131,12 @@ export const PROJECT_LAYOUT_META: Record<string, { variant: TimelineVariant; wid
 
 const NAV_LINKS_BY_LOCALE: Record<Locale, NavLink[]> = {
   vi: [
-    { label: "Trang Chu", href: "/" },
-    { label: "Gioi Thieu", href: "/about" },
-    { label: "Du An", href: "/projects" },
+    { label: "Trang Chủ", href: "/" },
+    { label: "Giới Thiệu", href: "/about" },
+    { label: "Dự Án", href: "/projects" },
     { label: "Portfolio", href: "/portfolio" },
-    { label: "Thanh Tuu", href: "/achievements" },
-    { label: "Lien He", href: "/contact" },
+    { label: "Thành Tựu", href: "/achievements" },
+    { label: "Liên Hệ", href: "/contact" },
     { label: "CV", href: "/resume" },
     { label: "Blog", href: "/blog" },
   ],
@@ -155,13 +155,13 @@ const NAV_LINKS_BY_LOCALE: Record<Locale, NavLink[]> = {
 const ABOUT_CARDS_BY_LOCALE: Record<Locale, AboutCard[]> = {
   vi: [
     {
-      title: "Tu Duy Xay Dung",
+      title: "Tư Duy Xây Dựng",
       body: "Bat dau tu bai toan thuc te, uu tien ban chay duoc va cai tien nhanh.",
       icon: Hammer,
     },
     {
       title: "Code + Design",
-      body: "Tap trung vao cau truc ro rang, UI responsive va trai nghiem nhat quan.",
+      body: "Tập trung vào cấu trúc rõ ràng, UI responsive và trải nghiệm nhất quán.",
       icon: Paintbrush2,
     },
     {
@@ -170,7 +170,7 @@ const ABOUT_CARDS_BY_LOCALE: Record<Locale, AboutCard[]> = {
       icon: Gauge,
     },
     {
-      title: "Muc Tieu Dai Han",
+      title: "Mục Tiêu Dài Hạn",
       body: "Phat trien len vi tri Solution Architect trong he sinh thai web va blockchain.",
       icon: Sparkles,
     },
@@ -205,10 +205,10 @@ const SKILLS_BY_LOCALE: Record<Locale, SkillItem[]> = {
     { name: "Flutter (Dart)", category: "Frontend", note: "Mobile app da nen tang", icon: Blocks },
     { name: "Tailwind CSS", category: "Frontend", note: "He thong style nhanh va nhat quan", icon: WandSparkles },
     { name: "TypeScript", category: "Frontend", note: "Kiem soat kieu du lieu an toan", icon: Code2 },
-    { name: "ASP.NET Core", category: "Backend", note: "Xay dung API va business logic", icon: ServerCog },
+    { name: "ASP.NET Core", category: "Backend", note: "Xây dựng API và business logic", icon: ServerCog },
     { name: "Node.js", category: "Backend", note: "API backend va xu ly realtime", icon: CloudCog },
-    { name: "Solidity", category: "Backend", note: "Xay dung smart contract", icon: ShieldCheck },
-    { name: "SQL Server", category: "Backend", note: "Thiet ke CSDL quan he", icon: Database },
+    { name: "Solidity", category: "Backend", note: "Xây dựng smart contract", icon: ShieldCheck },
+    { name: "SQL Server", category: "Backend", note: "Thiết kế CSDL quan hệ", icon: Database },
     { name: "MongoDB", category: "Backend", note: "Luu tru du lieu linh hoat", icon: Database },
     { name: "Git/GitHub", category: "Tools", note: "Quan ly source code va review", icon: GitBranch },
     { name: "VS Code", category: "Tools", note: "Moi truong dev chinh", icon: Wrench },
@@ -235,9 +235,9 @@ const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
     {
       slug: "ecommerce-mobile-app",
       title: "E-commerce Mobile App",
-      summary: "Ung dung ban hang online day du gio hang, thanh toan va quan ly don hang.",
+      summary: "Ứng dụng bán hàng online đầy đủ giỏ hàng, thanh toán và quản lý đơn hàng.",
       description:
-        "Do an co so tap trung vao trai nghiem mua sam mobile tu dau den cuoi, toi uu luong du lieu va kha nang van hanh.",
+        "Đồ án cơ sở tập trung vào trải nghiệm mua sắm mobile từ đầu đến cuối, tối ưu luồng dữ liệu và khả năng vận hành.",
       tech: ["Flutter", "Node.js"],
       image: "/projects/pulse-commerce.svg",
       github: "https://github.com/datjpro/ecommerce_flutter",
@@ -245,17 +245,17 @@ const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
       year: "2025",
       role: "Mobile Developer",
       results: [
-        "Xay dung day du tinh nang gio hang, thanh toan va quan ly don hang.",
-        "Toi uu truy van du lieu, cai thien toc do tai trang khoang 40%.",
-        "Hoan thien theo huong san pham co the tiep tuc mo rong.",
+        "Xây dựng đầy đủ tính năng giỏ hàng, thanh toán và quản lý đơn hàng.",
+        "Tối ưu truy vấn dữ liệu, cải thiện tốc độ tải trang khoảng 40%.",
+        "Hoàn thiện theo hướng sản phẩm có thể tiếp tục mở rộng.",
       ],
     },
     {
       slug: "viepropchain",
       title: "ViePropChain",
-      summary: "Nen tang giao dich va cho thue bat dong san tren Blockchain.",
+      summary: "Nền tảng giao dịch và cho thuê bất động sản trên Blockchain.",
       description:
-        "Do an chuyen nganh ket hop web2 va blockchain, tap trung vao smart contract, luong nghiep vu va giao dien responsive.",
+        "Đồ án chuyên ngành kết hợp web2 và blockchain, tập trung vào smart contract, luồng nghiệp vụ và giao diện responsive.",
       tech: ["React.js", "Flutter", "Blockchain"],
       image: "/projects/vibe-analytics.svg",
       github: "https://github.com/datjpro/viepropchain",
@@ -263,9 +263,9 @@ const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
       year: "2025",
       role: "Blockchain Developer",
       results: [
-        "Thiet ke smart contract cho nghiep vu giao dich va thue.",
-        "Phat trien frontend responsive cho ca web va mobile.",
-        "Dong bo luong xu ly giua giao dien va contract.",
+        "Thiết kế smart contract cho nghiệp vụ giao dịch và thuê.",
+        "Phát triển frontend responsive cho cả web và mobile.",
+        "Đồng bộ luồng xử lý giữa giao diện và contract.",
       ],
     },
     {
@@ -273,7 +273,7 @@ const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
       title: "DApp Quyen Gop",
       summary: "Ung dung phi tap trung cho phep quyen gop minh bach qua blockchain.",
       description:
-        "Du an ca nhan trien khai smart contract va giao dien tuong tac realtime, huong toi tinh minh bach va de kiem chung.",
+        "Dự án cá nhân triển khai smart contract và giao diện tương tác realtime, hướng tới tính minh bạch và dễ kiểm chứng.",
       tech: ["React.js", "Blockchain"],
       image: "/projects/task-orbit.svg",
       github: "https://github.com/datjpro",
@@ -282,7 +282,7 @@ const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
       role: "DApp Developer",
       results: [
         "Trien khai smart contract cho quy trinh quyen gop.",
-        "Xay dung giao dien realtime theo trang thai giao dich.",
+        "Xây dựng giao diện realtime theo trạng thái giao dịch.",
         "To chuc source code de mo rong theo nhieu chien dich.",
       ],
     },
@@ -349,21 +349,21 @@ const EXPERIENCES_BY_LOCALE: Record<Locale, ExperienceItem[]> = {
   vi: [
     {
       role: "Mobile Developer",
-      company: "E-commerce Mobile App (Do an Co so)",
+      company: "E-commerce Mobile App (Đồ án Cơ sở)",
       date: "03/2025 - 06/2025",
-      impact: "Xay dung ung dung ban hang online, toi uu du lieu giup toc do load cai thien khoang 40%.",
+      impact: "Xây dựng ứng dụng bán hàng online, tối ưu dữ liệu giúp tốc độ load cải thiện khoảng 40%.",
     },
     {
       role: "Blockchain Developer",
-      company: "ViePropChain (Do an Chuyen nganh)",
+      company: "ViePropChain (Đồ án Chuyên ngành)",
       date: "10/2025 - 12/2025",
-      impact: "Phat trien nen tang bat dong san tren blockchain voi smart contract va giao dien responsive.",
+      impact: "Phát triển nền tảng bất động sản trên blockchain với smart contract và giao diện responsive.",
     },
     {
       role: "DApp Developer",
-      company: "Blockchain Donation (Du an ca nhan)",
+      company: "Blockchain Donation (Dự án cá nhân)",
       date: "10/2025 - Nay",
-      impact: "Trien khai dApp quyen gop minh bach voi smart contract va frontend realtime.",
+      impact: "Triển khai dApp quyên góp minh bạch với smart contract và frontend realtime.",
     },
   ],
   en: [
@@ -391,24 +391,24 @@ const EXPERIENCES_BY_LOCALE: Record<Locale, ExperienceItem[]> = {
 const ACHIEVEMENTS_BY_LOCALE: Record<Locale, AchievementItem[]> = {
   vi: [
     {
-      title: "Giai Ba - HUTECH CODE WAR 2024",
+      title: "Giải Ba - HUTECH CODE WAR 2024",
       period: "03/2024 - 05/2024",
-      detail: "Dat giai Ba trong cuoc thi lap trinh HUTECH CODE WAR 2024.",
+      detail: "Đạt giải Ba trong cuộc thi lập trình HUTECH CODE WAR 2024.",
     },
     {
-      title: "Giai Khuyen Khich - My First Website",
+      title: "Giải Khuyến Khích - My First Website",
       period: "2023 & 2024",
-      detail: "Nhan giai Khuyen khich lien tiep tai cuoc thi My First Website.",
+      detail: "Nhận giải Khuyến khích liên tiếp tại cuộc thi My First Website.",
     },
     {
       title: "Website & AI Innovation Contest 2026",
       period: "2026",
-      detail: "Thi sinh bang B (Advanced Track) voi de tai website va AI.",
+      detail: "Thí sinh bảng B (Advanced Track) với đề tài website và AI.",
     },
     {
-      title: "Thanh vien doi thi CNTT HUTECH",
+      title: "Thành viên đội thi CNTT HUTECH",
       period: "2024 - Nay",
-      detail: "Tham gia doi thi sinh vien Khoa CNTT, luyen tap du an va cuoc thi thuc te.",
+      detail: "Tham gia đội thi sinh viên Khoa CNTT, luyện tập dự án và cuộc thi thực tế.",
     },
   ],
   en: [
@@ -438,14 +438,14 @@ const ACHIEVEMENTS_BY_LOCALE: Record<Locale, AchievementItem[]> = {
 const PROFILE_BY_LOCALE: Record<Locale, ProfileInfo> = {
   vi: {
     name: "TO PHAM THANH DAT",
-    title: "Lap trinh vien / Software Developer",
+    title: "Lập trình viên / Software Developer",
     about:
-      "Sinh vien nam 4 chuyen nganh Cong nghe Phan mem tai HUTECH. Da co kinh nghiem phat trien ung dung web va mobile voi Flutter, React va ASP.NET Core.",
+      "Sinh viên năm 4 chuyên ngành Công nghệ Phần mềm tại HUTECH. Đã có kinh nghiệm phát triển ứng dụng web và mobile với Flutter, React và ASP.NET Core.",
     location: "Phuong Dong Hoa, TP. Thu Duc, TP.HCM",
     experience: "Sinh vien nam 4 - HUTECH",
-    education: "Cu nhan Cong nghe Phan mem (2022 - 2026 du kien) - GPA 3.05/4.0",
+    education: "Cử nhân Công nghệ Phần mềm (2022 - 2026 dự kiến) - GPA 3.05/4.0",
     objective:
-      "Dam me Blockchain va dang huong toi vi tri Solution Architect, mong muon tham gia moi truong de hoc cong nghe moi va dong gop du an thuc te.",
+      "Đam mê Blockchain và đang hướng tới vị trí Solution Architect, mong muốn tham gia môi trường để học công nghệ mới và đóng góp dự án thực tế.",
   },
   en: {
     name: "TO PHAM THANH DAT",
@@ -503,11 +503,11 @@ const FOOTER_COPY_BY_LOCALE: Record<
   }
 > = {
   vi: {
-    subtitle: "Lap trinh vien phat trien Web, Mobile, Blockchain",
-    headline: "Thiet ke va hien thuc giai phap tu giao dien den kien truc.",
-    connect: "Ket Noi",
-    madeWith: "Phat trien bang Next.js",
-    rights: "Ban quyen",
+    subtitle: "Lập trình viên phát triển Web, Mobile, Blockchain",
+    headline: "Thiết kế và hiện thực giải pháp từ giao diện đến kiến trúc.",
+    connect: "Kết Nối",
+    madeWith: "Phát triển bằng Next.js",
+    rights: "Bản quyền",
   },
   en: {
     subtitle: "Web, Mobile, and Blockchain Developer",

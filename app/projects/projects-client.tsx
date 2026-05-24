@@ -22,9 +22,9 @@ import { cn } from "@/lib/utils";
 
 const PAGE_COPY = {
   vi: {
-    tag: "Timeline Du An",
-    title: "Du An Tieu Bieu",
-    description: "Tong hop nhung du an thuc te ve web, mobile va blockchain.",
+    tag: "Timeline Dự Án",
+    title: "Dự Án Tiêu Biểu",
+    description: "Tổng hợp những dự án thực tế về web, mobile và blockchain.",
     caseStudy: "Chi Tiet",
     github: "GitHub",
     demo: "Demo",

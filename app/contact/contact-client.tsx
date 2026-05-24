@@ -13,20 +13,20 @@ import type { Locale } from "@/lib/i18n";
 
 const CONTACT_COPY = {
   vi: {
-    tag: "Lien He",
-    title: "Ket Noi De Hop Tac",
-    description: "Form nay se mo ung dung email de gui tin nhan truc tiep.",
-    secureMessage: "Gui Tin Nhan",
-    send: "Gui Yeu Cau",
-    sent: "Da mo ung dung email.",
-    directEmail: "Gui nhanh qua email:",
-    social: "Kenh Ket Noi",
-    copyEmail: "Sao chep email",
-    copied: "Da sao chep email",
-    namePlaceholder: "Ho va ten",
-    emailPlaceholder: "Email cua ban",
-    messagePlaceholder: "Mo ta ngan ve du an can trao doi...",
-    phone: "So dien thoai",
+    tag: "Liên Hệ",
+    title: "Kết Nối Để Hợp Tác",
+    description: "Form này sẽ mở ứng dụng email để gửi tin nhắn trực tiếp.",
+    secureMessage: "Gửi Tin Nhắn",
+    send: "Gửi Yêu Cầu",
+    sent: "Đã mở ứng dụng email.",
+    directEmail: "Gửi nhanh qua email:",
+    social: "Kênh Kết Nối",
+    copyEmail: "Sao chép email",
+    copied: "Đã sao chép email",
+    namePlaceholder: "Họ và tên",
+    emailPlaceholder: "Email của bạn",
+    messagePlaceholder: "Mô tả ngắn về dự án cần trao đổi...",
+    phone: "Số điện thoại",
   },
   en: {
     tag: "Contact Node",
@@ -87,7 +87,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
                 event.preventDefault();
                 const subject =
                   locale === "vi"
-                    ? `Lien he tu ${formData.name || formData.email || "Website"}`
+                    ? `Liên hệ từ ${formData.name || formData.email || "Website"}`
                     : `Contact from ${formData.name || formData.email || "Website"}`;
                 const body = [
                   `${copy.namePlaceholder}: ${formData.name}`,

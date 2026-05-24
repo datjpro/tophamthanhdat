@@ -34,8 +34,8 @@ export function SiteFooter() {
     minute: "2-digit",
     second: "2-digit",
   });
-  const timeLabel = locale === "vi" ? "Gio hien tai(GMT+7)" : "Current time(GMT+7)";
-  const visitLabel = locale === "vi" ? "Luot truy cap" : "Visits";
+  const timeLabel = locale === "vi" ? "Giờ hiện tại (GMT+7)" : "Current time(GMT+7)";
+  const visitLabel = locale === "vi" ? "Lượt truy cập" : "Visits";
 
   return (
     <footer className="mx-auto mb-7 mt-12 w-[min(96%,82rem)] border-t border-border px-2 py-10">

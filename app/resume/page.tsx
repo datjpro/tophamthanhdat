@@ -12,11 +12,11 @@ const RESUME_COPY = {
     tag: "CV / Resume",
     title: "CV Cua To Pham Thanh Dat",
     description:
-      "Trang nay hien truc tiep file CV PDF cua toi de xem nhanh, mo tab moi hoac tai xuong ngay.",
-    download: "Tai CV",
+      "Trang này hiển trực tiếp file CV PDF của tôi để xem nhanh, mở tab mới hoặc tải xuống ngay.",
+    download: "Tải CV",
     open: "Mo Tab Moi",
-    preview: "Xem Truoc CV",
-    fallback: "Neu trinh xem PDF khong hien thi, hay mo file trong tab moi hoac tai xuong.",
+    preview: "Xem Trước CV",
+    fallback: "Nếu trình xem PDF không hiển thị, hãy mở file trong tab mới hoặc tải xuống.",
   },
   en: {
     tag: "CV / Resume",

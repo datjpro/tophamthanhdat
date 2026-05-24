@@ -14,17 +14,17 @@ import { normalizeLocale, withLocale } from "@/lib/i18n";
 const HOME_COPY = {
   vi: {
     badge: "Software Developer",
-    title: "Ket noi ky nang xay dung giao dien hien dai voi tu duy he thong thuc chien.",
+    title: "Kết nối kỹ năng xây dựng giao diện hiện đại với tư duy hệ thống thực chiến.",
     description:
-      "Day la portfolio ca nhan cua To Pham Thanh Dat, tong hop du an web, mobile va blockchain voi cach trinh bay de mo rong va cap nhat nhanh.",
-    primaryFocusLabel: "Muc Tieu Chinh",
-    primaryFocus: "Phat trien web/mobile, blockchain va huong toi vai tro Solution Architect.",
-    currentStackLabel: "Cong Nghe Hien Tai",
+      "Đây là portfolio cá nhân của To Pham Thanh Dat, tổng hợp dự án web, mobile và blockchain với cách trình bày dễ mở rộng và cập nhật nhanh.",
+    primaryFocusLabel: "Mục Tiêu Chính",
+    primaryFocus: "Phát triển web/mobile, blockchain và hướng tới vai trò Solution Architect.",
+    currentStackLabel: "Công Nghệ Hiện Tại",
     currentStack: "React.js, Flutter, ASP.NET Core, Solidity, Truffle.",
-    availability: "San sang hop tac du an phu hop",
-    curatedTitle: "Du An Noi Bat",
-    seeAllProjects: "Xem Tat Ca Du An",
-    openCaseStudy: "Xem Chi Tiet",
+    availability: "Sẵn sàng hợp tác dự án phù hợp",
+    curatedTitle: "Dự Án Nổi Bật",
+    seeAllProjects: "Xem Tất Cả Dự Án",
+    openCaseStudy: "Xem Chi Tiết",
   },
   en: {
     badge: "Software Developer",

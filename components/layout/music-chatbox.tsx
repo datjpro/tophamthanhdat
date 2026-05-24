@@ -15,15 +15,15 @@ const STORAGE_KEY = "music_player_state";
 
 const COPY = {
   vi: {
-    title: "Nhan nhac dang phat",
+    title: "Nhạc đang phát",
     hint: "Am thanh tu dong bat sau lan tuong tac dau tien.",
-    openYoutube: "Mo YouTube trong tab moi",
+    openYoutube: "Mở YouTube trong tab moi",
     toggle: "Phat nhac",
     closeLabel: "Dong trinh phat",
     ariaOpen: "Mo trinh phat nhac",
     ariaClose: "Thu nho trinh phat nhac",
-    statusPlaying: "Dang phat",
-    statusIdle: "Khong phat",
+    statusPlaying: "Đang phát",
+    statusIdle: "Không phát",
   },
   en: {
     title: "Now playing",

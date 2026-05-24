@@ -28,7 +28,7 @@ export function LanguageSwitch() {
       size="sm"
       onClick={toggleLocale}
       className="w-[74px] justify-center border border-border/70 bg-card/60 px-0"
-      aria-label={locale === "vi" ? "Switch to English" : "Chuyen sang tieng Viet"}
+      aria-label={locale === "vi" ? "Switch to English" : "Chuyển sang tiếng Việt"}
     >
       <Languages className="size-4" />
       <span className="mono-label text-[10px]">{locale.toUpperCase()}</span>
