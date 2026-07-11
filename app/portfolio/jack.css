@@ -1,0 +1,39 @@
+/* app/portfolio/jack.css */
+@import "tailwindcss";
+
+/* Scoped global styles for the portfolio */
+html.portfolio-page,
+body.portfolio-page {
+  background-color: #0C0C0C !important;
+  background-image: none !important;
+  color: #D7E2EA !important;
+  font-family: var(--font-kanit), 'Kanit', sans-serif !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: clip;
+}
+
+.portfolio-wrapper {
+  background-color: #0C0C0C;
+  color: #D7E2EA;
+  font-family: var(--font-kanit), 'Kanit', sans-serif;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: clip;
+  box-sizing: border-box;
+}
+
+.portfolio-wrapper *,
+.portfolio-wrapper *::before,
+.portfolio-wrapper *::after {
+  box-sizing: border-box;
+}
+
+/* Custom heading gradient */
+.hero-heading {
+  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
