@@ -25,7 +25,15 @@ export function FadeIn({
   style,
 }: FadeInProps) {
   // Use motion.create to support custom or standard elements dynamically
-  const MotionComponent = motion.create(as as any);
+  const MotionComponent = motion.create(as as Parameters<typeof motion.create>[0]) as React.ComponentType<{
+    className?: string;
+    style?: CSSProperties;
+    children?: ReactNode;
+    initial?: object;
+    whileInView?: object;
+    viewport?: object;
+    transition?: object;
+  }>;
 
   return (
     <MotionComponent

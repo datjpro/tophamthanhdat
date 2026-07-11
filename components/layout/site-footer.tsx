@@ -1,81 +1,72 @@
 "use client";
 
-import Link from "next/link";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-
 import { getFooterCopy, getSocialLinks } from "@/lib/content-data";
 import { normalizeLocale } from "@/lib/i18n";
 
 export function SiteFooter() {
   const searchParams = useSearchParams();
-  const locale = normalizeLocale(searchParams.get("lang"));
+
+  // Prevent SSR/hydration text mismatch by delaying locale resolution until client mount
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const locale = mounted ? normalizeLocale(searchParams.get("lang")) : "vi";
   const footer = getFooterCopy(locale);
   const socialLinks = getSocialLinks();
-  const [now, setNow] = useState(() => new Date());
-  const [visitCount, setVisitCount] = useState<number | null>(null);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setNow(new Date()), 1000);
-    return () => window.clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    const storageKey = "site_visit_count";
-    const rawValue = window.localStorage.getItem(storageKey);
-    const currentValue = Number.parseInt(rawValue ?? "0", 10);
-    const nextValue = Number.isFinite(currentValue) ? currentValue + 1 : 1;
-    window.localStorage.setItem(storageKey, String(nextValue));
-    setVisitCount(nextValue);
-  }, []);
-
-  const timeText = now.toLocaleTimeString(locale === "vi" ? "vi-VN" : "en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
-  const timeLabel = locale === "vi" ? "Giờ hiện tại (GMT+7)" : "Current time(GMT+7)";
-  const visitLabel = locale === "vi" ? "Lượt truy cập" : "Visits";
 
   return (
-    <footer className="mx-auto mb-7 mt-12 w-[min(96%,82rem)] border-t border-border px-2 py-10">
-      <div className="grid gap-7 md:grid-cols-2">
-        <div className="space-y-4">
-          <p className="mono-label text-muted-foreground">{footer.subtitle}</p>
-          <p className="display-text max-w-xl text-3xl leading-none text-foreground md:text-5xl">
+    <footer 
+      className="w-full border-t border-black/10 bg-[#fafafa] py-12 px-5 sm:px-8 md:px-10 text-black z-10 relative"
+      suppressHydrationWarning={true}
+    >
+      <div 
+        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8"
+        suppressHydrationWarning={true}
+      >
+        <div suppressHydrationWarning={true}>
+          <p className="text-[13px] tracking-wider uppercase text-black/50 mb-2">{footer.subtitle}</p>
+          <h2 className="text-[24px] sm:text-[32px] font-medium tracking-tight leading-tight max-w-xl text-black">
             {footer.headline}
-          </p>
+          </h2>
         </div>
 
-        <div className="space-y-5 md:justify-self-end">
-          <p className="mono-label text-muted-foreground">{footer.connect}</p>
-          <div className="flex flex-wrap gap-3">
-            {socialLinks.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                target="_blank"
-                className="glass-panel inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-muted-foreground hover:text-foreground"
-              >
-                {item.icon ? <item.icon className="size-4" /> : null}
-                {item.label}
-              </Link>
+        <div className="flex flex-col gap-2" suppressHydrationWarning={true}>
+          <p className="text-[13px] tracking-wider uppercase text-black/50">{footer.connect}</p>
+          <div 
+            className="flex flex-wrap gap-x-4 gap-y-1 text-[16px] font-normal"
+            suppressHydrationWarning={true}
+          >
+            {socialLinks.map((item, idx) => (
+              <React.Fragment key={item.label}>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-60 transition-opacity text-black"
+                >
+                  {item.label}
+                </a>
+                {idx < socialLinks.length - 1 && <span className="text-black/30">/</span>}
+              </React.Fragment>
             ))}
           </div>
         </div>
       </div>
-      <div className="mt-10 flex flex-col gap-2 border-t border-border pt-5 text-xs text-muted-foreground md:flex-row md:justify-between">
+
+      <div 
+        className="mt-12 pt-6 border-t border-black/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-[13px] text-black/60 font-normal"
+        suppressHydrationWarning={true}
+      >
         <p>
           {footer.rights} &copy; {new Date().getFullYear()} To Dat. All rights reserved.
         </p>
-        <div className="flex flex-wrap gap-4">
-          <span>
-            {timeLabel}: {timeText}
-          </span>
-          <span>
-            {visitLabel}: {visitCount ?? "—"}
-          </span>
-        </div>
+        <p className="tracking-tight">
+          DatJ Portfolio &bull; HCM, Vietnam
+        </p>
       </div>
     </footer>
   );

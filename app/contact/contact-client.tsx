@@ -1,13 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import React, { useState } from "react";
 import { Copy, Mail, MapPin, Phone } from "lucide-react";
-import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { getContactInfo, getSocialLinks } from "@/lib/content-data";
 import type { Locale } from "@/lib/i18n";
 
@@ -67,143 +62,165 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
   }
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
+      {/* Title section */}
       <section className="space-y-4">
-        <p className="mono-label text-accent">{copy.tag}</p>
-        <h1 className="section-title">{copy.title}</h1>
-        <p className="max-w-3xl text-muted-foreground">{copy.description}</p>
+        <p className="text-[13px] tracking-wider uppercase text-black/50">{copy.tag}</p>
+        <h1 className="text-[36px] sm:text-[48px] font-medium tracking-tight text-black leading-tight">
+          {copy.title}
+        </h1>
+        <p className="max-w-2xl text-[16px] text-black/60 leading-relaxed">
+          {copy.description}
+        </p>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <Card className="frosted-glass">
-          <CardHeader>
-            <CardTitle className="display-text text-4xl">{copy.secureMessage}</CardTitle>
-            <CardDescription>{contact.responseTime}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form
-              className="space-y-4"
-              onSubmit={(event) => {
-                event.preventDefault();
-                const subject =
-                  locale === "vi"
-                    ? `Liên hệ từ ${formData.name || formData.email || "Website"}`
-                    : `Contact from ${formData.name || formData.email || "Website"}`;
-                const body = [
-                  `${copy.namePlaceholder}: ${formData.name}`,
-                  `${copy.emailPlaceholder}: ${formData.email}`,
-                  "",
-                  `${copy.messagePlaceholder}`,
-                  formData.message,
-                ].join("\n");
-                const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(
-                  subject,
-                )}&body=${encodeURIComponent(body)}`;
-                window.location.href = mailto;
-                setSent(true);
-                setTimeout(() => setSent(false), 2200);
-              }}
-            >
-              <Input
-                placeholder={copy.namePlaceholder}
-                value={formData.name}
-                onChange={(event) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    name: event.target.value,
-                  }))
-                }
-                required
-              />
-              <Input
-                type="email"
-                placeholder={copy.emailPlaceholder}
-                value={formData.email}
-                onChange={(event) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    email: event.target.value,
-                  }))
-                }
-                required
-              />
-              <Textarea
-                placeholder={copy.messagePlaceholder}
-                value={formData.message}
-                onChange={(event) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    message: event.target.value,
-                  }))
-                }
-                required
-              />
-              <div className="flex flex-wrap items-center gap-3">
-                <Button type="submit" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  {copy.send}
-                </Button>
-                {sent && <p className="text-sm text-muted-foreground">{copy.sent}</p>}
-              </div>
-              <p className="text-sm text-muted-foreground">
-                {copy.directEmail}{" "}
-                <Link className="text-primary underline-offset-4 hover:underline" href={`mailto:${contact.email}`}>
-                  {contact.email}
-                </Link>
-              </p>
-            </form>
-          </CardContent>
-        </Card>
+      <section className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] items-start">
+        {/* Contact Form */}
+        <div className="bg-white border border-black/10 rounded-2xl p-6 md:p-8 shadow-sm space-y-6">
+          <div className="space-y-1">
+            <h2 className="text-[22px] font-medium text-black tracking-tight">{copy.secureMessage}</h2>
+            <p className="text-[13px] text-black/50">{contact.responseTime}</p>
+          </div>
 
+          <form
+            className="space-y-4"
+            onSubmit={(event) => {
+              event.preventDefault();
+              const subject =
+                locale === "vi"
+                  ? `Liên hệ từ ${formData.name || formData.email || "Website"}`
+                  : `Contact from ${formData.name || formData.email || "Website"}`;
+              const body = [
+                `${copy.namePlaceholder}: ${formData.name}`,
+                `${copy.emailPlaceholder}: ${formData.email}`,
+                "",
+                `${copy.messagePlaceholder}`,
+                formData.message,
+              ].join("\n");
+              const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(
+                subject,
+              )}&body=${encodeURIComponent(body)}`;
+              window.location.href = mailto;
+              setSent(true);
+              setTimeout(() => setSent(false), 2200);
+            }}
+          >
+            <input
+              type="text"
+              placeholder={copy.namePlaceholder}
+              value={formData.name}
+              onChange={(event) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  name: event.target.value,
+                }))
+              }
+              className="w-full bg-white border border-black/10 rounded-xl px-4 py-2.5 text-black placeholder-black/35 focus:outline-none focus:border-black/40 text-[14px]"
+              required
+            />
+            <input
+              type="email"
+              placeholder={copy.emailPlaceholder}
+              value={formData.email}
+              onChange={(event) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  email: event.target.value,
+                }))
+              }
+              className="w-full bg-white border border-black/10 rounded-xl px-4 py-2.5 text-black placeholder-black/35 focus:outline-none focus:border-black/40 text-[14px]"
+              required
+            />
+            <textarea
+              placeholder={copy.messagePlaceholder}
+              value={formData.message}
+              onChange={(event) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  message: event.target.value,
+                }))
+              }
+              rows={4}
+              className="w-full bg-white border border-black/10 rounded-xl px-4 py-2.5 text-black placeholder-black/35 focus:outline-none focus:border-black/40 text-[14px] resize-none"
+              required
+            />
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <button
+                type="submit"
+                className="bg-black text-white px-5 py-[0.4em] rounded-full hover:bg-black/85 transition-colors duration-200 text-[14px] cursor-pointer font-medium"
+              >
+                {copy.send}
+              </button>
+              {sent && <p className="text-sm text-black/55">{copy.sent}</p>}
+            </div>
+            <p className="text-[13px] text-black/50 pt-2 border-t border-black/5">
+              {copy.directEmail}{" "}
+              <a href={`mailto:${contact.email}`} className="text-black underline underline-offset-2 hover:opacity-60 transition-opacity">
+                {contact.email}
+              </a>
+            </p>
+          </form>
+        </div>
+
+        {/* Sidebar Info */}
         <div className="space-y-6">
-          <Card className="glass-panel">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Mail className="size-4 text-accent" />
-                {copy.social}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
+          {/* Social Channels */}
+          <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm space-y-4">
+            <h2 className="flex items-center gap-2 text-[16px] font-medium text-black tracking-tight">
+              <Mail className="size-4 text-black/60 flex-shrink-0" />
+              {copy.social}
+            </h2>
+            <div className="space-y-2">
               {socialLinks.map((item) => (
-                <Button key={item.label} asChild variant="outline" className="w-full justify-start">
-                  <Link href={item.href} target="_blank">
-                    {item.icon ? <item.icon className="size-4" /> : null}
-                    {item.label}
-                  </Link>
-                </Button>
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center gap-2 justify-start bg-white hover:bg-black hover:text-white text-black border border-black/10 rounded-xl px-4 py-2.5 transition-all duration-200 text-[14px]"
+                >
+                  {item.icon ? <item.icon className="size-4 opacity-70" /> : null}
+                  <span>{item.label}</span>
+                </a>
               ))}
-              <Button variant="secondary" className="w-full justify-start" onClick={copyEmail}>
-                <Copy className="size-4" />
-                {copied ? copy.copied : copy.copyEmail}
-              </Button>
-              <Button asChild variant="outline" className="w-full justify-start">
-                <Link href={`tel:${contact.phone.replace(/\s+/g, "")}`}>
-                  <Phone className="size-4" />
+              <button
+                onClick={copyEmail}
+                className="w-full inline-flex items-center gap-2 justify-start bg-black/5 hover:bg-black hover:text-white text-black rounded-xl px-4 py-2.5 transition-all duration-200 text-[14px] cursor-pointer"
+              >
+                <Copy className="size-4 opacity-70" />
+                <span>{copied ? copy.copied : copy.copyEmail}</span>
+              </button>
+              <a
+                href={`tel:${contact.phone.replace(/\s+/g, "")}`}
+                className="w-full inline-flex items-center gap-2 justify-start bg-white hover:bg-black hover:text-white text-black border border-black/10 rounded-xl px-4 py-2.5 transition-all duration-200 text-[14px]"
+              >
+                <Phone className="size-4 opacity-70" />
+                <span>
                   {copy.phone}: {contact.phone}
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
+                </span>
+              </a>
+            </div>
+          </div>
 
-          <Card className="glass-panel">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <MapPin className="size-4 text-primary" />
+          {/* Location Map */}
+          <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="space-y-1">
+              <h2 className="flex items-center gap-2 text-[16px] font-medium text-black tracking-tight">
+                <MapPin className="size-4 text-black/60 flex-shrink-0" />
                 {contact.cityLabel}
-              </CardTitle>
-              <CardDescription>{contact.address}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-hidden rounded-2xl border border-border">
-                <iframe
-                  title={`Map: ${contact.address}`}
-                  src={mapSrc}
-                  className="h-48 w-full"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </CardContent>
-          </Card>
+              </h2>
+              <p className="text-[13px] text-black/55">{contact.address}</p>
+            </div>
+            <div className="overflow-hidden rounded-xl border border-black/5 bg-black/5">
+              <iframe
+                title={`Map: ${contact.address}`}
+                src={mapSrc}
+                className="h-48 w-full border-0 grayscale hover:grayscale-0 transition-all duration-500"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
         </div>
       </section>
     </div>

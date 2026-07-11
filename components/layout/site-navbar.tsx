@@ -1,25 +1,50 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
-
-import { LanguageSwitch } from "@/components/language-switch";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { Button } from "@/components/ui/button";
-import { LogoRipple } from "@/components/ui/logo-ripple";
-import { SafeImage } from "@/components/ui/safe-image";
-import { getNavLinks } from "@/lib/content-data";
-import { normalizeLocale, withLocale } from "@/lib/i18n";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { normalizeLocale, withLocale, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+
+const HOME_COPY = {
+  vi: {
+    logo: "DatJ®",
+    getInTouch: "Liên hệ",
+    links: [
+      { label: "Dự Án", href: "/projects" },
+      { label: "Portfolio", href: "/portfolio" },
+      { label: "Thành Tựu", href: "/achievements" },
+      { label: "Blog", href: "/blog" },
+    ],
+  },
+  en: {
+    logo: "DatJ®",
+    getInTouch: "Get in touch",
+    links: [
+      { label: "Projects", href: "/projects" },
+      { label: "Portfolio", href: "/portfolio" },
+      { label: "Achievements", href: "/achievements" },
+      { label: "Blog", href: "/blog" },
+    ],
+  },
+};
 
 export function SiteNavbar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const locale = normalizeLocale(searchParams.get("lang"));
-  const navLinks = getNavLinks(locale);
+  const router = useRouter();
+
+  // Prevent SSR/hydration text mismatch by delaying locale resolution until client mount
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const locale = mounted ? normalizeLocale(searchParams.get("lang")) : "vi";
+  const copy = HOME_COPY[locale];
+  const nextLocale: Locale = locale === "vi" ? "en" : "vi";
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   const normalizePath = (value: string) => {
@@ -33,87 +58,150 @@ export function SiteNavbar() {
     return nextValue;
   };
 
-  return (
-    <header className="fixed left-1/2 top-5 z-50 w-[min(96%,82rem)] -translate-x-1/2 rounded-full glass-nav">
-      <div className="flex h-14 items-center gap-3 px-4 md:px-6">
-        <div className="flex min-w-0 flex-1 items-center">
-          <LogoRipple href={withLocale("/", locale)} className="ml-1" ariaLabel="DatJ home">
-            <span className="logo-swap">
-              <SafeImage
-                src="/logo.png"
-                fallbackSrc="/logo.png"
-                alt="DatJ logo"
-                width={160}
-                height={88}
-                className="logo-swap__base"
-                priority
-              />
-              <SafeImage
-                src="/logo-datj-gradient.png"
-                fallbackSrc="/logo-datj-gradient.png"
-                alt=""
-                width={160}
-                height={88}
-                className="logo-swap__glow"
-              />
-            </span>
-          </LogoRipple>
-        </div>
+  const toggleLocale = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("lang", nextLocale);
+    const nextQuery = params.toString();
+    router.replace(nextQuery ? `${pathname}?${nextQuery}` : pathname, { scroll: false });
+  };
 
-        <nav className="hidden flex-none items-center gap-1 lg:flex">
-          {navLinks.map((link) => {
+  return (
+    <>
+      <nav 
+        className="fixed top-0 left-0 right-0 w-full flex justify-between items-center z-50 px-5 sm:px-8 py-4 sm:py-5 bg-[#fafafa]/80 backdrop-blur-md border-b border-black/5 text-black"
+        suppressHydrationWarning={true}
+      >
+        {/* Logo (left) */}
+        <Link href={withLocale("/", locale)} className="flex items-center gap-3" suppressHydrationWarning={true}>
+          <span
+            className="text-[21px] sm:text-[26px] tracking-tight font-medium select-none text-black"
+            style={{ fontFamily: "var(--font-heading)" }}
+            suppressHydrationWarning={true}
+          >
+            {copy.logo}
+          </span>
+          <span 
+            className="text-[25px] sm:text-[30px] select-none leading-none -mt-1 text-black" 
+            style={{ letterSpacing: "-0.02em" }}
+            suppressHydrationWarning={true}
+          >
+            ✳︎
+          </span>
+        </Link>
+
+        {/* Desktop Links (center) */}
+        <div 
+          className="hidden md:flex items-center text-[23px] font-normal tracking-tight text-black"
+          suppressHydrationWarning={true}
+        >
+          {copy.links.map((link, idx) => {
             const isActive = normalizePath(pathname) === normalizePath(link.href);
             return (
-              <Link
-                key={link.href}
-                href={withLocale(link.href, locale)}
-                className={cn(
-                  "inline-flex h-9 min-w-[112px] items-center justify-center whitespace-nowrap rounded-full px-4 text-sm transition-colors",
-                  isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                )}
-              >
-                {link.label}
-              </Link>
+              <React.Fragment key={link.href}>
+                <Link
+                  href={withLocale(link.href, locale)}
+                  className={cn(
+                    "transition-opacity hover:opacity-100",
+                    isActive ? "opacity-100 font-medium underline underline-offset-4" : "opacity-60"
+                  )}
+                  suppressHydrationWarning={true}
+                >
+                  {link.label}
+                </Link>
+                {idx < copy.links.length - 1 && <span className="opacity-60">,&nbsp;</span>}
+              </React.Fragment>
             );
           })}
-        </nav>
+        </div>
 
-        <div className="flex flex-1 items-center justify-end gap-2">
-          <LanguageSwitch />
-          <ThemeToggle />
-          <Button
-            size="icon"
-            variant="ghost"
-            className="border border-border bg-muted/70 lg:hidden"
-            onClick={() => setMobileOpen((prev) => !prev)}
-            aria-label="Toggle menu"
+        {/* Desktop CTA & Language Switch (right) */}
+        <div 
+          className="hidden md:flex items-center gap-6"
+          suppressHydrationWarning={true}
+        >
+          <Link
+            href={withLocale("/contact", locale)}
+            className="text-[23px] text-black underline underline-offset-2 hover:opacity-60 transition-opacity tracking-tight"
+            suppressHydrationWarning={true}
           >
-            {mobileOpen ? <X className="size-4" /> : <Menu className="size-4" />}
-          </Button>
+            {copy.getInTouch}
+          </Link>
+          <button
+            onClick={toggleLocale}
+            className="text-[14px] font-medium tracking-wider text-black border border-black/20 rounded-full px-3 py-[0.2em] hover:bg-black hover:text-white transition-all duration-200 cursor-pointer"
+            suppressHydrationWarning={true}
+          >
+            {locale === "vi" ? "EN" : "VI"}
+          </button>
         </div>
-      </div>
 
-      {mobileOpen && (
-        <div className="space-y-2 border-t border-border px-4 py-4 lg:hidden">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={withLocale(link.href, locale)}
-              onClick={() => setMobileOpen(false)}
-              className={cn(
-                "block rounded-xl px-4 py-2 text-sm",
-                normalizePath(pathname) === normalizePath(link.href)
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground",
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+        {/* Mobile Hamburger & Language Switch */}
+        <div 
+          className="md:hidden flex items-center gap-4 relative z-20"
+          suppressHydrationWarning={true}
+        >
+          <button
+            onClick={toggleLocale}
+            className="text-[13px] font-medium tracking-wider text-black border border-black/20 rounded-full px-2.5 py-[0.15em] hover:bg-black hover:text-white transition-all duration-200 cursor-pointer"
+            suppressHydrationWarning={true}
+          >
+            {locale === "vi" ? "EN" : "VI"}
+          </button>
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="flex flex-col items-center justify-center w-8 h-8 gap-[5px] focus:outline-none"
+            aria-label="Toggle menu"
+            suppressHydrationWarning={true}
+          >
+            <span
+              className="w-6 h-[2px] bg-black transition-all duration-300"
+              style={{
+                transform: isMenuOpen ? "translateY(7px) rotate(45deg)" : "none",
+              }}
+            />
+            <span
+              className="w-6 h-[2px] bg-black transition-all duration-300"
+              style={{
+                opacity: isMenuOpen ? 0 : 1,
+              }}
+            />
+            <span
+              className="w-6 h-[2px] bg-black transition-all duration-300"
+              style={{
+                transform: isMenuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
+              }}
+            />
+          </button>
         </div>
-      )}
-    </header>
+      </nav>
+
+      {/* Mobile Overlay */}
+      <div
+        className={`fixed inset-0 bg-white/95 backdrop-blur-sm flex flex-col justify-center items-start px-8 gap-8 z-[40] transition-opacity duration-300 md:hidden ${
+          isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        suppressHydrationWarning={true}
+      >
+        {copy.links.map((link) => (
+          <Link
+            key={link.href}
+            href={withLocale(link.href, locale)}
+            onClick={() => setIsMenuOpen(false)}
+            className="text-[32px] font-medium text-black hover:opacity-60 transition-opacity"
+            suppressHydrationWarning={true}
+          >
+            {link.label}
+          </Link>
+        ))}
+        <Link
+          href={withLocale("/contact", locale)}
+          onClick={() => setIsMenuOpen(false)}
+          className="text-[32px] font-medium text-black underline underline-offset-4 hover:opacity-60 transition-opacity"
+          suppressHydrationWarning={true}
+        >
+          {copy.getInTouch}
+        </Link>
+      </div>
+    </>
   );
 }

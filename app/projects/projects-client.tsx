@@ -1,11 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { SafeImage } from "@/components/ui/safe-image";
 import {
   PROJECT_LAYOUT_META,
@@ -25,7 +23,7 @@ const PAGE_COPY = {
     tag: "Timeline Dự Án",
     title: "Dự Án Tiêu Biểu",
     description: "Tổng hợp những dự án thực tế về web, mobile và blockchain.",
-    caseStudy: "Chi Tiet",
+    caseStudy: "Chi Tiết",
     github: "GitHub",
     demo: "Demo",
   },
@@ -40,8 +38,8 @@ const PAGE_COPY = {
 } as const;
 
 function getOffsetByVariant(variant: TimelineVariant) {
-  if (variant === "high") return "mt-[-70px] md:mt-[-120px]";
-  if (variant === "low") return "mt-[70px] md:mt-[110px]";
+  if (variant === "high") return "mt-[-40px] md:mt-[-80px]";
+  if (variant === "low") return "mt-[40px] md:mt-[80px]";
   return "mt-0";
 }
 
@@ -58,29 +56,39 @@ export function ProjectsPageClient({ locale }: { locale: Locale }) {
   );
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
+      {/* Title section */}
       <section className="space-y-4">
-        <p className="mono-label text-accent">{copy.tag}</p>
-        <h1 className="section-title">{copy.title}</h1>
-        <p className="max-w-3xl text-muted-foreground">{copy.description}</p>
+        <p className="text-[13px] tracking-wider uppercase text-black/50">{copy.tag}</p>
+        <h1 className="text-[36px] sm:text-[48px] font-medium tracking-tight text-black leading-tight">
+          {copy.title}
+        </h1>
+        <p className="max-w-2xl text-[16px] text-black/60 leading-relaxed">
+          {copy.description}
+        </p>
       </section>
 
+      {/* Filter Tabs */}
       <div className="flex flex-wrap gap-2">
         {filters.map((filter) => (
-          <Button
+          <button
             key={filter.value}
-            size="sm"
-            variant={activeFilter === filter.value ? "default" : "outline"}
-            className={activeFilter === filter.value ? "bg-primary text-primary-foreground" : ""}
             onClick={() => setActiveFilter(filter.value)}
+            className={cn(
+              "px-4 py-[0.3em] text-[13px] sm:text-[14px] rounded-full transition-all duration-200 border cursor-pointer",
+              activeFilter === filter.value
+                ? "bg-black text-white border-black"
+                : "bg-white text-black border-black/10 hover:bg-black hover:text-white"
+            )}
           >
             {filter.label}
-          </Button>
+          </button>
         ))}
       </div>
 
-      <section className="timeline-scroll overflow-x-auto pb-6">
-        <div className="flex min-h-[32rem] items-start gap-9 px-2">
+      {/* Timeline Grid */}
+      <section className="timeline-scroll overflow-x-auto pb-8">
+        <div className="flex min-h-[34rem] items-start gap-9 px-2 pt-6">
           {filteredProjects.map((project, index) => (
             <TimelineCard
               key={project.slug}
@@ -112,11 +120,12 @@ function TimelineCard({
 
   return (
     <article className={cn("group flex-shrink-0", meta.width, getOffsetByVariant(meta.variant))}>
-      <div className="relative mb-4 overflow-hidden rounded-xl border border-border">
-        <span className="pointer-events-none absolute left-4 top-4 font-mono text-6xl font-bold text-foreground/10">
+      {/* Image frame */}
+      <div className="relative mb-5 overflow-hidden rounded-2xl border border-black/5 bg-black/5">
+        <span className="pointer-events-none absolute left-4 top-4 font-mono text-[48px] font-bold text-black/10 select-none z-10 leading-none">
           {String(order).padStart(2, "0")}
         </span>
-        <div className="relative aspect-[4/5]">
+        <div className="relative aspect-[4/5] overflow-hidden">
           <SafeImage
             src={project.image}
             fallbackSrc={fallbackImage}
@@ -124,41 +133,59 @@ function TimelineCard({
             fill
             className="object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
           />
-          <div className="image-scrim" />
         </div>
       </div>
 
-      <div className="glass-panel rounded-2xl p-5">
-        <div className="mb-3 flex flex-wrap gap-2">
+      {/* Info card */}
+      <div className="bg-white border border-black/10 rounded-2xl p-5 shadow-sm space-y-4">
+        {/* Tech badges */}
+        <div className="flex flex-wrap gap-1.5">
           {project.tech.map((tag) => (
-            <Badge key={tag} className="mono-label border-border bg-muted text-accent">
+            <span
+              key={tag}
+              className="inline-block text-[11px] font-medium tracking-wider uppercase bg-black/5 text-black px-2.5 py-[0.2em] rounded-full"
+            >
               {tag}
-            </Badge>
+            </span>
           ))}
         </div>
 
-        <h2 className="display-text text-4xl leading-none">{project.title}</h2>
-        <p className="mt-3 text-sm text-muted-foreground">{project.summary}</p>
+        <div>
+          <h2 className="text-[22px] font-medium tracking-tight text-black leading-tight">
+            {project.title}
+          </h2>
+          <p className="mt-2 text-[14px] text-black/60 leading-relaxed">
+            {project.summary}
+          </p>
+        </div>
 
-        <div className="mt-5 flex flex-wrap gap-2">
-          <Button asChild size="sm" variant="outline">
-            <Link href={withLocale(`/projects/${project.slug}`, locale)}>
-              {copy.caseStudy}
-              <ArrowRight className="size-4" />
-            </Link>
-          </Button>
-          <Button asChild size="sm" className="bg-primary text-primary-foreground">
-            <Link href={project.github} target="_blank">
-              <Github className="size-4" />
-              {copy.github}
-            </Link>
-          </Button>
-          <Button asChild size="sm" variant="outline">
-            <Link href={project.demo} target="_blank">
-              <ExternalLink className="size-4" />
-              {copy.demo}
-            </Link>
-          </Button>
+        {/* Buttons */}
+        <div className="flex flex-wrap gap-2 pt-2">
+          <Link
+            href={withLocale(`/projects/${project.slug}`, locale)}
+            className="inline-flex items-center gap-1 bg-white text-black border border-black/20 text-[13px] px-3.5 py-[0.3em] rounded-full hover:bg-black hover:text-white transition-colors duration-200"
+          >
+            {copy.caseStudy}
+            <ArrowRight className="size-3" />
+          </Link>
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 bg-black text-white text-[13px] px-3.5 py-[0.3em] rounded-full hover:bg-black/85 transition-colors duration-200"
+          >
+            <Github className="size-3" />
+            {copy.github}
+          </a>
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 bg-white text-black border border-black/20 text-[13px] px-3.5 py-[0.3em] rounded-full hover:bg-black hover:text-white transition-colors duration-200"
+          >
+            <ExternalLink className="size-3" />
+            {copy.demo}
+          </a>
         </div>
       </div>
     </article>

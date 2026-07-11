@@ -64,8 +64,8 @@ export function HeroSection({ onContactClick, onNavClick }: HeroSectionProps) {
           className="pointer-events-auto w-full h-full flex justify-center items-end"
         >
           <img
-            src="/portfolio/profile/home-hero.jpg"
-            alt="Dat Portrait"
+            src="https://shrug-person-78902957.figma.site/_components/v2/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png"
+            alt="Jack Portrait"
             className="w-full h-auto object-contain select-none"
             draggable={false}
           />

@@ -1,20 +1,19 @@
 "use client";
 
-import { Suspense } from "react";
-import { Download, ExternalLink, FileText } from "lucide-react";
+import React, { Suspense } from "react";
+import { Download, ExternalLink } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
 import { normalizeLocale } from "@/lib/i18n";
 
 const RESUME_COPY = {
   vi: {
-    tag: "CV / Resume",
-    title: "CV Cua To Pham Thanh Dat",
+    tag: "Hồ Sơ Cá Nhân / Resume",
+    title: "CV Của Tô Phạm Thanh Đạt",
     description:
-      "Trang này hiển trực tiếp file CV PDF của tôi để xem nhanh, mở tab mới hoặc tải xuống ngay.",
-    download: "Tải CV",
-    open: "Mo Tab Moi",
+      "Trang này hiển thị trực tiếp file CV PDF của tôi để xem nhanh, mở trong tab mới hoặc tải xuống ngay.",
+    download: "Tải CV Xuống",
+    open: "Mở Tab Mới",
     preview: "Xem Trước CV",
     fallback: "Nếu trình xem PDF không hiển thị, hãy mở file trong tab mới hoặc tải xuống.",
   },
@@ -34,42 +33,48 @@ function ResumePageContent({ locale }: { locale: "vi" | "en" }) {
   const copy = RESUME_COPY[locale];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
+      {/* Title section */}
       <section className="space-y-4">
-        <div className="flex items-center gap-3">
-          <FileText className="size-4 text-accent" />
-          <p className="mono-label text-accent">{copy.tag}</p>
-        </div>
-        <h1 className="section-title">{copy.title}</h1>
-        <p className="max-w-3xl text-muted-foreground">{copy.description}</p>
-        <div className="flex flex-wrap gap-3">
-          <Button asChild className="bg-primary text-primary-foreground">
-            <a href="/resume.pdf" download>
-              <Download className="size-4" />
-              {copy.download}
-            </a>
-          </Button>
-          <Button asChild variant="outline" className="border-accent/35 hover:border-accent">
-            <a href="/resume.pdf" target="_blank" rel="noreferrer">
-              <ExternalLink className="size-4" />
-              {copy.open}
-            </a>
-          </Button>
+        <p className="text-[13px] tracking-wider uppercase text-black/50">{copy.tag}</p>
+        <h1 className="text-[36px] sm:text-[48px] font-medium tracking-tight text-black leading-tight">
+          {copy.title}
+        </h1>
+        <p className="max-w-2xl text-[16px] text-black/60 leading-relaxed">{copy.description}</p>
+        <div className="flex flex-wrap gap-2 pt-2">
+          <a
+            href="/resume.pdf"
+            download
+            className="inline-flex items-center gap-1.5 bg-black text-white text-[13px] px-4 py-[0.3em] rounded-full hover:bg-black/85 transition-colors duration-200 font-normal cursor-pointer"
+          >
+            <Download className="size-3.5" />
+            {copy.download}
+          </a>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 bg-white text-black border border-black/20 text-[13px] px-4 py-[0.3em] rounded-full hover:bg-black hover:text-white transition-all duration-200 font-normal cursor-pointer"
+          >
+            <ExternalLink className="size-3.5" />
+            {copy.open}
+          </a>
         </div>
       </section>
 
-      <section className="space-y-4">
-        <h2 className="display-text text-4xl md:text-5xl">{copy.preview}</h2>
-        <div className="glass-panel overflow-hidden rounded-3xl p-2">
-          <div className="overflow-hidden rounded-[1.35rem] border border-border bg-white">
+      {/* Preview Section */}
+      <section className="space-y-6">
+        <h2 className="text-[28px] sm:text-[34px] font-medium text-black tracking-tight">{copy.preview}</h2>
+        <div className="bg-white border border-black/10 rounded-2xl p-2 shadow-sm overflow-hidden">
+          <div className="overflow-hidden rounded-xl border border-black/5 bg-[#fafafa]">
             <iframe
               src="/resume.pdf#view=FitH"
               title={copy.title}
-              className="h-[70vh] w-full bg-white md:h-[92vh]"
+              className="h-[70vh] w-full bg-white md:h-[92vh] border-0"
             />
           </div>
         </div>
-        <p className="text-sm text-muted-foreground">{copy.fallback}</p>
+        <p className="text-sm text-black/50">{copy.fallback}</p>
       </section>
     </div>
   );

@@ -1,0 +1,165 @@
+---
+title: "Skill: Viết Prompt UI/Frontend Chuẩn Cho AI Coding Tool"
+summary: "Biến một ý tưởng mơ hồ thành một prompt chi tiết giúp các AI coding tool như Claude Code hay Cursor lập trình chính xác hơn 90% ngay từ lần chạy đầu tiên."
+date: "2026-07-11"
+readingTime: "5 phút"
+---
+
+> Mục tiêu: biến một ý tưởng mơ hồ ("làm cho tôi 1 trang hero đẹp đẹp") thành một prompt mà Claude Code / Cursor / bất kỳ AI coding tool nào cũng implement **đúng 90%+** ngay lần đầu, không cần đoán.
+
+---
+
+## 1. Vì sao prompt mẫu (hero "Mainframe") hiệu quả?
+
+Phân tích prompt bạn đưa, nó không mô tả cảm giác ("trông hiện đại, sang trọng") mà mô tả **số liệu và hành vi cụ thể**:
+
+| Mơ hồ (sai) | Cụ thể (đúng, như prompt mẫu) |
+|---|---|
+| "Video nền chạy mượt" | "Video scrub theo mouse move ngang, sensitivity 0.8, clamp 0→duration, dùng onSeeked để tránh seek-flood" |
+| "Chữ chạy typewriter" | "38ms/ký tự, delay khởi động 600ms, cursor nhấp nháy 1s step-end" |
+| "Navbar đẹp" | "px-5 sm:px-8 py-4 sm:py-5, fixed z-10, hamburger 3 thanh w-6 h-[2px] gap-[5px], rotate 45deg + translate 7px" |
+| "Nút bấm nổi bật" | "bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px], hover bg-black text-white duration-200" |
+
+**Nguyên tắc cốt lõi:** AI code đúng theo *con số và hành vi bạn cho*, không đúng theo *cảm xúc bạn mô tả*. Nếu bạn không cho số, AI tự bịa số — và đó là lúc kết quả không giống ý bạn.
+
+---
+
+## 2. Cấu trúc chuẩn của 1 prompt (7 khối, theo đúng thứ tự)
+
+```
+[1] TECH STACK & RÀNG BUỘC
+[2] ASSETS (font, ảnh, video, icon — link cụ thể hoặc mô tả cách tạo)
+[3] LAYOUT TỔNG (z-index map, full-screen/section, breakpoint chính)
+[4] TỪNG COMPONENT — mỗi component có:
+      - Vị trí & kích thước (padding/margin/position bằng số hoặc class Tailwind)
+      - Typography (font-size responsive, line-height, weight, color)
+      - Nội dung/copy chính xác (text thật, không placeholder "Lorem")
+      - Trạng thái tương tác (hover/active/focus, duration, easing)
+      - Animation/behavior (mô tả như pseudo-code nếu là logic phức tạp)
+[5] RESPONSIVE RULES (điều gì đổi ở mobile vs desktop — nêu breakpoint rõ)
+[6] DEPENDENCIES ĐƯỢC PHÉP / KHÔNG ĐƯỢC PHÉP DÙNG
+[7] (tuỳ chọn) EDGE CASES / LƯU Ý KỸ THUẬT
+```
+
+---
+
+## 3. Quy trình 5 bước: từ ý tưởng thô → prompt chuẩn
+
+### Bước 1 — Chốt ý tưởng gốc (1-2 câu)
+Ví dụ thô: *"Tôi muốn 1 trang portfolio hero, có video nền, chữ chạy như đang gõ, vibe tối giản kiểu agency sáng tạo."*
+
+### Bước 2 — Tách ý tưởng thành danh sách component
+Liệt kê từng phần nhìn thấy được: Navbar, Hero text, Video nền, CTA buttons, Mobile menu...
+→ Không được gộp chung "làm cho đẹp" — mỗi thứ nhìn thấy trên màn hình = 1 mục riêng.
+
+### Bước 3 — Với mỗi component, tự hỏi 4 câu:
+1. **Nó nằm ở đâu và to bao nhiêu?** (position, z-index, padding, breakpoint)
+2. **Chữ/nội dung là gì, trông ra sao?** (copy thật + font-size/weight/color)
+3. **Khi tương tác thì sao?** (hover, click, scroll, mouse move)
+4. **Khi load / xuất hiện thì sao?** (animation vào, delay, duration)
+
+Nếu bạn không tự trả lời được → cứ để AI đề xuất, nhưng **ghi rõ trong prompt là "AI được tự quyết mục này"** để nó không bị coi là thiếu sót.
+
+### Bước 4 — Viết ràng buộc kỹ thuật
+- Stack: React/Next.js/Flutter/Vite...? TypeScript hay JS?
+- Styling: Tailwind? CSS Module? Nếu Tailwind — có dùng arbitrary values `[13px]` không?
+- Thư viện được phép: chỉ liệt kê cái CẦN, cấm rõ ràng cái không muốn AI tự thêm (vd "không dùng framer-motion, tự viết CSS transition").
+
+### Bước 5 — Review bằng checklist (mục 4 bên dưới) rồi mới gửi
+
+---
+
+## 4. Checklist trước khi gửi prompt
+
+- [ ] Mọi font-size/spacing có **số cụ thể** hoặc class Tailwind, không viết "vừa phải", "hợp lý"
+- [ ] Mọi đoạn text hiển thị (label, placeholder, copy) đã viết **nguyên văn**, không để AI tự bịa
+- [ ] Mọi animation có: **thời lượng (ms/s)**, **easing**, **trigger** (load / hover / scroll / click)
+- [ ] Đã nêu rõ **responsive behavior** khác nhau giữa mobile và desktop (không chỉ nói "responsive")
+- [ ] Đã liệt kê **z-index** nếu có nhiều lớp chồng (video nền, overlay, navbar...)
+- [ ] Đã nói rõ **thư viện được/không được dùng**
+- [ ] Nếu có logic phức tạp (drag, scrub video, parallax...) → mô tả như **pseudo-code từng bước**, không chỉ nói tên hiệu ứng
+
+---
+
+## 5. Template có thể copy dùng ngay
+
+```
+Build [loại trang/component] cho [tên dự án] dùng [stack: React/Next.js + TypeScript + Tailwind...].
+
+---
+FONTS
+[link font / tên font], set qua CSS variable --font-heading / --font-body.
+
+---
+[TÊN COMPONENT 1 — vd BACKGROUND VIDEO/IMAGE]
+- Vị trí: [fixed/absolute, inset, z-index]
+- Nguồn: [URL hoặc mô tả]
+- Hành vi: [autoplay? loop? tương tác nào điều khiển nó?]
+
+---
+[TÊN COMPONENT 2 — vd NAVBAR]
+- Layout: [flex row/col, justify, padding responsive]
+- Nội dung: [logo text chính xác, menu items chính xác]
+- Trạng thái: [hover, mobile toggle, animation mở/đóng]
+
+---
+[TÊN COMPONENT 3 — vd HERO TEXT + CTA]
+- Copy chính xác: "..."
+- Typography: font-size clamp(...), line-height, weight, color
+- Animation vào: [fade/slide, delay, duration]
+- Nút bấm: [style default + style hover, border-radius, spacing]
+
+---
+RESPONSIVE
+- Mobile (<md): [khác biệt cụ thể]
+- Desktop (md+): [khác biệt cụ thể]
+
+---
+DEPENDENCIES
+Chỉ dùng: [liệt kê]. Không dùng: [liệt kê nếu cần cấm].
+```
+
+---
+
+## 6. Ví dụ áp dụng nhanh (rút gọn)
+
+**Ý tưởng thô:** "Portfolio hero cho page cá nhân, có ảnh nền mờ dần khi scroll, tên mình to ở giữa, nút xem project bên dưới."
+
+**Sau khi áp quy trình 5 bước:**
+
+```
+Build hero section cho portfolio cá nhân dùng React + Tailwind CSS.
+
+BACKGROUND IMAGE
+- position: fixed inset-0 z-0, object-cover
+- Opacity giảm dần theo scroll: dùng scroll listener, opacity = 1 - (scrollY / (window.innerHeight * 0.8)), clamp 0-1
+
+HERO TEXT
+- Container: h-screen flex flex-col items-center justify-center, z-10
+- Tên: text-[48px] sm:text-[72px] font-bold text-white text-center, xuất hiện fade-in + translateY(20px)->0 trong 600ms sau 200ms delay
+- Subtitle: "Frontend Developer & Creative Coder", text-[18px] sm:text-[22px] text-white/70, mt-4
+
+CTA BUTTON
+- Text: "Xem Projects", rounded-full border border-white/30 px-6 py-3 text-white
+- Hover: bg-white text-black transition-colors duration-200
+- Click: scroll mượt (behavior: smooth) đến #projects
+
+RESPONSIVE
+- Mobile: tên text-[36px], subtitle text-[16px]
+- Desktop (sm+): như trên
+
+DEPENDENCIES
+Chỉ React + Tailwind, không dùng framer-motion (tự viết CSS transition + Intersection Observer nếu cần).
+```
+
+So với ý tưởng gốc, prompt này đã có đủ số liệu để AI code ra đúng 1 kết quả, không phải 10 kết quả khác nhau tuỳ AI "hiểu sao thì hiểu".
+
+---
+
+## 7. Lỗi thường gặp cần tránh
+
+1. **Dùng tính từ thay vì con số** — "to", "đẹp", "mượt" → luôn quy đổi thành class/số.
+2. **Bỏ qua trạng thái hover/mobile** — component chỉ mô tả trạng thái tĩnh, quên tương tác.
+3. **Không tách rõ z-index khi có nhiều lớp** (video, overlay, nav) → AI dễ chồng lớp sai.
+4. **Copy không chính xác** — để AI tự viết text mẫu thay vì dùng nội dung thật của bạn.
+5. **Gộp nhiều component vào 1 đoạn văn dài** — nên tách từng block như prompt mẫu, dễ đọc và dễ AI parse.

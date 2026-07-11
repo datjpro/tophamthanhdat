@@ -1,12 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import React from "react";
 import { useSearchParams } from "next/navigation";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SafeImage } from "@/components/ui/safe-image";
 import { getImageMap, getProjectBySlug } from "@/lib/content-data";
 import { normalizeLocale, withLocale } from "@/lib/i18n";
@@ -19,7 +17,7 @@ const DETAIL_COPY = {
   vi: {
     back: "Quay Lại Danh Sách Dự Án",
     techStrip: "Công Nghệ Sử Dụng",
-    keyResults: "Ket Qua Noi Bat",
+    keyResults: "Kết Quả Nổi Bật",
     liveDemo: "Xem Demo",
     notFound: "Không tìm thấy dự án.",
   },
@@ -42,84 +40,100 @@ export function ProjectDetailClient({ slug }: Props) {
   if (!project) {
     return (
       <div className="space-y-4">
-        <p className="text-sm text-muted-foreground">{copy.notFound}</p>
-        <Button asChild variant="outline" size="sm">
-          <Link href={withLocale("/projects", locale)}>
-            <ArrowLeft className="size-4" />
-            {copy.back}
-          </Link>
-        </Button>
+        <p className="text-sm text-black/60">{copy.notFound}</p>
+        <Link
+          href={withLocale("/projects", locale)}
+          className="inline-flex items-center gap-1.5 bg-white text-black border border-black/20 text-[13px] px-4 py-[0.3em] rounded-full hover:bg-black hover:text-white transition-colors duration-200"
+        >
+          <ArrowLeft className="size-3" />
+          {copy.back}
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
-      <Button asChild variant="outline" size="sm">
-        <Link href={withLocale("/projects", locale)}>
-          <ArrowLeft className="size-4" />
+    <div className="space-y-8 max-w-4xl">
+      {/* Back button */}
+      <div>
+        <Link
+          href={withLocale("/projects", locale)}
+          className="inline-flex items-center gap-1.5 bg-white text-black border border-black/20 text-[13px] px-4 py-[0.3em] rounded-full hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer"
+        >
+          <ArrowLeft className="size-3" />
           {copy.back}
         </Link>
-      </Button>
+      </div>
 
-      <section className="space-y-4">
-        <p className="mono-label text-accent">
-          {project.year} / {project.role}
+      {/* Header section */}
+      <section className="space-y-3">
+        <p className="text-[13px] tracking-wider uppercase text-black/50">
+          {project.year} &bull; {project.role}
         </p>
-        <h1 className="section-title">{project.title}</h1>
-        <p className="max-w-3xl text-muted-foreground">{project.description}</p>
+        <h1 className="text-[36px] sm:text-[48px] font-medium tracking-tight text-black leading-tight">
+          {project.title}
+        </h1>
+        <p className="text-[16px] text-black/70 leading-relaxed max-w-3xl">
+          {project.description}
+        </p>
       </section>
 
-      <div className="relative h-[21rem] overflow-hidden rounded-3xl border border-border md:h-[31rem]">
+      {/* Hero Image */}
+      <div className="relative h-[21rem] overflow-hidden rounded-2xl border border-black/5 bg-black/5 md:h-[31rem]">
         <SafeImage
           src={project.image}
           fallbackSrc={imageMap.fallback}
           alt={project.title}
           fill
-          className="object-cover grayscale-[0.08]"
+          className="object-cover grayscale hover:grayscale-0 transition-all duration-750"
         />
-        <div className="image-scrim" />
       </div>
 
-      <Card className="glass-panel">
-        <CardHeader className="space-y-4">
-          <CardTitle className="display-text text-4xl">{copy.techStrip}</CardTitle>
-          <div className="flex flex-wrap gap-2">
-            {project.tech.map((tag) => (
-              <Badge key={tag} className="mono-label border-border bg-muted text-accent">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        </CardHeader>
-      </Card>
+      {/* Tech Stack Card */}
+      <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm space-y-4">
+        <h2 className="text-[22px] font-medium text-black tracking-tight">{copy.techStrip}</h2>
+        <div className="flex flex-wrap gap-1.5">
+          {project.tech.map((tag) => (
+            <span
+              key={tag}
+              className="inline-block text-[11px] font-medium tracking-wider uppercase bg-black/5 text-black px-2.5 py-[0.2em] rounded-full"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
 
-      <Card className="glass-panel">
-        <CardHeader>
-          <CardTitle className="display-text text-4xl">{copy.keyResults}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ul className="list-disc space-y-2 pl-5 text-muted-foreground">
-            {project.results.map((result) => (
-              <li key={result}>{result}</li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
+      {/* Key Results Card */}
+      <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm space-y-4">
+        <h2 className="text-[22px] font-medium text-black tracking-tight">{copy.keyResults}</h2>
+        <ul className="list-disc space-y-2.5 pl-5 text-[15px] text-black/70 leading-relaxed">
+          {project.results.map((result) => (
+            <li key={result}>{result}</li>
+          ))}
+        </ul>
+      </div>
 
-      <div className="flex flex-wrap gap-3">
-        <Button asChild className="bg-primary text-primary-foreground">
-          <Link href={project.github} target="_blank">
-            <Github className="size-4" />
-            GitHub
-          </Link>
-        </Button>
-        <Button asChild variant="outline" className="border-accent/35 hover:border-accent">
-          <Link href={project.demo} target="_blank">
-            <ExternalLink className="size-4" />
-            {copy.liveDemo}
-          </Link>
-        </Button>
+      {/* CTA Buttons */}
+      <div className="flex flex-wrap gap-2 pt-2">
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 bg-black text-white text-[13px] px-4 py-[0.3em] rounded-full hover:bg-black/85 transition-colors duration-200"
+        >
+          <Github className="size-3.5" />
+          GitHub
+        </a>
+        <a
+          href={project.demo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 bg-white text-black border border-black/20 text-[13px] px-4 py-[0.3em] rounded-full hover:bg-black hover:text-white transition-colors duration-200"
+        >
+          <ExternalLink className="size-3.5" />
+          {copy.liveDemo}
+        </a>
       </div>
     </div>
   );
