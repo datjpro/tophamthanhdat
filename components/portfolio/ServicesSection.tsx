@@ -6,33 +6,33 @@ export function ServicesSection() {
   const services = [
     {
       number: "01",
-      name: "3D Modeling",
+      name: "Web Development",
       description:
-        "Creation of detailed objects, characters, or environments tailored to specific client needs, ideal for games, products, and visualizations.",
+        "Creation of responsive, high-performance web applications using React, TypeScript, and modern state management tools.",
     },
     {
       number: "02",
-      name: "Rendering",
+      name: "Mobile Development",
       description:
-        "High-quality, photorealistic renders that showcase designs with custom lighting, textures, and materials to bring concepts to life.",
+        "Building native-like, cross-platform mobile experiences for iOS and Android using Flutter and Dart.",
     },
     {
       number: "03",
-      name: "Motion Design",
+      name: "Backend Systems",
       description:
-        "Dynamic animations and motion graphics that add energy and storytelling to brands, products, and digital experiences.",
+        "Designing clean, scalable APIs, microservices, and database structures using ASP.NET Core and SQL Server.",
     },
     {
       number: "04",
-      name: "Branding",
+      name: "Blockchain & DApps",
       description:
-        "Crafting cohesive visual identities -- from logos to full brand systems -- that communicate a clear and memorable presence.",
+        "Writing secure, audited smart contracts in Solidity and building decentralized web applications with Web3 integration.",
     },
     {
       number: "05",
-      name: "Web Design",
+      name: "Clean Architecture",
       description:
-        "Designing clean, modern, and conversion-focused websites with attention to layout, typography, and user experience.",
+        "Structuring maintainable codebases with clear separations, optimizing queries, and engineering deployment pipelines.",
     },
   ];
 

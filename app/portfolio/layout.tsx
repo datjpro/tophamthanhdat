@@ -11,8 +11,8 @@ const kanit = Kanit({
 });
 
 export const metadata: Metadata = {
-  title: "Jack -- 3D Creator",
-  description: "Portfolio landing page for Jack - 3D Creator",
+  title: "To Pham Thanh Dat -- Software Developer",
+  description: "Portfolio landing page for To Pham Thanh Dat - Software Developer",
 };
 
 export default function PortfolioLayout({ children }: { children: ReactNode }) {

@@ -10,7 +10,7 @@ interface AboutSectionProps {
 
 export function AboutSection({ onContactClick }: AboutSectionProps) {
   const paragraphText =
-    "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!";
+    "With a solid background in software engineering, i focus on web development, mobile apps, and blockchain systems, i truly enjoy building modular codebases that solve real-world problems and scale efficiently. Let's build something incredible together!";
 
   return (
     <section
