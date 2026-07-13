@@ -208,7 +208,7 @@ function PortfolioPageContent() {
                   {project.summary}
                 </p>
               </div>
-              <div className="flex gap-2 pt-2" suppressHydrationWarning={true}>
+              <div className="flex flex-wrap gap-2 pt-2" suppressHydrationWarning={true}>
                 <Link
                   href={withLocale(`/projects/${project.slug}`, locale)}
                   className="inline-flex items-center gap-1 bg-white text-black border border-black/20 text-[13px] px-3.5 py-[0.3em] rounded-full hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer"

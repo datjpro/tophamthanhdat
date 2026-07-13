@@ -1,13 +1,24 @@
+"use client";
+
+import { useState } from "react";
+
 export default function PortfolioProjectPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="retro-portfolio-theme" data-portfolio-page="project" data-page="project">
-      <header className="site-header" data-open="false">
+      <header className="site-header" data-open={menuOpen ? "true" : "false"}>
         <a className="brand" href="/portfolio">
           DATJPRO
           <small>Software Portfolio</small>
         </a>
-        <button className="menu-toggle" type="button" aria-label="Toggle menu">
-          +
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-label="Toggle menu"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? "−" : "+"}
         </button>
         <nav className="nav-links" aria-label="Primary">
           <a data-page="home" href="/portfolio">
