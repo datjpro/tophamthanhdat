@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import type { ReactNode } from "react";
 
-import "./jack.css";
+import "./portfolio.css";
 
 const kanit = Kanit({
   variable: "--font-kanit",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function PortfolioLayout({ children }: { children: ReactNode }) {
   return (
-    <div className={`${kanit.variable} font-sans portfolio-wrapper`}>
+    <div className={`${kanit.variable} font-sans`}>
       {children}
     </div>
   );

@@ -1,6 +1,6 @@
 export default function PortfolioAboutPage() {
   return (
-    <div data-portfolio-page="about" data-page="about">
+    <div className="retro-portfolio-theme" data-portfolio-page="about" data-page="about">
       <header className="site-header" data-open="false">
         <a className="brand" href="/portfolio">
           DATJPRO

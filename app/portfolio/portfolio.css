@@ -14,18 +14,9 @@
   --shadow-hard: 8px 8px 0 var(--line);
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
+.retro-portfolio-theme {
+  position: relative;
+  isolation: isolate;
   color: var(--ink);
   font-family: "Space Grotesk", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background:
@@ -35,9 +26,9 @@ body {
   min-height: 100vh;
 }
 
-body::before {
+.retro-portfolio-theme::before {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
   background-image: linear-gradient(
@@ -50,7 +41,7 @@ body::before {
   z-index: -1;
 }
 
-a {
+.retro-portfolio-theme a {
   color: inherit;
   text-decoration: none;
 }
