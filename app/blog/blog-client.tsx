@@ -42,7 +42,7 @@ export function BlogPageClient({ posts }: { posts: BlogPost[] }) {
   const copy = BLOG_COPY[locale];
 
   return (
-    <div className="space-y-12" suppressHydrationWarning={true}>
+    <div className="min-w-0 space-y-12" suppressHydrationWarning={true}>
       {/* Top action and label */}
       <div className="flex flex-wrap items-center justify-between gap-4" suppressHydrationWarning={true}>
         <Link
@@ -64,17 +64,17 @@ export function BlogPageClient({ posts }: { posts: BlogPost[] }) {
         {posts.map((post) => (
           <article
             key={post.slug}
-            className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4"
+            className="min-w-0 bg-white border border-black/10 rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4 overflow-hidden"
             suppressHydrationWarning={true}
           >
             <div className="space-y-3" suppressHydrationWarning={true}>
               <p className="text-[12px] uppercase tracking-wider text-black/40">
                 {new Date(post.date).toLocaleDateString(locale === "vi" ? "vi-VN" : "en-US")} &bull; {post.readingTime}
               </p>
-              <h2 className="text-[22px] font-medium tracking-tight text-black leading-tight">
+              <h2 className="text-[22px] font-medium tracking-tight text-black leading-tight break-words">
                 {post.title}
               </h2>
-              <p className="text-[14px] text-black/60 leading-relaxed">{post.summary}</p>
+              <p className="text-[14px] text-black/60 leading-relaxed break-words">{post.summary}</p>
             </div>
             
             <div className="pt-2">

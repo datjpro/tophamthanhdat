@@ -36,7 +36,7 @@ export function BlogPostClient({ post, children }: { post: BlogPost; children: R
   const copy = BLOG_DETAIL_COPY[locale];
 
   return (
-    <div className="space-y-8 max-w-4xl" suppressHydrationWarning={true}>
+    <div className="min-w-0 space-y-8 max-w-4xl" suppressHydrationWarning={true}>
       <div suppressHydrationWarning={true}>
         <Link
           href={withLocale("/blog", locale)}
@@ -47,15 +47,15 @@ export function BlogPostClient({ post, children }: { post: BlogPost; children: R
         </Link>
       </div>
 
-      <article className="bg-white border border-black/10 rounded-2xl p-6 md:p-10 shadow-sm space-y-6" suppressHydrationWarning={true}>
+      <article className="min-w-0 bg-white border border-black/10 rounded-2xl p-6 md:p-10 shadow-sm space-y-6 overflow-hidden" suppressHydrationWarning={true}>
         <header className="mb-6 space-y-3 pb-6 border-b border-black/5" suppressHydrationWarning={true}>
           <p className="text-[12px] uppercase tracking-wider text-black/45">
             {new Date(post.date).toLocaleDateString(locale === "vi" ? "vi-VN" : "en-US")} &bull; {post.readingTime}
           </p>
-          <h1 className="text-[28px] sm:text-[38px] font-medium tracking-tight text-black leading-tight">
+          <h1 className="text-[28px] sm:text-[38px] font-medium tracking-tight text-black leading-tight break-words">
             {post.title}
           </h1>
-          <p className="text-[16px] text-black/60 leading-relaxed font-normal">{post.summary}</p>
+          <p className="text-[16px] text-black/60 leading-relaxed font-normal break-words">{post.summary}</p>
         </header>
         <div className="mdx-content text-black/80 prose max-w-none" suppressHydrationWarning={true}>
           {children}
