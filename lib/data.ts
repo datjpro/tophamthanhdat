@@ -11,7 +11,6 @@ import {
   Globe,
   Hammer,
   Layers3,
-  MessageCircle,
   Paintbrush2,
   ServerCog,
   ShieldCheck,
@@ -24,7 +23,7 @@ import {
 import type { Locale } from "@/lib/i18n";
 
 export type SkillCategory = "Frontend" | "Backend" | "Tools";
-export type ProjectFilter = "All" | "React.js" | "Flutter" | "Blockchain";
+export type ProjectFilter = "All" | "React.js" | "Flutter" | "Blockchain" | "Web App";
 export type TimelineVariant = "high" | "mid" | "low";
 
 export type SkillItem = {
@@ -124,7 +123,8 @@ export const IMAGE_MAP = {
 } as const;
 
 export const PROJECT_LAYOUT_META: Record<string, { variant: TimelineVariant; width: string }> = {
-  "ecommerce-mobile-app": { variant: "high", width: "w-[390px] md:w-[470px]" },
+  "ql-coffee": { variant: "high", width: "w-[390px] md:w-[450px]" },
+  "ecommerce-mobile-app": { variant: "mid", width: "w-[390px] md:w-[470px]" },
   viepropchain: { variant: "low", width: "w-[330px] md:w-[380px]" },
   "blockchain-donation-dapp": { variant: "mid", width: "w-[360px] md:w-[420px]" },
 };
@@ -233,6 +233,24 @@ const SKILLS_BY_LOCALE: Record<Locale, SkillItem[]> = {
 const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
   vi: [
     {
+      slug: "ql-coffee",
+      title: "Hệ Thống Quản Lý QL-COFFEE",
+      summary: "Ứng dụng Web & Hệ thống quản lý bán hàng, sơ đồ bàn, thực đơn và doanh thu cho quán Coffee.",
+      description:
+        "Dự án ứng dụng Web quản lý quán Coffee (QL-COFFEE) thiết kế tối ưu cho quy trình gọi món nhanh, quản lý sơ đồ bàn trực quan, theo dõi đơn hàng và thống kê báo cáo doanh thu theo thời gian thực.",
+      tech: ["React.js", "Web App"],
+      image: "/projects/ql-coffee-demo.gif",
+      github: "https://github.com/datjpro/QL-COFFEE",
+      demo: "https://datjpro.github.io/QL-COFFEE/",
+      year: "2025",
+      role: "Fullstack Developer",
+      results: [
+        "Xây dựng giao diện sơ đồ bàn, đặt món và thanh toán tiện lợi cho nhân viên.",
+        "Tích hợp biểu đồ thống kê doanh thu và báo cáo chi tiết theo thời gian thực.",
+        "Phát hành bản Live Demo chạy trực tiếp trên GitHub Pages tại https://datjpro.github.io/QL-COFFEE/.",
+      ],
+    },
+    {
       slug: "ecommerce-mobile-app",
       title: "E-commerce Mobile App",
       summary: "Ứng dụng bán hàng online đầy đủ giỏ hàng, thanh toán và quản lý đơn hàng.",
@@ -288,6 +306,24 @@ const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
     },
   ],
   en: [
+    {
+      slug: "ql-coffee",
+      title: "QL-COFFEE Management System",
+      summary: "Web application for managing orders, table map, menus, and daily revenue for coffee shops.",
+      description:
+        "QL-COFFEE is a comprehensive web application designed to streamline order taking, table management, menu updates, and financial analytics for coffee shops.",
+      tech: ["React.js", "Web App"],
+      image: "/projects/ql-coffee-demo.gif",
+      github: "https://github.com/datjpro/QL-COFFEE",
+      demo: "https://datjpro.github.io/QL-COFFEE/",
+      year: "2025",
+      role: "Fullstack Developer",
+      results: [
+        "Built an intuitive dashboard for table booking, order processing, and cashier checkout.",
+        "Integrated interactive revenue analytics and daily report generation.",
+        "Deployed live demo directly on GitHub Pages at https://datjpro.github.io/QL-COFFEE/.",
+      ],
+    },
     {
       slug: "ecommerce-mobile-app",
       title: "E-commerce Mobile App",
@@ -479,14 +515,16 @@ const CONTACT_INFO_BY_LOCALE: Record<Locale, ContactInfo> = {
 
 const PROJECT_FILTERS_BY_LOCALE: Record<Locale, ProjectFilterOption[]> = {
   vi: [
-    { value: "All", label: "Tat Ca" },
+    { value: "All", label: "Tất Cả" },
     { value: "React.js", label: "React.js" },
+    { value: "Web App", label: "Web App" },
     { value: "Flutter", label: "Flutter" },
     { value: "Blockchain", label: "Blockchain" },
   ],
   en: [
     { value: "All", label: "All" },
     { value: "React.js", label: "React.js" },
+    { value: "Web App", label: "Web App" },
     { value: "Flutter", label: "Flutter" },
     { value: "Blockchain", label: "Blockchain" },
   ],

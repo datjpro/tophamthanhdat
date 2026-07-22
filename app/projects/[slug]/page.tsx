@@ -3,13 +3,13 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { ProjectDetailClient } from "@/components/projects/project-detail-client";
-import { getProjectBySlug, getProjects } from "@/lib/data";
+import { getProjectBySlug, getProjects } from "@/lib/content-data";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return getProjects("en").map((project) => ({ slug: project.slug }));
 }
 

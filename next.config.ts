@@ -6,6 +6,9 @@ const isUserOrOrgSite = repository.toLowerCase().endsWith(".github.io");
 const basePath = isGithubActions && repository && !isUserOrOrgSite ? `/${repository}` : "";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    optimizePackageImports: ["lucide-react"],
+  },
   output: "export",
   trailingSlash: true,
   images: {
