@@ -25,6 +25,7 @@ window.portfolioData = {
     ],
   },
   featuredSlugs: [
+    "ai-prompts",
     "kiem-tra-phat-nguoi",
     "talent-os-monorepo",
     "cloud-security-auditor",
@@ -33,6 +34,30 @@ window.portfolioData = {
     "website-selling-accounts",
   ],
   projects: [
+    {
+      slug: "ai-prompts",
+      title: "AI Prompts Interface",
+      year: "2026",
+      category: "AI & Web",
+      language: "JavaScript",
+      role: "Frontend & Prompt Engineer",
+      summary:
+        "Web interface and prompt library optimized for AI Coding Tools (Claude Code, Cursor, Windsurf).",
+      problem:
+        "Vague UI prompts lead to inaccurate code generation and repeated trial-and-error with AI tools.",
+      solution:
+        "Built a dedicated web interface with structured 7-block prompt templates and a standardized 5-step prompt engineering workflow.",
+      impact:
+        "Improves AI coding output accuracy over 90% on first run.",
+      highlights: [
+        "Interactive web interface for prompt discovery",
+        "7-block structured prompt methodology",
+        "Live demo hosted on GitHub Pages",
+      ],
+      stack: ["React", "JavaScript", "Tailwind CSS", "AI Prompts"],
+      repo: "https://github.com/datjpro/AI-Prompts",
+      demo: "https://datjpro.github.io/AI-Prompts/",
+    },
     {
       slug: "kiem-tra-phat-nguoi",
       title: "Kiem Tra Phat Nguoi Telegram Bot",

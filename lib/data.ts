@@ -23,7 +23,7 @@ import {
 import type { Locale } from "@/lib/i18n";
 
 export type SkillCategory = "Frontend" | "Backend" | "Tools";
-export type ProjectFilter = "All" | "React.js" | "Flutter" | "Blockchain" | "Web App";
+export type ProjectFilter = "All" | "React.js" | "Flutter" | "Blockchain" | "Web App" | "AI";
 export type TimelineVariant = "high" | "mid" | "low";
 
 export type SkillItem = {
@@ -123,9 +123,10 @@ export const IMAGE_MAP = {
 } as const;
 
 export const PROJECT_LAYOUT_META: Record<string, { variant: TimelineVariant; width: string }> = {
-  "ql-coffee": { variant: "high", width: "w-[390px] md:w-[450px]" },
-  "ecommerce-mobile-app": { variant: "mid", width: "w-[390px] md:w-[470px]" },
-  viepropchain: { variant: "low", width: "w-[330px] md:w-[380px]" },
+  "ai-prompts": { variant: "high", width: "w-[380px] md:w-[440px]" },
+  "ql-coffee": { variant: "mid", width: "w-[390px] md:w-[450px]" },
+  "ecommerce-mobile-app": { variant: "low", width: "w-[390px] md:w-[470px]" },
+  viepropchain: { variant: "high", width: "w-[330px] md:w-[380px]" },
   "blockchain-donation-dapp": { variant: "mid", width: "w-[360px] md:w-[420px]" },
 };
 
@@ -233,6 +234,24 @@ const SKILLS_BY_LOCALE: Record<Locale, SkillItem[]> = {
 const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
   vi: [
     {
+      slug: "ai-prompts",
+      title: "AI Prompts Interface",
+      summary: "Giao diện và thư viện prompt mẫu tối ưu cho AI Coding Tools (Claude Code, Cursor, Windsurf).",
+      description:
+        "Dự án ứng dụng Web tập trung vào việc quản lý, chuẩn hóa và chia sẻ bộ prompt lập trình frontend/UI chuyên sâu, giúp biến ý tưởng thô thành prompt cấu trúc 7 khối chuẩn để AI coding tool thực thi chính xác 90%+ ngay lần thử đầu tiên.",
+      tech: ["React.js", "Web App", "AI"],
+      image: "/projects/ai-prompts.svg",
+      github: "https://github.com/datjpro/AI-Prompts",
+      demo: "https://datjpro.github.io/AI-Prompts/",
+      year: "2026",
+      role: "Frontend & Prompt Engineer",
+      results: [
+        "Xây dựng giao diện web trực quan giúp tra cứu, sao chép và quản lý bộ AI Prompts tiện lợi.",
+        "Chuẩn hóa quy trình 5 bước chuyển đổi ý tưởng UI thô thành prompt cấu trúc 7 khối chuẩn.",
+        "Phát hành bản Live Demo chạy trực tiếp trên GitHub Pages tại https://datjpro.github.io/AI-Prompts/.",
+      ],
+    },
+    {
       slug: "ql-coffee",
       title: "Hệ Thống Quản Lý QL-COFFEE",
       summary: "Ứng dụng Web & Hệ thống quản lý bán hàng, sơ đồ bàn, thực đơn và doanh thu cho quán Coffee.",
@@ -306,6 +325,24 @@ const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
     },
   ],
   en: [
+    {
+      slug: "ai-prompts",
+      title: "AI Prompts Interface",
+      summary: "A web interface and prompt template collection for AI Coding Tools (Claude Code, Cursor, Windsurf).",
+      description:
+        "A dedicated web application project designed for discovering, copy-pasting, and standardizing frontend & UI prompts to guide AI coding tools effectively.",
+      tech: ["React.js", "Web App", "AI"],
+      image: "/projects/ai-prompts.svg",
+      github: "https://github.com/datjpro/AI-Prompts",
+      demo: "https://datjpro.github.io/AI-Prompts/",
+      year: "2026",
+      role: "Frontend & Prompt Engineer",
+      results: [
+        "Built an intuitive web interface for searching, previewing, and copying AI coding prompts.",
+        "Standardized a 5-step workflow transforming raw UI ideas into structured 7-block prompts.",
+        "Deployed live demo directly on GitHub Pages at https://datjpro.github.io/AI-Prompts/.",
+      ],
+    },
     {
       slug: "ql-coffee",
       title: "QL-COFFEE Management System",
@@ -518,6 +555,7 @@ const PROJECT_FILTERS_BY_LOCALE: Record<Locale, ProjectFilterOption[]> = {
     { value: "All", label: "Tất Cả" },
     { value: "React.js", label: "React.js" },
     { value: "Web App", label: "Web App" },
+    { value: "AI", label: "AI & Prompts" },
     { value: "Flutter", label: "Flutter" },
     { value: "Blockchain", label: "Blockchain" },
   ],
@@ -525,6 +563,7 @@ const PROJECT_FILTERS_BY_LOCALE: Record<Locale, ProjectFilterOption[]> = {
     { value: "All", label: "All" },
     { value: "React.js", label: "React.js" },
     { value: "Web App", label: "Web App" },
+    { value: "AI", label: "AI & Prompts" },
     { value: "Flutter", label: "Flutter" },
     { value: "Blockchain", label: "Blockchain" },
   ],

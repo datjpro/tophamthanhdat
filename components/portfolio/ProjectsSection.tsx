@@ -151,6 +151,15 @@ export function ProjectsSection() {
         "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee.png&w=1280&q=85",
       link: "https://github.com/datjpro",
     },
+    {
+      number: "04",
+      title: "AI Prompts Interface",
+      category: "AI & UI Tool",
+      col1Image1: "/projects/ai-prompts.svg",
+      col1Image2: "/projects/ai-prompts.svg",
+      col2Image: "/projects/ai-prompts.svg",
+      link: "https://datjpro.github.io/AI-Prompts/",
+    },
   ];
 
   return (
