@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ArrowLeft, Menu, X, Globe } from "lucide-react";
@@ -40,7 +40,7 @@ const COPY = {
   },
 };
 
-export default function NotFound() {
+function NotFoundContent() {
   const searchParams = useSearchParams();
   const [scaleY, setScaleY] = useState(1);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -90,18 +90,6 @@ export default function NotFound() {
         fontFamily: "'Inter', sans-serif",
       }}
     >
-      {/* Google Fonts - Inter */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossOrigin="anonymous"
-      />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet"
-      />
-
       {/* BACKGROUND "404" TEXT EFFECT */}
       <div
         className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden"
@@ -321,5 +309,13 @@ export default function NotFound() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function NotFound() {
+  return (
+    <Suspense fallback={null}>
+      <NotFoundContent />
+    </Suspense>
   );
 }
