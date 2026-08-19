@@ -240,7 +240,7 @@ const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
       description:
         "Dự án ứng dụng Web tập trung vào việc quản lý, chuẩn hóa và chia sẻ bộ prompt lập trình frontend/UI chuyên sâu, giúp biến ý tưởng thô thành prompt cấu trúc 7 khối chuẩn để AI coding tool thực thi chính xác 90%+ ngay lần thử đầu tiên.",
       tech: ["React.js", "Web App", "AI"],
-      image: "/projects/ai-prompts.svg",
+      image: "/projects/ai-prompts.gif",
       github: "https://github.com/datjpro/AI-Prompts",
       demo: "https://datjpro.github.io/AI-Prompts/",
       year: "2026",
@@ -332,7 +332,7 @@ const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
       description:
         "A dedicated web application project designed for discovering, copy-pasting, and standardizing frontend & UI prompts to guide AI coding tools effectively.",
       tech: ["React.js", "Web App", "AI"],
-      image: "/projects/ai-prompts.svg",
+      image: "/projects/ai-prompts.gif",
       github: "https://github.com/datjpro/AI-Prompts",
       demo: "https://datjpro.github.io/AI-Prompts/",
       year: "2026",

@@ -155,9 +155,9 @@ export function ProjectsSection() {
       number: "04",
       title: "AI Prompts Interface",
       category: "AI & UI Tool",
-      col1Image1: "/projects/ai-prompts.svg",
-      col1Image2: "/projects/ai-prompts.svg",
-      col2Image: "/projects/ai-prompts.svg",
+      col1Image1: "/projects/ai-prompts.gif",
+      col1Image2: "/projects/ai-prompts.gif",
+      col2Image: "/projects/ai-prompts.gif",
       link: "https://datjpro.github.io/AI-Prompts/",
     },
   ];
