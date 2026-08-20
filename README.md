@@ -8,7 +8,7 @@ Website portfolio ca nhan cua To Pham Thanh Dat, tap trung vao web, mobile, bloc
 - Role: Software Developer (Software Engineering Student)
 - Focus: Web/Mobile engineering + Blockchain systems
 - Location: TP.HCM, Viet Nam
-- Education: HUTECH - Software Engineering (2022 - expected 2026), GPA 3.05/4.0
+- Education: HUTECH - Software Engineering (2022 - expected 2026), GPA 3.12/4.0
 
 ## Muc Tieu Nghe Nghiep
 

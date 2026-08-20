@@ -516,7 +516,7 @@ const PROFILE_BY_LOCALE: Record<Locale, ProfileInfo> = {
       "Sinh viên năm 4 chuyên ngành Công nghệ Phần mềm tại HUTECH. Đã có kinh nghiệm phát triển ứng dụng web và mobile với Flutter, React và ASP.NET Core.",
     location: "Phuong Dong Hoa, TP. Thu Duc, TP.HCM",
     experience: "Sinh vien nam 4 - HUTECH",
-    education: "Cử nhân Công nghệ Phần mềm (2022 - 2026 dự kiến) - GPA 3.05/4.0",
+    education: "Cử nhân Công nghệ Phần mềm (2022 - 2026 dự kiến) - GPA 3.12/4.0",
     objective:
       "Đam mê Blockchain và đang hướng tới vị trí Solution Architect, mong muốn tham gia môi trường để học công nghệ mới và đóng góp dự án thực tế.",
   },
@@ -527,7 +527,7 @@ const PROFILE_BY_LOCALE: Record<Locale, ProfileInfo> = {
       "A fourth-year Software Engineering student at HUTECH with hands-on experience building web and mobile applications using Flutter, React, and ASP.NET Core.",
     location: "Dong Hoa Ward, Thu Duc City, Ho Chi Minh City",
     experience: "Fourth-year Software Engineering Student",
-    education: "Bachelor of Software Engineering (2022 - expected 2026) - GPA 3.05/4.0",
+    education: "Bachelor of Software Engineering (2022 - expected 2026) - GPA 3.12/4.0",
     objective:
       "Passionate about Blockchain and progressing toward a Solution Architect role while contributing to real-world projects.",
   },
