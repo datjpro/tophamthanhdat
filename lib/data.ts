@@ -23,7 +23,7 @@ import {
 import type { Locale } from "@/lib/i18n";
 
 export type SkillCategory = "Frontend" | "Backend" | "Tools";
-export type ProjectFilter = "All" | "React.js" | "Flutter" | "Blockchain" | "Web App" | "AI";
+export type ProjectFilter = "All" | "Electron" | "React.js" | "Flutter" | "Blockchain" | "Web App" | "AI";
 export type TimelineVariant = "high" | "mid" | "low";
 
 export type SkillItem = {
@@ -123,11 +123,12 @@ export const IMAGE_MAP = {
 } as const;
 
 export const PROJECT_LAYOUT_META: Record<string, { variant: TimelineVariant; width: string }> = {
-  "ai-prompts": { variant: "high", width: "w-[380px] md:w-[440px]" },
-  "ql-coffee": { variant: "mid", width: "w-[390px] md:w-[450px]" },
-  "ecommerce-mobile-app": { variant: "low", width: "w-[390px] md:w-[470px]" },
-  viepropchain: { variant: "high", width: "w-[330px] md:w-[380px]" },
-  "blockchain-donation-dapp": { variant: "mid", width: "w-[360px] md:w-[420px]" },
+  lumen: { variant: "high", width: "w-[400px] md:w-[480px]" },
+  "ai-prompts": { variant: "mid", width: "w-[380px] md:w-[440px]" },
+  "ql-coffee": { variant: "low", width: "w-[390px] md:w-[450px]" },
+  "ecommerce-mobile-app": { variant: "high", width: "w-[390px] md:w-[470px]" },
+  viepropchain: { variant: "mid", width: "w-[330px] md:w-[380px]" },
+  "blockchain-donation-dapp": { variant: "low", width: "w-[360px] md:w-[420px]" },
 };
 
 const NAV_LINKS_BY_LOCALE: Record<Locale, NavLink[]> = {
@@ -234,6 +235,25 @@ const SKILLS_BY_LOCALE: Record<Locale, SkillItem[]> = {
 const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
   vi: [
     {
+      slug: "lumen",
+      title: "Lumen — Desktop Companion & Spatial Workspace",
+      summary: "Ứng dụng Desktop không gian & thú cưng ảo phát triển bằng Electron và đóng gói xuất bản ứng dụng native bằng Tauri (Rust).",
+      description:
+        "Lumen là ứng dụng desktop hiện đại kết hợp trợ lý ảo Pip (vật lý chuyển động mượt mà), hệ thống ghi chú không gian 360°, lịch độc lập và bộ chọn giờ tác chiến 24H. Dự án sử dụng quy trình phát triển nhanh bằng Electron và xuất bản ứng dụng desktop native siêu nhẹ qua Tauri (Rust), kết hợp React 19, TypeScript, Tailwind CSS và Zustand.",
+      tech: ["Electron", "Tauri (Rust)", "React.js", "TypeScript", "Tailwind CSS", "Zustand"],
+      image: "/projects/lumen-demo.gif",
+      github: "https://github.com/datjpro/LUMEN",
+      demo: "https://github.com/datjpro/LUMEN",
+      year: "2026",
+      role: "Desktop & Frontend Architect",
+      results: [
+        "Kiến trúc phát triển kép: lập trình và chạy thử nghiệm bằng Electron, sau đó tối ưu hóa và xuất ra ứng dụng hoàn chỉnh bằng Tauri (Rust) giúp giảm kích thước và tiết kiệm RAM tối đa.",
+        "Phát triển trợ lý desktop Pip với 5 loài động vật ảo, hệ thống trang phục và cơ chế tự động nhặt giấy ghi chú độc đáo.",
+        "Thiết kế Canvas ghi chú không gian xoay 360°, hít nam châm viền màn hình và chuyển đổi mượt mà giữa ghi chú & sự kiện lịch.",
+        "Tích hợp lịch tác chiến độc lập (Alt+C) với bộ chọn giờ dạng bánh xe cơ học 24H và tổng hợp âm thanh qua Web Audio API.",
+      ],
+    },
+    {
       slug: "ai-prompts",
       title: "AI Prompts Interface",
       summary: "Giao diện và thư viện prompt mẫu tối ưu cho AI Coding Tools (Claude Code, Cursor, Windsurf).",
@@ -325,6 +345,25 @@ const PROJECTS_BY_LOCALE: Record<Locale, ProjectItem[]> = {
     },
   ],
   en: [
+    {
+      slug: "lumen",
+      title: "Lumen — Desktop Companion & Spatial Workspace",
+      summary: "Spatial desktop companion and productivity workspace built with Electron for development and bundled into native apps using Tauri (Rust).",
+      description:
+        "Lumen is an artisanal desktop workspace combining Pip (a procedural animated desktop pet) with a 360° spatial sticky note canvas, standalone tactical 24H calendar, natural language smart timers, and zero-occlusion desktop overlay. Developed with Electron and packaged into an ultra-lightweight native binary via Tauri (Rust), powered by React 19, TypeScript, Tailwind CSS, and Zustand.",
+      tech: ["Electron", "Tauri (Rust)", "React.js", "TypeScript", "Tailwind CSS", "Zustand"],
+      image: "/projects/lumen-demo.gif",
+      github: "https://github.com/datjpro/LUMEN",
+      demo: "https://github.com/datjpro/LUMEN",
+      year: "2026",
+      role: "Desktop & Frontend Architect",
+      results: [
+        "Dual-desktop architecture: rapid iterative development in Electron combined with native production distribution via Tauri (Rust) for minimal bundle size and resource footprint.",
+        "Engineered Pip procedural desktop companion with 5 species, interactive toys, wardrobe studio, and automated paper fetching choreography.",
+        "Built 360° continuous rotation spatial sticky notes with bezel snapping, dynamic z-index elevation, and capsule minimization.",
+        "Implemented standalone spatial calendar (Alt+C) with rotary barrel-wheel 24H time picker and procedural Web Audio synthesized chimes.",
+      ],
+    },
     {
       slug: "ai-prompts",
       title: "AI Prompts Interface",
@@ -553,6 +592,7 @@ const CONTACT_INFO_BY_LOCALE: Record<Locale, ContactInfo> = {
 const PROJECT_FILTERS_BY_LOCALE: Record<Locale, ProjectFilterOption[]> = {
   vi: [
     { value: "All", label: "Tất Cả" },
+    { value: "Electron", label: "Desktop (Electron / Tauri)" },
     { value: "React.js", label: "React.js" },
     { value: "Web App", label: "Web App" },
     { value: "AI", label: "AI & Prompts" },
@@ -561,6 +601,7 @@ const PROJECT_FILTERS_BY_LOCALE: Record<Locale, ProjectFilterOption[]> = {
   ],
   en: [
     { value: "All", label: "All" },
+    { value: "Electron", label: "Desktop (Electron / Tauri)" },
     { value: "React.js", label: "React.js" },
     { value: "Web App", label: "Web App" },
     { value: "AI", label: "AI & Prompts" },

@@ -160,6 +160,15 @@ export function ProjectsSection() {
       col2Image: "/projects/ai-prompts.gif",
       link: "https://datjpro.github.io/AI-Prompts/",
     },
+    {
+      number: "05",
+      title: "Lumen Desktop Workspace",
+      category: "Electron & Tauri (Rust)",
+      col1Image1: "https://raw.githubusercontent.com/datjpro/LUMEN/main/screenshots/lumen-demo.gif",
+      col1Image2: "/projects/lumen-demo.gif",
+      col2Image: "https://raw.githubusercontent.com/datjpro/LUMEN/main/screenshots/lumen-demo.gif",
+      link: "https://github.com/datjpro/LUMEN",
+    },
   ];
 
   return (

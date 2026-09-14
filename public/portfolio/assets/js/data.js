@@ -25,6 +25,7 @@ window.portfolioData = {
     ],
   },
   featuredSlugs: [
+    "lumen",
     "ai-prompts",
     "kiem-tra-phat-nguoi",
     "talent-os-monorepo",
@@ -34,6 +35,32 @@ window.portfolioData = {
     "website-selling-accounts",
   ],
   projects: [
+    {
+      slug: "lumen",
+      title: "Lumen — Desktop Companion & Spatial Workspace",
+      year: "2026",
+      category: "Desktop (Electron / Tauri)",
+      language: "TypeScript / Rust",
+      role: "Desktop & Frontend Architect",
+      summary:
+        "High-performance spatial desktop companion developed in Electron and bundled into native apps using Tauri (Rust).",
+      problem:
+        "Standard desktop tools lack spatial awareness, delight, and produce heavy resource footprints.",
+      solution:
+        "Engineered an artisanal desktop workspace combining procedural desktop pet Pip, 360° spatial sticky notes, 24H rotary time engine, and a dual Electron + Tauri pipeline.",
+      impact:
+        "Sub-16ms GPU compositing, zero memory leaks, local-first privacy, and minimal RAM footprint.",
+      highlights: [
+        "Dual-desktop workflow: Electron development & Tauri (Rust) native bundling",
+        "Pip virtual desktop pet with 5 species & physics",
+        "360° rotational sticky note canvas with screen snapping",
+        "Tactical 24H rotary scope calendar (Alt+C)",
+      ],
+      stack: ["Electron", "Tauri (Rust)", "React 19", "TypeScript", "Tailwind CSS v4", "Zustand"],
+      repo: "https://github.com/datjpro/LUMEN",
+      demo: "https://github.com/datjpro/LUMEN",
+      image: "https://raw.githubusercontent.com/datjpro/LUMEN/main/screenshots/lumen-demo.gif",
+    },
     {
       slug: "ai-prompts",
       title: "AI Prompts Interface",
