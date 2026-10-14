@@ -31,6 +31,8 @@ const RESUME_COPY = {
 
 function ResumePageContent({ locale }: { locale: "vi" | "en" }) {
   const copy = RESUME_COPY[locale];
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  const resumeUrl = `${basePath}/resume.pdf`;
 
   return (
     <div className="space-y-12">
@@ -43,7 +45,7 @@ function ResumePageContent({ locale }: { locale: "vi" | "en" }) {
         <p className="max-w-2xl text-[16px] text-black/60 leading-relaxed">{copy.description}</p>
         <div className="flex flex-wrap gap-2 pt-2">
           <a
-            href="/resume.pdf"
+            href={resumeUrl}
             download
             className="inline-flex items-center gap-1.5 bg-black text-white text-[13px] px-4 py-[0.3em] rounded-full hover:bg-black/85 transition-colors duration-200 font-normal cursor-pointer"
           >
@@ -51,7 +53,7 @@ function ResumePageContent({ locale }: { locale: "vi" | "en" }) {
             {copy.download}
           </a>
           <a
-            href="/resume.pdf"
+            href={resumeUrl}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 bg-white text-black border border-black/20 text-[13px] px-4 py-[0.3em] rounded-full hover:bg-black hover:text-white transition-all duration-200 font-normal cursor-pointer"
@@ -68,7 +70,7 @@ function ResumePageContent({ locale }: { locale: "vi" | "en" }) {
         <div className="bg-white border border-black/10 rounded-2xl p-2 shadow-sm overflow-hidden">
           <div className="overflow-hidden rounded-xl border border-black/5 bg-[#fafafa]">
             <iframe
-              src="/resume.pdf#view=FitH"
+              src={`${resumeUrl}#view=FitH`}
               title={copy.title}
               className="h-[70vh] w-full bg-white md:h-[92vh] border-0"
             />

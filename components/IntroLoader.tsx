@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 
 export function IntroLoader() {
   const [isLoading, setIsLoading] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [statusText, setStatusText] = useState("Đang khởi tạo...");
   const [progress, setProgress] = useState(0);
+
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   useEffect(() => {
     // 1. Kiểm tra sessionStorage ngay sau khi hydration
@@ -93,44 +94,46 @@ export function IntroLoader() {
 
   return (
     <div
-      className={`fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#EAE8E3] text-[#1A1A1A] transition-all duration-600 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-opacity motion-reduce:duration-150 ${
+      className={`fixed inset-0 z-[99999] flex flex-col items-center justify-end pb-10 sm:pb-14 bg-black text-white transition-all duration-600 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-opacity motion-reduce:duration-150 ${
         isFadingOut
-          ? "opacity-0 -translate-y-2 pointer-events-none"
-          : "opacity-100 translate-y-0"
+          ? "opacity-0 scale-[1.02] pointer-events-none"
+          : "opacity-100 scale-100"
       }`}
     >
-      {/* Khung viền màn hình CRT chứa ảnh GIF */}
-      <div className="relative w-[160px] h-[120px] sm:w-[180px] sm:h-[135px] border-2 border-[#1A1A1A] rounded-[12px] bg-[#000000] overflow-hidden flex items-center justify-center shadow-lg group">
-        {/* Hiệu ứng quét dòng CRT Scanline */}
-        <div className="absolute inset-0 z-10 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px]" />
-        
-        {/* Hiệu ứng CRT startup flare overlay */}
-        <div className="crt-beam absolute inset-0 z-20 pointer-events-none" />
+      {/* Ảnh GIF full toàn màn hình */}
+      <img
+        src={`${basePath}/anime-girl.gif`}
+        alt="Loading Animation"
+        className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none z-0"
+      />
 
-        {/* Ảnh GIF nhúng vào trung tâm màn hình CRT */}
-        <img
-          src="/anime-girl.gif"
-          alt="Loading Anim"
-          className="w-full h-full object-cover relative z-0"
-        />
-      </div>
+      {/* Hiệu ứng quét dòng CRT Scanline trên toàn màn hình */}
+      <div className="absolute inset-0 z-10 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.3)_50%)] bg-[length:100%_4px]" />
 
-      {/* Thương hiệu bên dưới */}
-      <span className="mt-3 text-xs font-bold tracking-widest text-[#1A1A1A] uppercase">
-        DatJ® Portfolio
-      </span>
+      {/* Lớp gradient bóng đổ phía dưới để thanh trạng thái hiển thị rõ ràng */}
+      <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-black/85 via-black/25 to-black/30" />
 
-      {/* Thanh tiến trình & status text */}
-      <div className="mt-4 flex flex-col items-center gap-1.5 w-44">
-        <div className="w-full h-[2.5px] bg-[#1A1A1A]/15 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-[#1A1A1A] transition-all duration-100 ease-out rounded-full"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        <span className="text-[12px] text-[#5A5A56] font-mono tracking-tight">
-          {statusText}
+      {/* Hiệu ứng CRT startup flare overlay */}
+      <div className="crt-beam absolute inset-0 z-20 pointer-events-none" />
+
+      {/* Box thương hiệu & thanh tiến trình loading */}
+      <div className="relative z-30 flex flex-col items-center px-6 py-4 rounded-2xl bg-black/50 backdrop-blur-md border border-white/15 shadow-2xl">
+        <span className="text-[12px] font-bold tracking-[0.25em] text-white/90 uppercase drop-shadow">
+          DatJ® Portfolio
         </span>
+
+        <div className="mt-3 flex flex-col items-center gap-1.5 w-56 sm:w-64">
+          <div className="w-full h-[3px] bg-white/20 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-white transition-all duration-100 ease-out rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <div className="w-full flex items-center justify-between text-[11px] text-white/80 font-mono tracking-tight">
+            <span>{statusText}</span>
+            <span>{progress}%</span>
+          </div>
+        </div>
       </div>
 
       {/* CSS Keyframes hiệu ứng quét màn hình CRT khi bật nguồn */}
