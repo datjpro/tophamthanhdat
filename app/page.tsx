@@ -46,20 +46,22 @@ const HOME_COPY = {
     typewriter: "Chào mừng bạn ghé thăm. Nơi tư duy hệ thống gặp gỡ giao diện hiện đại. Hôm nay chúng ta sẽ phát triển dự án gì?",
     buttons: [
       { label: "Xem các dự án", href: "/projects" },
+      { label: "Portfolio Retro", href: "/portfolio" },
       { label: "Về tôi", href: "/about" },
       { label: "Kho phần mềm", href: "/apps" },
-      { label: "Thành tích nổi bật", href: "/achievements" },
+      { label: "Thành tích", href: "/achievements" },
       { label: "Đọc blog", href: "/blog" },
       { label: "Xem hồ sơ (CV)", href: "/resume" },
     ],
     reachMe: "Liên hệ: todat2207@gmail.com",
     getInTouch: "Liên hệ",
     links: [
-      { label: "Giới Thiệu", href: "/about" },
       { label: "Dự Án", href: "/projects" },
+      { label: "Portfolio", href: "/portfolio" },
       { label: "Thành Tựu", href: "/achievements" },
       { label: "Phần Mềm", href: "/apps" },
       { label: "Blog", href: "/blog" },
+      { label: "Giới Thiệu", href: "/about" },
     ],
   },
   en: {
@@ -69,6 +71,7 @@ const HOME_COPY = {
     typewriter: "Glad you stopped in. I bridge modern interface design with practical system thinking. Now, what are we building?",
     buttons: [
       { label: "Explore my projects", href: "/projects" },
+      { label: "Retro Portfolio", href: "/portfolio" },
       { label: "About me", href: "/about" },
       { label: "Curated apps", href: "/apps" },
       { label: "Achievements", href: "/achievements" },
@@ -78,11 +81,12 @@ const HOME_COPY = {
     reachMe: "Reach me: todat2207@gmail.com",
     getInTouch: "Get in touch",
     links: [
-      { label: "About", href: "/about" },
       { label: "Projects", href: "/projects" },
+      { label: "Portfolio", href: "/portfolio" },
       { label: "Achievements", href: "/achievements" },
       { label: "Apps", href: "/apps" },
       { label: "Blog", href: "/blog" },
+      { label: "About", href: "/about" },
     ],
   },
 };

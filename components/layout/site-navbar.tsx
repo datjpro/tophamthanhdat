@@ -11,22 +11,24 @@ const HOME_COPY = {
     logo: "DatJ®",
     getInTouch: "Liên hệ",
     links: [
-      { label: "Giới Thiệu", href: "/about" },
       { label: "Dự Án", href: "/projects" },
+      { label: "Portfolio", href: "/portfolio" },
       { label: "Thành Tựu", href: "/achievements" },
       { label: "Phần Mềm", href: "/apps" },
       { label: "Blog", href: "/blog" },
+      { label: "Giới Thiệu", href: "/about" },
     ],
   },
   en: {
     logo: "DatJ®",
     getInTouch: "Get in touch",
     links: [
-      { label: "About", href: "/about" },
       { label: "Projects", href: "/projects" },
+      { label: "Portfolio", href: "/portfolio" },
       { label: "Achievements", href: "/achievements" },
       { label: "Apps", href: "/apps" },
       { label: "Blog", href: "/blog" },
+      { label: "About", href: "/about" },
     ],
   },
 };

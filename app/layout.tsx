@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Crimson_Pro, Inter, JetBrains_Mono } from "next/font/google";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { IntroLoader } from "@/components/IntroLoader";
 
 import "./globals.css";
 
@@ -67,6 +68,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${crimson.variable} ${jetbrainsMono.variable} antialiased`} suppressHydrationWarning={true}>
+        <IntroLoader />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
