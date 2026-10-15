@@ -30,10 +30,9 @@ body.portfolio-page {
   box-sizing: border-box;
 }
 
-/* Custom heading gradient */
+/* Custom heading typography */
 .hero-heading {
-  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #1a1a1a;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }

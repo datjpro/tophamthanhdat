@@ -11,9 +11,10 @@ const HOME_COPY = {
     logo: "DatJ®",
     getInTouch: "Liên hệ",
     links: [
+      { label: "Giới Thiệu", href: "/about" },
       { label: "Dự Án", href: "/projects" },
-      { label: "Portfolio", href: "/portfolio" },
       { label: "Thành Tựu", href: "/achievements" },
+      { label: "Phần Mềm", href: "/apps" },
       { label: "Blog", href: "/blog" },
     ],
   },
@@ -21,9 +22,10 @@ const HOME_COPY = {
     logo: "DatJ®",
     getInTouch: "Get in touch",
     links: [
+      { label: "About", href: "/about" },
       { label: "Projects", href: "/projects" },
-      { label: "Portfolio", href: "/portfolio" },
       { label: "Achievements", href: "/achievements" },
+      { label: "Apps", href: "/apps" },
       { label: "Blog", href: "/blog" },
     ],
   },
@@ -91,25 +93,23 @@ export function SiteNavbar() {
 
         {/* Desktop Links (center) */}
         <div 
-          className="hidden md:flex items-center text-[23px] font-normal tracking-tight text-black"
+          className="hidden md:flex items-center gap-7 text-[21px] font-normal tracking-tight text-black"
           suppressHydrationWarning={true}
         >
-          {copy.links.map((link, idx) => {
+          {copy.links.map((link) => {
             const isActive = normalizePath(pathname) === normalizePath(link.href);
             return (
-              <React.Fragment key={link.href}>
-                <Link
-                  href={withLocale(link.href, locale)}
-                  className={cn(
-                    "transition-opacity hover:opacity-100",
-                    isActive ? "opacity-100 font-medium underline underline-offset-4" : "opacity-60"
-                  )}
-                  suppressHydrationWarning={true}
-                >
-                  {link.label}
-                </Link>
-                {idx < copy.links.length - 1 && <span className="opacity-60">,&nbsp;</span>}
-              </React.Fragment>
+              <Link
+                key={link.href}
+                href={withLocale(link.href, locale)}
+                className={cn(
+                  "transition-opacity hover:opacity-100",
+                  isActive ? "opacity-100 font-medium underline underline-offset-4" : "opacity-60"
+                )}
+                suppressHydrationWarning={true}
+              >
+                {link.label}
+              </Link>
             );
           })}
         </div>

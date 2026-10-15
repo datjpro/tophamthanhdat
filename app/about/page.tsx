@@ -135,7 +135,7 @@ function AboutPageContent({ locale }: { locale: "vi" | "en" }) {
               {skills.map((skill) => (
                 <div
                   key={skill.name}
-                  className="bg-black/3 rounded-xl border-l-2 border-black px-4 py-3 space-y-1"
+                  className="bg-black/[0.02] border border-black/10 rounded-xl px-4 py-3 space-y-1 hover:border-black/20 transition-colors"
                 >
                   <p className="text-[14px] font-medium text-black leading-tight">{skill.name}</p>
                   <p className="text-[12px] text-black/50">

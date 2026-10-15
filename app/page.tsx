@@ -46,16 +46,19 @@ const HOME_COPY = {
     typewriter: "Chào mừng bạn ghé thăm. Nơi tư duy hệ thống gặp gỡ giao diện hiện đại. Hôm nay chúng ta sẽ phát triển dự án gì?",
     buttons: [
       { label: "Xem các dự án", href: "/projects" },
-      { label: "Xem hồ sơ (CV)", href: "/resume" },
+      { label: "Về tôi", href: "/about" },
+      { label: "Kho phần mềm", href: "/apps" },
       { label: "Thành tích nổi bật", href: "/achievements" },
-      { label: "Đọc blog cá nhân", href: "/blog" },
+      { label: "Đọc blog", href: "/blog" },
+      { label: "Xem hồ sơ (CV)", href: "/resume" },
     ],
     reachMe: "Liên hệ: todat2207@gmail.com",
     getInTouch: "Liên hệ",
     links: [
+      { label: "Giới Thiệu", href: "/about" },
       { label: "Dự Án", href: "/projects" },
-      { label: "Portfolio", href: "/portfolio" },
       { label: "Thành Tựu", href: "/achievements" },
+      { label: "Phần Mềm", href: "/apps" },
       { label: "Blog", href: "/blog" },
     ],
   },
@@ -66,16 +69,19 @@ const HOME_COPY = {
     typewriter: "Glad you stopped in. I bridge modern interface design with practical system thinking. Now, what are we building?",
     buttons: [
       { label: "Explore my projects", href: "/projects" },
-      { label: "Read my resume", href: "/resume" },
-      { label: "My achievements", href: "/achievements" },
-      { label: "Read my blog", href: "/blog" },
+      { label: "About me", href: "/about" },
+      { label: "Curated apps", href: "/apps" },
+      { label: "Achievements", href: "/achievements" },
+      { label: "Read blog", href: "/blog" },
+      { label: "Read resume (CV)", href: "/resume" },
     ],
     reachMe: "Reach me: todat2207@gmail.com",
     getInTouch: "Get in touch",
     links: [
+      { label: "About", href: "/about" },
       { label: "Projects", href: "/projects" },
-      { label: "Portfolio", href: "/portfolio" },
       { label: "Achievements", href: "/achievements" },
+      { label: "Apps", href: "/apps" },
       { label: "Blog", href: "/blog" },
     ],
   },
@@ -101,76 +107,13 @@ function MainframePageContent() {
   const [copied, setCopied] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const targetTimeRef = useRef<number>(0);
-  const isSeekingRef = useRef<boolean>(false);
-  const prevXRef = useRef<number | null>(null);
 
-  // Video scrubbing effect
+  // Smooth ambient background video playback
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
-
-    const attemptSeek = () => {
-      if (!video || isSeekingRef.current) return;
-      if (Math.abs(video.currentTime - targetTimeRef.current) > 0.02) {
-        isSeekingRef.current = true;
-        video.currentTime = targetTimeRef.current;
-      }
-    };
-
-    const handleSeeked = () => {
-      isSeekingRef.current = false;
-      attemptSeek();
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!video || isNaN(video.duration) || video.duration === 0) return;
-
-      const currentX = e.clientX;
-      if (prevXRef.current === null) {
-        prevXRef.current = currentX;
-        return;
-      }
-
-      const delta = currentX - prevXRef.current;
-      prevXRef.current = currentX;
-
-      const SENSITIVITY = 0.8;
-      const timeOffset = (delta / window.innerWidth) * SENSITIVITY * video.duration;
-
-      let nextTargetTime = targetTimeRef.current + timeOffset;
-      if (nextTargetTime < 0) nextTargetTime = 0;
-      if (nextTargetTime > video.duration) nextTargetTime = video.duration;
-      targetTimeRef.current = nextTargetTime;
-
-      attemptSeek();
-    };
-
-    const handleMouseLeave = () => {
-      prevXRef.current = null;
-    };
-
-    const handleMouseEnter = () => {
-      prevXRef.current = null;
-    };
-
-    const handleLoadedMetadata = () => {
-      targetTimeRef.current = video.currentTime;
-    };
-
-    video.addEventListener("loadedmetadata", handleLoadedMetadata);
-    video.addEventListener("seeked", handleSeeked);
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseleave", handleMouseLeave);
-    window.addEventListener("mouseenter", handleMouseEnter);
-
-    return () => {
-      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      video.removeEventListener("seeked", handleSeeked);
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseleave", handleMouseLeave);
-      window.removeEventListener("mouseenter", handleMouseEnter);
-    };
+    if (video) {
+      video.play().catch(() => {});
+    }
   }, []);
 
   // Fade in action buttons after 400ms
@@ -242,16 +185,19 @@ function MainframePageContent() {
 
   return (
     <div className="relative min-h-screen text-black overflow-x-hidden bg-[#fafafa]" suppressHydrationWarning={true}>
-      {/* Background Video */}
+      {/* Background Video with subtle contrast scrim */}
       <video
         ref={videoRef}
         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08.mp4"
+        autoPlay
+        loop
         muted
         playsInline
         preload="auto"
-        className="fixed inset-0 w-full h-full object-cover z-0"
+        className="fixed inset-0 w-full h-full object-cover z-0 opacity-80"
         style={{ objectPosition: "70% center" }}
       />
+      <div className="fixed inset-0 bg-[#fafafa]/25 backdrop-blur-[0.5px] z-0 pointer-events-none" />
 
       {/* Interactive Ambient Cursor Glow / Light Orb */}
       <div
@@ -292,19 +238,17 @@ function MainframePageContent() {
         </div>
 
         {/* Desktop Links (center) */}
-        <div className="hidden md:flex items-center text-[23px] font-normal tracking-tight text-black" suppressHydrationWarning={true}>
-          {copy.links.map((link, idx) => (
-            <React.Fragment key={link.href}>
-              <Link
-                href={withLocale(link.href, locale)}
-                className="hover:opacity-60 transition-opacity"
-                onMouseEnter={() => setCursorHovering(true)}
-                onMouseLeave={() => setCursorHovering(false)}
-              >
-                {link.label}
-              </Link>
-              {idx < copy.links.length - 1 && <span>,&nbsp;</span>}
-            </React.Fragment>
+        <div className="hidden md:flex items-center gap-7 text-[21px] font-normal tracking-tight text-black" suppressHydrationWarning={true}>
+          {copy.links.map((link) => (
+            <Link
+              key={link.href}
+              href={withLocale(link.href, locale)}
+              className="hover:opacity-60 transition-opacity"
+              onMouseEnter={() => setCursorHovering(true)}
+              onMouseLeave={() => setCursorHovering(false)}
+            >
+              {link.label}
+            </Link>
           ))}
         </div>
 
@@ -447,21 +391,20 @@ function MainframePageContent() {
               />
             ))}
 
-            {/* Text lines with unblur transition */}
+            {/* Confident, clear biographical text */}
             <div
-              className="transition-all duration-400 ease-out"
+              className="transition-all duration-300 ease-out"
               style={{
-                fontSize: "clamp(18px, 4vw, 26px)",
-                filter: isRevealed ? "blur(0px)" : "blur(4.5px)",
-                opacity: isRevealed ? 1 : 0.6,
-                transform: isRevealed ? "translateY(0)" : "translateY(1px)",
-                transition: "filter 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, transform 0.35s ease",
+                fontSize: "clamp(20px, 4.2vw, 28px)",
+                filter: "none",
+                opacity: 1,
+                transform: "translateY(0)",
               }}
             >
-              <span className="block transition-colors duration-200 group-hover:text-black">
+              <span className="block font-medium tracking-tight text-black">
                 {copy.intro1}
               </span>
-              <span className="block transition-colors duration-200 group-hover:text-black">
+              <span className="block font-normal text-black/80">
                 {copy.intro2}
               </span>
             </div>
@@ -512,7 +455,7 @@ function MainframePageContent() {
               onClick={handleCopyEmail}
               onMouseEnter={() => setCursorHovering(true)}
               onMouseLeave={() => setCursorHovering(false)}
-              className="group relative inline-flex items-center justify-center bg-transparent text-white border border-white rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-white hover:text-black transition-all duration-200 cursor-pointer gap-2 sm:gap-3 font-normal shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+              className="group relative inline-flex items-center justify-center bg-black text-white border border-black rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black/85 transition-all duration-200 cursor-pointer gap-2 sm:gap-3 font-normal shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
             >
               {copied ? (
                 <span className="animate-pulse">{locale === "vi" ? "Đã sao chép!" : "Copied!"}</span>
