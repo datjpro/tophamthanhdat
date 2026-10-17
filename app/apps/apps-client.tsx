@@ -73,7 +73,7 @@ export function AppsClientPage() {
           >
             <div className="space-y-4" suppressHydrationWarning={true}>
               {/* Top metadata line: version, license, platform */}
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2" suppressHydrationWarning={true}>
                 <p className="text-[12px] uppercase tracking-wider text-black/45 font-mono">
                   {app.version || "v0.7.0-vn"} &bull; {copy.pricingOpenSource}
                 </p>
@@ -86,8 +86,11 @@ export function AppsClientPage() {
               </div>
 
               {/* Icon & App Title */}
-              <div className="flex items-start gap-4 pt-1">
-                <div className="relative size-14 sm:size-16 rounded-2xl bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-500/20 p-2 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
+              <div className="flex items-start gap-4 pt-1" suppressHydrationWarning={true}>
+                <div
+                  className="relative size-14 sm:size-16 rounded-2xl bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-500/20 p-2 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform"
+                  suppressHydrationWarning={true}
+                >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={app.iconUrl}
@@ -97,13 +100,14 @@ export function AppsClientPage() {
                     className="size-full object-contain drop-shadow-sm"
                     onError={(e) => {
                       const target = e.currentTarget;
-                      if (!target.src.includes("gridcraft-icon.png")) {
-                        target.src = "/projects/gridcraft-icon.png";
+                      const fallback = `/projects/${app.id.replace("-vn", "")}-icon.png`;
+                      if (!target.src.endsWith(fallback)) {
+                        target.src = fallback;
                       }
                     }}
                   />
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1" suppressHydrationWarning={true}>
                   <h2 className="text-[22px] font-medium tracking-tight text-black leading-tight break-words">
                     <Link
                       href={withLocale(`/apps/${app.id}`, locale)}
@@ -124,27 +128,26 @@ export function AppsClientPage() {
               </p>
 
               {/* Highlights feature pills */}
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                <span className="text-[11px] bg-black/5 text-black/70 px-2 py-0.5 rounded font-mono">
-                  =DOCSO()
-                </span>
-                <span className="text-[11px] bg-black/5 text-black/70 px-2 py-0.5 rounded font-mono">
-                  =KHONGDAU()
-                </span>
-                <span className="text-[11px] bg-black/5 text-black/70 px-2 py-0.5 rounded font-mono">
-                  =TACHHO()
-                </span>
-                <span className="text-[11px] bg-black/5 text-black/70 px-2 py-0.5 rounded font-mono">
-                  =TCVN3_TO_UNICODE()
-                </span>
-                <span className="text-[11px] bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded font-mono">
-                  100% Rust
-                </span>
-              </div>
+              {app.featureTags && app.featureTags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 pt-1" suppressHydrationWarning={true}>
+                  {app.featureTags.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className={`text-[11px] px-2 py-0.5 rounded font-mono ${
+                        tag.includes("Rust")
+                          ? "bg-emerald-50 text-emerald-800"
+                          : "bg-black/5 text-black/70"
+                      }`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Bottom Actions: View Details (like Blog) & Direct Release Download Link */}
-            <div className="pt-4 border-t border-black/5 flex flex-wrap items-center justify-between gap-3">
+            <div className="pt-4 border-t border-black/5 flex flex-wrap items-center justify-between gap-3" suppressHydrationWarning={true}>
               <Link
                 href={withLocale(`/apps/${app.id}`, locale)}
                 className="inline-flex items-center gap-1.5 bg-white text-black border border-black/20 text-[13px] px-3.5 py-[0.3em] rounded-full hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer font-medium"

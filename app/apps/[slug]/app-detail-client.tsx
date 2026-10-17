@@ -27,14 +27,14 @@ const APP_DETAIL_COPY = {
     downloadReleaseBtn: "Tải Bản Phát Hành (GitHub Release)",
     downloadDirect: "Tải Về Trực Tiếp",
     viewSource: "Mã Nguồn Trên GitHub",
-    upstreamSource: "Kho Lưu Trữ Gốc (ArtCraft)",
+    upstreamSource: "Kho Lưu Trữ Gốc (Upstream)",
     license: "Bản quyền mã nguồn mở",
     techHeading: "100% Rust Thuần Túy",
     aiReady: "Sẵn sàng cho Agent AI (MCP)",
     overviewHeading: "1. Tổng Quan Dự Án Mã Nguồn Mở",
-    featuresHeading: "2. Các Điểm Nổi Bật Trên Bản Việt Hóa v0.7.0-vn",
+    featuresHeading: "2. Các Điểm Nổi Bật Trên Bản Việt Hóa",
     featuresDesc:
-      "Phiên bản do Tô Đạt (datjpro) xây dựng và phát hành, tích hợp sẵn các hàm nghiệp vụ kế toán, xử lý chuỗi và định dạng đặc thù của Việt Nam.",
+      "Phiên bản do Tô Đạt (datjpro) xây dựng và phát hành, tối ưu hóa các tính năng và trải nghiệm dành riêng cho người dùng Việt Nam.",
     installHeading: "3. Tệp Tải Về & Hướng Dẫn Cài Đặt",
     specsHeading: "4. Thông Số Kỹ Thuật & Giấy Phép",
     copyFormula: "Sao chép công thức",
@@ -42,7 +42,7 @@ const APP_DETAIL_COPY = {
     installNotesTitle: "Lưu ý cài đặt:",
     installMsi: "Bản Cài Đặt (.msi): Tải về và nhấp đúp để cài đặt tự động vào máy tính Windows 10/11.",
     installZip:
-      "Bản Portable (.zip): Chỉ cần giải nén tệp zip vào một thư mục bất kỳ và chạy file gridcraft.exe ngay lập tức mà không cần cài đặt hay quyền admin.",
+      "Bản Portable (.zip): Chỉ cần giải nén tệp zip vào một thư mục bất kỳ và chạy file thực thi ngay lập tức mà không cần cài đặt hay quyền admin.",
     openSourcePromise: "Dự án hoàn toàn sạch, an toàn, không chứa quảng cáo hay mã theo dõi người dùng.",
   },
   en: {
@@ -50,14 +50,14 @@ const APP_DETAIL_COPY = {
     downloadReleaseBtn: "Download Release (GitHub)",
     downloadDirect: "Direct Downloads",
     viewSource: "View Source on GitHub",
-    upstreamSource: "Upstream Repository (ArtCraft)",
+    upstreamSource: "Upstream Repository",
     license: "Open Source License",
     techHeading: "100% Pure Rust",
     aiReady: "AI-Agent Ready (MCP)",
     overviewHeading: "1. Open Source Project Overview",
-    featuresHeading: "2. Vietnamese Edition v0.7.0-vn Features",
+    featuresHeading: "2. Vietnamese Edition Features",
     featuresDesc:
-      "Forked and tailored by Tô Đạt (datjpro), introducing specialized financial, string processing, and collation utilities for Vietnamese users.",
+      "Forked and tailored by Tô Đạt (datjpro), introducing specialized enhancements for Vietnamese users.",
     installHeading: "3. Download Assets & Installation",
     specsHeading: "4. Technical Specifications & License",
     copyFormula: "Copy formula",
@@ -65,7 +65,7 @@ const APP_DETAIL_COPY = {
     installNotesTitle: "Installation Notes:",
     installMsi: "MSI Installer (.msi): Download and double-click to install natively on Windows 10/11.",
     installZip:
-      "Portable Zip (.zip): Unzip to any folder and execute gridcraft.exe immediately without installation or admin privileges.",
+      "Portable Zip (.zip): Unzip to any folder and execute the application immediately without installation or admin privileges.",
     openSourcePromise: "100% telemetry-free, secure, and open source under permissive licensing.",
   },
 } as const;
@@ -114,9 +114,9 @@ export function AppDetailClient({ app }: { app: CuratedApp }) {
         {/* Header Section */}
         <header className="space-y-5 pb-6 border-b border-black/10" suppressHydrationWarning={true}>
           {/* Top Meta & Badges */}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2" suppressHydrationWarning={true}>
             <span className="text-[12px] uppercase tracking-wider text-black/50 font-mono">
-              v0.7.0-vn &bull; Open Source
+              {app.version || "v0.7.0-vn"} &bull; Open Source
             </span>
             <span className="text-black/30">&bull;</span>
             <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 border border-emerald-200 text-[11px] font-medium px-2.5 py-0.5 rounded-full">
@@ -130,8 +130,11 @@ export function AppDetailClient({ app }: { app: CuratedApp }) {
           </div>
 
           {/* Icon + Title Block */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-1">
-            <div className="relative size-16 sm:size-20 rounded-2xl bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-500/20 p-2.5 flex items-center justify-center shrink-0 shadow-2xs">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-1" suppressHydrationWarning={true}>
+            <div
+              className="relative size-16 sm:size-20 rounded-2xl bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-500/20 p-2.5 flex items-center justify-center shrink-0 shadow-2xs"
+              suppressHydrationWarning={true}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={app.iconUrl}
@@ -141,13 +144,14 @@ export function AppDetailClient({ app }: { app: CuratedApp }) {
                 className="size-full object-contain drop-shadow-sm"
                 onError={(e) => {
                   const target = e.currentTarget;
-                  if (!target.src.includes("gridcraft-icon.png")) {
-                    target.src = "/projects/gridcraft-icon.png";
+                  const fallback = `/projects/${app.id.replace("-vn", "")}-icon.png`;
+                  if (!target.src.endsWith(fallback)) {
+                    target.src = fallback;
                   }
                 }}
               />
             </div>
-            <div className="space-y-1">
+            <div className="space-y-1" suppressHydrationWarning={true}>
               <h1 className="text-[28px] sm:text-[38px] font-semibold tracking-tight text-black leading-tight break-words">
                 {app.name}
               </h1>
@@ -158,14 +162,23 @@ export function AppDetailClient({ app }: { app: CuratedApp }) {
           </div>
 
           {/* Primary CTA / Release Download Banner */}
-          <div className="mt-4 p-4 sm:p-5 bg-[#f7f9fa] border border-black/10 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="space-y-1">
+          <div
+            className="mt-4 p-4 sm:p-5 bg-[#f7f9fa] border border-black/10 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+            suppressHydrationWarning={true}
+          >
+            <div className="space-y-1" suppressHydrationWarning={true}>
               <p className="text-[13px] font-semibold text-black flex items-center gap-1.5">
                 <Package className="size-4 text-emerald-600" />
-                <span>Bản phát hành chính thức GridCraft v0.7.0-vn</span>
+                <span>
+                  {locale === "vi"
+                    ? `Bản phát hành chính thức ${app.name} ${app.version || ""}`
+                    : `Official Release ${app.name} ${app.version || ""}`}
+                </span>
               </p>
               <p className="text-[12px] text-black/60">
-                Tải về trực tiếp hoặc xem tệp phát hành trên GitHub
+                {locale === "vi"
+                  ? "Tải về trực tiếp hoặc xem tệp phát hành trên GitHub"
+                  : "Download directly or view release assets on GitHub"}
               </p>
             </div>
 
@@ -188,18 +201,19 @@ export function AppDetailClient({ app }: { app: CuratedApp }) {
             {copy.overviewHeading}
           </h2>
 
-          <div className="space-y-3.5 text-[15px] leading-relaxed text-black/75">
+          <div className="space-y-3.5 text-[15px] leading-relaxed text-black/75" suppressHydrationWarning={true}>
             {overviewData?.summary.map((para, idx) => (
               <p key={idx}>{para}</p>
             ))}
           </div>
 
           {/* Architectural highlights cards */}
-          <div className="grid gap-3 sm:grid-cols-2 pt-2">
+          <div className="grid gap-3 sm:grid-cols-2 pt-2" suppressHydrationWarning={true}>
             {overviewData?.coreHighlights.map((item, idx) => (
               <div
                 key={idx}
                 className="p-4 bg-[#f8f9fa] border border-black/8 rounded-xl space-y-1.5"
+                suppressHydrationWarning={true}
               >
                 <p className="text-[14px] font-semibold text-black flex items-center gap-1.5">
                   <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
@@ -213,24 +227,25 @@ export function AppDetailClient({ app }: { app: CuratedApp }) {
 
         {/* Content Section 2: Vietnamese Specific Features */}
         <section className="space-y-4 pt-4 border-t border-black/10">
-          <div className="space-y-1">
+          <div className="space-y-1" suppressHydrationWarning={true}>
             <h2 className="text-[22px] sm:text-[24px] font-semibold text-black tracking-tight flex items-center gap-2">
               <Sparkles className="size-5 text-emerald-600" />
-              <span>{copy.featuresHeading}</span>
+              <span>{overviewData?.vnFeaturesTitle || copy.featuresHeading}</span>
             </h2>
             <p className="text-[14px] text-black/65">{copy.featuresDesc}</p>
           </div>
 
           {/* Formula Cards */}
-          <div className="space-y-3 pt-1">
+          <div className="space-y-3 pt-1" suppressHydrationWarning={true}>
             {overviewData?.vnFeatures.map((feat, idx) => {
               const isFormula = feat.formula?.startsWith("=");
               return (
                 <div
                   key={idx}
                   className="bg-white border border-black/10 rounded-xl p-4 sm:p-5 hover:border-black/25 transition-all space-y-2 shadow-2xs"
+                  suppressHydrationWarning={true}
                 >
-                  <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2" suppressHydrationWarning={true}>
                     <h3 className="text-[15px] font-semibold text-black flex items-center gap-2">
                       <span className="size-2 rounded-full bg-emerald-500" />
                       {feat.title[locale]}
@@ -280,14 +295,15 @@ export function AppDetailClient({ app }: { app: CuratedApp }) {
           </h2>
 
           {/* Download Packages Cards */}
-          <div className="space-y-3">
+          <div className="space-y-3" suppressHydrationWarning={true}>
             {overviewData?.downloads.map((asset, idx) => (
               <div
                 key={idx}
                 className="bg-white border border-black/10 rounded-2xl p-5 hover:border-black/25 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs"
+                suppressHydrationWarning={true}
               >
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
+                <div className="space-y-1" suppressHydrationWarning={true}>
+                  <div className="flex items-center gap-2" suppressHydrationWarning={true}>
                     <FileText className="size-4 text-emerald-600 shrink-0" />
                     <h3 className="text-[15px] font-semibold text-black">
                       {asset.label[locale]}
@@ -316,11 +332,15 @@ export function AppDetailClient({ app }: { app: CuratedApp }) {
           </div>
 
           {/* Installation Instructions Box */}
-          <div className="bg-[#f7f9fa] border border-black/10 rounded-2xl p-4 sm:p-5 text-[13px] text-black/80 space-y-2.5">
+          <div className="bg-[#f7f9fa] border border-black/10 rounded-2xl p-4 sm:p-5 text-[13px] text-black/80 space-y-2.5" suppressHydrationWarning={true}>
             <p className="font-semibold text-black">{copy.installNotesTitle}</p>
             <ul className="list-disc pl-5 space-y-1.5 text-[13px] text-black/70">
               <li>{copy.installMsi}</li>
-              <li>{copy.installZip}</li>
+              <li>
+                {locale === "vi"
+                  ? `Bản Portable (.zip): Chỉ cần giải nén tệp zip vào một thư mục bất kỳ và chạy file thực thi ngay lập tức mà không cần cài đặt hay quyền admin.`
+                  : `Portable Zip (.zip): Unzip to any folder and execute the application immediately without installation or admin privileges.`}
+              </li>
               <li>{copy.openSourcePromise}</li>
             </ul>
           </div>
@@ -334,11 +354,12 @@ export function AppDetailClient({ app }: { app: CuratedApp }) {
           </h2>
 
           {/* Specs Table */}
-          <div className="border border-black/10 rounded-2xl overflow-hidden divide-y divide-black/5 text-[13px]">
+          <div className="border border-black/10 rounded-2xl overflow-hidden divide-y divide-black/5 text-[13px]" suppressHydrationWarning={true}>
             {overviewData?.techSpecs.map((spec, idx) => (
               <div
                 key={idx}
                 className="grid grid-cols-[160px_1fr] sm:grid-cols-[220px_1fr] p-3.5 bg-white hover:bg-black/[0.01]"
+                suppressHydrationWarning={true}
               >
                 <span className="font-medium text-black/60">{spec.label}</span>
                 <span className="text-black font-medium">{spec.value}</span>
@@ -347,7 +368,7 @@ export function AppDetailClient({ app }: { app: CuratedApp }) {
           </div>
 
           {/* GitHub Links */}
-          <div className="grid gap-3 sm:grid-cols-2 pt-2">
+          <div className="grid gap-3 sm:grid-cols-2 pt-2" suppressHydrationWarning={true}>
             {app.githubUrl && (
               <a
                 href={app.githubUrl}
@@ -355,11 +376,13 @@ export function AppDetailClient({ app }: { app: CuratedApp }) {
                 rel="noopener noreferrer"
                 className="p-4 bg-white border border-black/10 hover:border-black/30 rounded-xl flex items-center justify-between gap-3 transition-colors group cursor-pointer shadow-2xs"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3" suppressHydrationWarning={true}>
                   <Github className="size-5 text-black" />
-                  <div>
+                  <div suppressHydrationWarning={true}>
                     <p className="text-[14px] font-semibold text-black">{copy.viewSource}</p>
-                    <p className="text-[12px] text-black/50 font-mono">datjpro/gridcraft-vn</p>
+                    <p className="text-[12px] text-black/50 font-mono">
+                      {app.githubUrl.replace("https://github.com/", "")}
+                    </p>
                   </div>
                 </div>
                 <ExternalLink className="size-4 text-black/40 group-hover:text-black transition-colors" />
@@ -373,13 +396,15 @@ export function AppDetailClient({ app }: { app: CuratedApp }) {
                 rel="noopener noreferrer"
                 className="p-4 bg-white border border-black/10 hover:border-black/30 rounded-xl flex items-center justify-between gap-3 transition-colors group cursor-pointer shadow-2xs"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3" suppressHydrationWarning={true}>
                   <Code2 className="size-5 text-black" />
-                  <div>
+                  <div suppressHydrationWarning={true}>
                     <p className="text-[14px] font-semibold text-black">
                       {copy.upstreamSource}
                     </p>
-                    <p className="text-[12px] text-black/50 font-mono">storytold/gridcraft</p>
+                    <p className="text-[12px] text-black/50 font-mono">
+                      {app.upstreamUrl.replace("https://github.com/", "")}
+                    </p>
                   </div>
                 </div>
                 <ExternalLink className="size-4 text-black/40 group-hover:text-black transition-colors" />
